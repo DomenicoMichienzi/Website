@@ -22,13 +22,13 @@ function addToCard(imageURL, authors, title, description, id) {
 }
 
 function loadBooks() {
-    console.log("loadBooks");
+    //console.log("loadBooks");
     let items = document.querySelectorAll(".card.w-75");
     for(let i = 0; i < items.length; i++) {
         let volumeID = items[i].id;
         // hard coded key, for the sake of simplicity
         //let key = '&key=' + 'AIzaSyAKiMubw-TRmctMZMlbTXvuUrmOycPcEk0';
-        console.log("volumeID = " + volumeID);
+        // console.log("volumeID = " + volumeID);
         $.ajax({
             datatype: "json",
             url: "https://www.googleapis.com/books/v1/volumes/" + volumeID,
@@ -38,8 +38,8 @@ function loadBooks() {
 }
 
 function removeBook(volume_id) {
-    console.log("v_id: " + volume_id);
-    console.log(JSON.stringify(volume_id))
+    //console.log("v_id: " + volume_id);
+    //console.log(JSON.stringify(volume_id))
     $.ajax({
         type: "POST",
         url: "/removeBook",
@@ -51,8 +51,10 @@ function removeBook(volume_id) {
     });
 }
 
-document.addEventListener("DOMContentLoaded", loadBooks);
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded")
+
+$(document).ready(loadBooks);
+$(document).ready(function () {
     $(".card-body > .btn").each(function () {
 
         $(this).on("click", function () {
@@ -61,5 +63,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
             $("#" + vol_id).remove();
         })
-    })
-})
+    });
+});

@@ -8,16 +8,16 @@
     <title>Index</title>
 
     <!-- Bootstrap CSS -->
-    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Bootstrap JavaScript -->
-    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- jQuery from GoogleAPIs-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
     <!-- local JavaScript -->
-    <script src="/js/index.js"></script>
+    <script src="${pageContext.request.contextPath}/js/index.js"></script>
 
 </head>
 <body>
@@ -35,10 +35,10 @@
                 <div class="collapse navbar-collapse" id="navbarScroll">
                     <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="doBooks">My Books</a>
+                            <a class="nav-link" aria-current="page" href="/doBooks">My Books</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="doLogout">Logout</a>
+                            <a class="nav-link" href="/doLogout">Logout</a>
                         </li>
                     </ul>
                     <form class="d-flex" role="search">
@@ -51,7 +51,7 @@
             <c:otherwise>
                 <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                     <li class="nav-item">
-                        <a class="nav-link" href="loginPage">Login</a>
+                        <a class="nav-link" href="/loginPage">Login</a>
                     </li>
                 </ul>
             </c:otherwise>

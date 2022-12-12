@@ -1,6 +1,6 @@
 package com.example.website.controller;
 
-import com.example.website.Database;
+import com.example.website.database.Database;
 import com.example.website.model.Book;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;

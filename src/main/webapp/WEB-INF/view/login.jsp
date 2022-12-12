@@ -7,10 +7,10 @@
     <title>Login</title>
 
   <!-- Bootstrap CSS -->
-  <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Bootstrap JavaScript -->
-  <script src="/bootstrap/js/bootstrap.min.js"></script>
+  <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
 

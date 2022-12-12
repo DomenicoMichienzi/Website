@@ -90,7 +90,7 @@ function addBook(volume_id) {
     });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+$(document).ready(function() {
     // add searchGoogleBooksAPIs to searchbar on input event
     $("#searchBar").on("input", searchGoogleBooksAPIs);
 

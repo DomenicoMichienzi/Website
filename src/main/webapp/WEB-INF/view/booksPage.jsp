@@ -7,16 +7,16 @@
     <title>Personal Page</title>
 
     <!-- Bootstrap CSS -->
-    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Bootstrap JavaScript -->
-    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- jQuery from GoogleAPIs-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
     <!-- local JavaScript -->
-    <script src="/js/booksPage.js"></script>
+    <script src="${pageContext.request.contextPath}/js/booksPage.js"></script>
 
 </head>
 <body>
