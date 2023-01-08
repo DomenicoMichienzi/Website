@@ -38,6 +38,12 @@
                             <a class="nav-link" aria-current="page" href="/doBooks">My Books</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/doMovies">My Movies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/searchMovies">Search Movies</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/doLogout">Logout</a>
                         </li>
                     </ul>
@@ -58,18 +64,57 @@
         </c:choose>
     </div>
 </nav>
+
 <div class="container-fluid">
-    <div class="row row-cols-md-auto row-cols-md-auto g-4" id="main_row">
+    <div class="d-flex justify-content-center" id="main_row">
+        <ul class="list-group">
         <c:forEach var="i" begin="0" end="14">
-            <div hidden class="card w-75" id="card${i}" style="max-width: 180px">
-                <img class="card-img-top" alt="..." src="">
-                <div class="card-body">
-                    <h5 class="card-title text-truncate"></h5>
-                    <p class="card-text"></p>
-                    <a class="btn btn-primary" id="btn${i}" btn_volume_id="">Add</a>
+            <li id="list_item_${i}" class="list-group-item">
+                <div class="d-flex w-100 justify-content-between">
+                    <img src="" class="img-thumbnail" alt="...">
+                    <h5 class="mb-1 text-body">List group item heading</h5>
                 </div>
-            </div>
+                <p class="mb-1 text-authors">Autori</p>
+                <a class="btn btn-primary" id="btn${i}" btn_volume_id="">Add</a>
+            </li>
+
+            <%--
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt="" style="width: 45px; height: 45px"
+                         class="rounded-circle" />
+                    <div class="ms-3">
+                        <p class="fw-bold mb-1">John Doe</p>
+                        <p class="text-muted mb-0">john.doe@gmail.com</p>
+                    </div>
+                </div>
+                <span class="badge rounded-pill badge-success">Active</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <img src="https://mdbootstrap.com/img/new/avatars/6.jpg" class="rounded-circle" alt=""
+                         style="width: 45px; height: 45px" />
+                    <div class="ms-3">
+                        <p class="fw-bold mb-1">Alex Ray</p>
+                        <p class="text-muted mb-0">alex.ray@gmail.com</p>
+                    </div>
+                </div>
+                <span class="badge rounded-pill badge-primary">Onboarding</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <img src="https://mdbootstrap.com/img/new/avatars/7.jpg" class="rounded-circle" alt=""
+                         style="width: 45px; height: 45px" />
+                    <div class="ms-3">
+                        <p class="fw-bold mb-1">Kate Hunington</p>
+                        <p class="text-muted mb-0">kate.hunington@gmail.com</p>
+                    </div>
+                </div>
+                <span class="badge rounded-pill badge-warning">Awaiting</span>
+            </li>
+            --%>
         </c:forEach>
+        </ul>
     </div>
 </div>
 

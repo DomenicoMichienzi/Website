@@ -28,14 +28,16 @@ public class BookDaoJDBC implements BookDao{
 
     @Override
     public boolean saveOrUpdate(Book book) {
-    System.out.println("Save or Update");
+    //System.out.println("Save or Update");
         try {
 
-            String query = "insert into book (volume_id, isbn, comment, link, description, done, stars, username_id)\n" +
+            String query = "insert into books (volume_id, isbn, comment, link, description, done, stars, username_id)\n" +
                     "values (?, ?, ?, ?, ?, ?, ?, ?) " +
                     "on conflict (volume_id) do update set comment =  excluded.comment, " +
                     "stars = excluded.stars, done = excluded.done";
+
             PreparedStatement pst = conn.prepareStatement(query);
+
             pst.setString(1, book.getVolume_id());
             pst.setString(2, book.getIsbn());
             pst.setString(3, book.getComment());
@@ -58,7 +60,7 @@ public class BookDaoJDBC implements BookDao{
     public boolean delete(String bookID) {
 
         try {
-            String query = "delete from book " +
+            String query = "delete from books " +
                     "where volume_id = ?";
 
             PreparedStatement pst = conn.prepareStatement(query);

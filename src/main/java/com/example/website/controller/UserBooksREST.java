@@ -23,7 +23,7 @@ public class UserBooksREST {
     @PostMapping("/removeBook")
     public String removeBook(@RequestBody String bookID, HttpServletRequest req) {
         String usr = req.getSession().getAttribute("username").toString();
-        System.out.println("bookID: " + bookID);
+        //System.out.println("bookID: " + bookID);
         if(usr != null) {
             if(Database.getInstance().getBookDao().delete(bookID)) {
                 return "Successfully Removed";

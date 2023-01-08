@@ -51,8 +51,6 @@ function removeBook(volume_id) {
     });
 }
 
-document.addEventListener("DOMContentLoaded")
-
 $(document).ready(loadBooks);
 $(document).ready(function () {
     $(".card-body > .btn").each(function () {
