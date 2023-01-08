@@ -1,8 +1,10 @@
 package com.example.website.database;
 
 import com.example.website.dao.BookDao;
+import com.example.website.dao.MovieDao;
 import com.example.website.dao.UserDao;
 import com.example.website.jdbc.BookDaoJDBC;
+import com.example.website.jdbc.MovieDaoJDBC;
 import com.example.website.jdbc.UserDaoJDBC;
 
 import java.sql.Connection;
@@ -33,4 +35,5 @@ public class Database {
     public BookDao getBookDao() {
         return new BookDaoJDBC(conn);
     }
+    public MovieDao getMovieDao() { return new MovieDaoJDBC(conn); }
 }

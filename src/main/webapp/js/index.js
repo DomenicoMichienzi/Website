@@ -12,7 +12,7 @@ function Book(volume_id, username_id, isbn, comment, link, description, done, st
 function handleSearch(response) {
     hiddenCards();
     // TODO - indexing on for loop
-    for(let i = 0; i < 15; i++) {
+    for(let i = 0; i < 10; i++) {
         /*
         Optional chaining (?.)
         The optional chaining (?.) operator accesses an object's property or calls a function.
@@ -25,6 +25,7 @@ function handleSearch(response) {
 
         createCard(i, volumeID)
         addToCard(coverURL, title, author, i, volumeID);
+        addToList(coverURL, title, author, i);
     }
 }
 
@@ -55,11 +56,25 @@ function handleAddBook(response) {
     });
 }
 
+// TODO change with jQuery
 function hiddenCards() {
+
+    const cards = $(".card");
+    cards.each(function () {
+        $(this).attr("hidden", true);
+    });
+
+    /*
     const cards = document.querySelectorAll('.card');
+
     cards.forEach(card => {
         card.setAttribute("hidden", true);
-    });
+    })*/
+}
+
+function addToList(imageURL, title, authors, id) {
+    $("#list_item_" + id + " .img-thumbnail").attr("src", imageURL);
+
 }
 
 function addToCard(imageURL, title, authors, id, volumeID) {
@@ -70,8 +85,9 @@ function addToCard(imageURL, title, authors, id, volumeID) {
 }
 
 function searchGoogleBooksAPIs() {
+    // document.getElementById('searchBar')?.value
     // hard coded key, for the sake of simplicity
-    let query = document.getElementById('searchBar')?.value,
+    let query = $("#searchBar").val(),
         key = '&key=' + 'AIzaSyAKiMubw-TRmctMZMlbTXvuUrmOycPcEk0',
         maxResults = '&maxResults=' + 15;
 

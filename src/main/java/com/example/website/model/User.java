@@ -6,6 +6,15 @@ public class User {
     private String email;
     private String username;
     private ArrayList<Book> books;
+    private ArrayList<Movie> movies;
+
+    public ArrayList<Movie> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(ArrayList<Movie> movies) {
+        this.movies = movies;
+    }
 
     public String getEmail() {
         return email;
