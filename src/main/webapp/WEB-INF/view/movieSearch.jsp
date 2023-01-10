@@ -69,7 +69,7 @@
 
 <div class="container-fluid">
   <div class="d-flex justify-content-center" id="main_row">
-    <ul class="list-group list-group-horizontal">
+    <ul class="list-group">
       <c:forEach var="i" begin="0" end="9">
         <li id="list_item_${i}" class="list-group-item">
           <div class="d-flex w-100 justify-content-between">

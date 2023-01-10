@@ -129,7 +129,7 @@ public class UserDaoJDBC implements UserDao {
                 // Create Movie
                 Movie m = new Movie();
 
-                m.setMovie_id(rs.getString(",movie_id"));
+                m.setMovie_id(rs.getString("movie_id"));
                 m.setTitle(rs.getString("title"));
                 m.setViewed(rs.getBoolean("viewed"));
                 m.setStars(rs.getShort("stars"));

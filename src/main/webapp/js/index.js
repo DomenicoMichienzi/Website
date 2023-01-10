@@ -110,7 +110,7 @@ $(document).ready(function() {
     // add searchGoogleBooksAPIs to searchbar on input event
     $("#searchBar").on("input", searchGoogleBooksAPIs);
 
-    for(let id = 0; id < 15; id++) {
+    for(let id = 0; id < 10; id++) {
         // Add onclick event to btn
         $("#btn" + id).on("click", function () {
             let tmp = $(this).attr("btn_volume_id");
