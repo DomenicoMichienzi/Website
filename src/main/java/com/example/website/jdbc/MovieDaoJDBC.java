@@ -23,7 +23,6 @@ public class MovieDaoJDBC implements MovieDao {
 
     @Override
     public boolean save(Movie movie) {
-
         try {
             String query = "insert into movies (movie_id, " +
                     "title, " +
@@ -77,11 +76,13 @@ public class MovieDaoJDBC implements MovieDao {
 
     @Override
     public boolean delete(String movie_id) {
+        System.out.println("DELETE");
         try {
             String query = "delete from movies " +
-                    "where movie_id = " + movie_id;
+                    "where movie_id = ?";
 
             PreparedStatement pst = conn.prepareStatement(query);
+            pst.setString(1, movie_id);
             pst.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

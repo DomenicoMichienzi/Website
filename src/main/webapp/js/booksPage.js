@@ -38,7 +38,7 @@ function loadBooks() {
 }
 
 function removeBook(volume_id) {
-    //console.log("v_id: " + volume_id);
+    console.log("v_id: " + volume_id);
     //console.log(JSON.stringify(volume_id))
     $.ajax({
         type: "POST",
@@ -46,7 +46,7 @@ function removeBook(volume_id) {
         contentType: "application/json",
         data: volume_id,
         success: function() {
-            console.log("Remove successfully removed");
+            console.log("Book successfully removed");
         }
     });
 }
