@@ -11,24 +11,26 @@ import java.util.List;
 @Controller
 public class MoviesManager {
 
-    @GetMapping("/doMovies")
+    @GetMapping("/getMovies")
     public String listOfMovies(HttpServletRequest req) {
-        String usr = req.getSession().getAttribute("username").toString();
         if(req.getSession().getAttribute("username") != null) {
+            String usr = req.getSession().getAttribute("username").toString();
             List<Movie> movies = Database.getInstance().getUserDao().getAllMovies(usr);
             req.setAttribute("movies", movies);
             return "moviesPage";
         } else {
+            // TODO - Redirect to Login Page
             return "notAuthorized";
         }
     }
 
     @GetMapping("/searchMovies")
     public String searchMovies(HttpServletRequest req) {
-        String usr = req.getSession().getAttribute("username").toString();
         if(req.getSession().getAttribute("username") != null) {
-            return "movieSearch";
+            String usr = req.getSession().getAttribute("username").toString();
+            return "searchMovies";
         } else {
+            // TODO - Redirect to Login Page
             return "notAuthorized";
         }
     }

@@ -9,6 +9,14 @@ public class Book {
     private String description;
     private boolean done;
     private short stars;
+    private String title;
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public String getVolume_id() {
         return volume_id;

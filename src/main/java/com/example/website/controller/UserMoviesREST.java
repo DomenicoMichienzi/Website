@@ -2,14 +2,12 @@ package com.example.website.controller;
 
 import com.example.website.database.Database;
 import com.example.website.model.Movie;
-import com.example.website.utility.ImageSave;
+import com.example.website.utility.Image;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.xml.crypto.Data;
 
 @RestController
 public class UserMoviesREST {
@@ -20,7 +18,8 @@ public class UserMoviesREST {
         if(usr != null) {
             m.setUsername_id(usr);
             if(Database.getInstance().getMovieDao().save(m)) {
-                ImageSave.moviePoster(poster, m.getMovie_id());
+                // Save poster image
+                Image.saveMoviePoster(poster, m.getMovie_id());
                 return "Success";
             }
         }
@@ -33,6 +32,8 @@ public class UserMoviesREST {
 
         if(usr != null) {
             if(Database.getInstance().getMovieDao().delete(movie_id)) {
+                // Delete poster image
+                Image.deleteMoviePoster(movie_id);
                 return "Successfully Removed";
             }
         }

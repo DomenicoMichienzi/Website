@@ -31,8 +31,8 @@ public class BookDaoJDBC implements BookDao{
     //System.out.println("Save or Update");
         try {
 
-            String query = "insert into books (volume_id, isbn, comment, link, description, done, stars, username_id)\n" +
-                    "values (?, ?, ?, ?, ?, ?, ?, ?) " +
+            String query = "insert into books (volume_id, isbn, comment, link, description, done, stars, username_id, title)\n" +
+                    "values (?, ?, ?, ?, ?, ?, ?, ?, ?) " +
                     "on conflict (volume_id) do update set comment =  excluded.comment, " +
                     "stars = excluded.stars, done = excluded.done";
 
@@ -46,6 +46,7 @@ public class BookDaoJDBC implements BookDao{
             pst.setBoolean(6, book.isDone());
             pst.setShort(7, book.getStars());
             pst.setString(8, book.getUsername_id());
+            pst.setString(9, book.getTitle());
 
             pst.executeUpdate();
         } catch (SQLException e) {

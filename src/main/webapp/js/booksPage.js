@@ -1,3 +1,4 @@
+
 function handleBook(response) {
     console.log("handleBook: ");
     console.log(response);
@@ -6,12 +7,15 @@ function handleBook(response) {
         title = Book.title,
         description = Book.description;
 
-    /*let coverURL = Book?.imageLinks?.medium;
+    /*
+    let coverURL = Book?.imageLinks?.medium;
     if(coverURL === undefined) {
         coverURL = Book?.imageLinks?.thumbnail;
-    }*/
+    }
+    */
 
     let coverURL = Book?.imageLinks?.thumbnail;
+    console.log("coverURL: " + coverURL);
     addToCard(coverURL, author, title, description, response.id);
 }
 
@@ -37,6 +41,7 @@ function loadBooks() {
     }
 }
 
+
 function removeBook(volume_id) {
     console.log("v_id: " + volume_id);
     //console.log(JSON.stringify(volume_id))
@@ -51,7 +56,7 @@ function removeBook(volume_id) {
     });
 }
 
-$(document).ready(loadBooks);
+//$(document).ready(loadBooks);
 $(document).ready(function () {
     $(".card-body > .btn").each(function () {
 

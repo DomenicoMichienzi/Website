@@ -22,6 +22,7 @@ public class Database {
     }
     private Database() {
         try {
+            // Hard coded user and password
             conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres",
                                                 "postgres","postgres");
         } catch (SQLException e) {

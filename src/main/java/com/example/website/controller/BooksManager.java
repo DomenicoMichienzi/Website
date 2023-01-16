@@ -7,17 +7,28 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class BooksManager {
 
-    @GetMapping("/doBooks")
+    @GetMapping("/getBooks")
     public String listOfBooks(HttpServletRequest req) {
         String usr = req.getSession().getAttribute("username").toString();
         if(req.getSession().getAttribute("username") != null) {
-            ArrayList<Book> bs = Database.getInstance().getUserDao().getByKey(usr).getBooks();
+            List<Book> bs = Database.getInstance().getUserDao().getAllBooks(usr);
             req.setAttribute("books", bs);
             return "booksPage";
+        } else {
+            return "notAuthorized";
+        }
+    }
+
+    @GetMapping("/searchBooks")
+    public String searchBooks(HttpServletRequest req) {
+        String usr = req.getSession().getAttribute("username").toString();
+        if(req.getSession().getAttribute("username") != null) {
+            return "searchBooks";
         } else {
             return "notAuthorized";
         }
