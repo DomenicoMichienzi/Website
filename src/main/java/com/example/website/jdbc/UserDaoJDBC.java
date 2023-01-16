@@ -51,7 +51,7 @@ public class UserDaoJDBC implements UserDao {
                 usr.getBooks().add(b);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
         return usr;
@@ -110,7 +110,7 @@ public class UserDaoJDBC implements UserDao {
                 books.add(b);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
         return books;
@@ -141,7 +141,7 @@ public class UserDaoJDBC implements UserDao {
                 movies.add(m);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
         return movies;

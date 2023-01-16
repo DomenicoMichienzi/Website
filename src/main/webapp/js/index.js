@@ -1,6 +1,8 @@
-function Book(volume_id, username_id, isbn, comment, link, description, done, stars) {
+/*
+function Book(volume_id, username_id, title, isbn, comment, link, description, done, stars) {
     this.volume_id = volume_id;
     this.username_id = username_id;
+    this.title = title;
     this.isbn = isbn;
     this.comment = comment;
     this.link = link;
@@ -8,16 +10,15 @@ function Book(volume_id, username_id, isbn, comment, link, description, done, st
     this.done = done;
     this.stars = stars;
 }
+*/
 
 function handleSearch(response) {
     hiddenCards();
     // TODO - indexing on for loop
     for(let i = 0; i < 10; i++) {
-        /*
-        Optional chaining (?.)
+        /*Optional chaining (?.)
         The optional chaining (?.) operator accesses an object's property or calls a function.
-        If the object is undefined or null, it returns undefined instead of throwing an error.
-         */
+        If the object is undefined or null, it returns undefined instead of throwing an error.*/
         let coverURL = response.items[i].volumeInfo?.imageLinks?.thumbnail,
             author = response.items[i].volumeInfo.authors,
             title = response.items[i].volumeInfo.title,
@@ -37,17 +38,20 @@ function createCard(id, volumeID) {
 }
 
 function handleAddBook(response) {
+    console.log(response);
     let volume_id = response.id,
         isbn = response?.volumeInfo?.industryIdentifiers[1]?.identifier,
         link = response?.volumeInfo?.canonicalVolumeLink,
-        description = response?.volumeInfo?.description;
+        description = response?.volumeInfo?.description,
+        coverURL = response.volumeInfo?.imageLinks?.thumbnail,
+        title = response.volumeInfo?.title;
 
-    var book = new Book(volume_id, null, isbn, null, link, description, false, null);
-
+    var book = new Book(volume_id, null, title, isbn, null, link, description, false, null);
+    console.log("coverURL: " + coverURL)
     // add book through RestAPI with ajax
     $.ajax({
         type:"POST",
-        url: "/addBook",
+        url: "/addBook?coverURL=" + coverURL,
         contentType: "application/json",
         data: JSON.stringify(book),
         success: function() {
@@ -85,9 +89,9 @@ function addToCard(imageURL, title, authors, id, volumeID) {
 }
 
 function searchGoogleBooksAPIs() {
-    // document.getElementById('searchBar')?.value
-    // hard coded key, for the sake of simplicity
+
     let query = $("#searchBar").val(),
+        // hard coded key, for the sake of simplicity
         key = '&key=' + 'AIzaSyAKiMubw-TRmctMZMlbTXvuUrmOycPcEk0',
         maxResults = '&maxResults=' + 15;
 

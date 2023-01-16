@@ -14,7 +14,7 @@
     <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- jQuery from GoogleAPIs-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
     <!-- local JavaScript -->
     <script src="${pageContext.request.contextPath}/js/index.js"></script>
@@ -35,10 +35,13 @@
                 <div class="collapse navbar-collapse" id="navbarScroll">
                     <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/doBooks">My Books</a>
+                            <a class="nav-link" aria-current="page" href="/getBooks">My Books</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/doMovies">My Movies</a>
+                            <a class="nav-link" aria-current="page" href="/searchBooks">Search Books</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/getMovies">My Movies</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="/searchMovies">Search Movies</a>
@@ -65,56 +68,26 @@
     </div>
 </nav>
 
-<div class="container-fluid">
-    <div class="d-flex justify-content-center" id="main_row">
-        <ul class="list-group">
-        <c:forEach var="i" begin="0" end="14">
-            <li id="list_item_${i}" class="list-group-item">
-                <div class="d-flex w-100 justify-content-between">
-                    <img src="" class="img-thumbnail" alt="...">
-                    <h5 class="mb-1 text-body">List group item heading</h5>
-                </div>
-                <p class="mb-1 text-authors">Autori</p>
-                <a class="btn btn-primary" id="btn${i}" btn_volume_id="">Add</a>
-            </li>
-
-            <%--
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center">
-                    <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt="" style="width: 45px; height: 45px"
-                         class="rounded-circle" />
-                    <div class="ms-3">
-                        <p class="fw-bold mb-1">John Doe</p>
-                        <p class="text-muted mb-0">john.doe@gmail.com</p>
+<div class="container-fluid d-flex justify-content-center">
+    <div class="my-md-4">
+        <c:forEach var="i" begin="0" end="9">
+            <div class="card mb-3" id="card_${i}" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src=".."
+                             class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-text">Card text</p>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            <a href="#" class="btn btn-danger" btn_id>Delete</a>
+                        </div>
                     </div>
                 </div>
-                <span class="badge rounded-pill badge-success">Active</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center">
-                    <img src="https://mdbootstrap.com/img/new/avatars/6.jpg" class="rounded-circle" alt=""
-                         style="width: 45px; height: 45px" />
-                    <div class="ms-3">
-                        <p class="fw-bold mb-1">Alex Ray</p>
-                        <p class="text-muted mb-0">alex.ray@gmail.com</p>
-                    </div>
-                </div>
-                <span class="badge rounded-pill badge-primary">Onboarding</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                <div class="d-flex align-items-center">
-                    <img src="https://mdbootstrap.com/img/new/avatars/7.jpg" class="rounded-circle" alt=""
-                         style="width: 45px; height: 45px" />
-                    <div class="ms-3">
-                        <p class="fw-bold mb-1">Kate Hunington</p>
-                        <p class="text-muted mb-0">kate.hunington@gmail.com</p>
-                    </div>
-                </div>
-                <span class="badge rounded-pill badge-warning">Awaiting</span>
-            </li>
-            --%>
+            </div>
         </c:forEach>
-        </ul>
     </div>
 </div>
 

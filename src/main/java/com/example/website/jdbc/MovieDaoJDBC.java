@@ -23,6 +23,9 @@ public class MovieDaoJDBC implements MovieDao {
 
     @Override
     public boolean save(Movie movie) {
+
+        // TODO - check if it already exists
+
         try {
             String query = "insert into movies (movie_id, " +
                     "title, " +

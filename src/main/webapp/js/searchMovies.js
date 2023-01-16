@@ -1,24 +1,35 @@
-function Movie(movie_id, username_id, title, comment, description, viewed, stars) {
-    this.movie_id = movie_id;
-    this.username_id = username_id;
-    this.title = title;
-    this.comment = comment;
-    this.description = description;
-    this.viewed = viewed;
-    this.stars = stars;
+class Movie{
+    constructor({
+        movie_id,
+        username_id,
+        title,
+        comment,
+        description,
+        viewed,
+        stars
+    }) {
+        this.movie_id = movie_id;
+        this.username_id = username_id;
+        this.title = title;
+        this.comment = comment;
+        this.description = description;
+        this.viewed = viewed;
+        this.stars = stars;
+    }
 }
 
 function handleSearchTMDB(response) {
 
+    // hide cards
     $(".list-group-item").hide();
 
+    // TODO - change with forEach and fix index with cards in the page
     for(let i = 0; i < 10 && i < response.results.length; i++) {
         let imageURL = "https://image.tmdb.org/t/p/w500" + response.results[i]?.poster_path,
             title = response.results[i]?.title,
             overview = response.results[i]?.overview,
             movie_id = response.results[i]?.id;
 
-        console.log(imageURL);
         createCard(i, movie_id);
         addToCard(i, imageURL, title, overview);
     }
@@ -56,18 +67,24 @@ function handleAddMovie(response) {
         title = response.title,
         posterPath = response.poster_path;
 
-    var movie = new Movie(movie_id, null, title, null, description, false, null);
+    var movie = new Movie({
+        movie_id: movie_id,
+        username_id: null,
+        title: title,
+        comment: null,
+        description: description,
+        viewed: false,
+        stars: null
+    });
 
-    var jsonMovie = JSON.stringify(movie);
-    console.log(posterPath)
     // Add movie through RestAPI with ajax
     $.ajax({
         type: "POST",
+        // pass posterPath as a query paramater in the address
         url: "/addMovie?poster=" + posterPath,
-        datatype: "json",
         contentType: "application/json",
-        data: jsonMovie,
-        success: function () {
+        data: JSON.stringify(movie),
+        success:() => {
             console.log("Movie successfully added");
        }
     });
@@ -85,7 +102,7 @@ function addMovie(movie_id) {
     })
 }
 
-$(window).ready(function () {
+$(document).ready(() => {
     for(let id = 0; id < 10; id++) {
         // Add onclick event to btn
         $("#btn" + id).on("click", function () {
@@ -96,7 +113,6 @@ $(window).ready(function () {
     }
 });
 
-$(document).ready(function() {
-    //$("#searchBar").on("click", searchIMDbAPIs);
+$(document).ready(() => {
     $(".btn.btn-light").on("click", searchTMDB);
 });

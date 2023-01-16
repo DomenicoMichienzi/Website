@@ -1,11 +1,11 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<html lang="en">
 <head>
-    <title>Movies Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Index</title>
 
     <!-- Bootstrap CSS -->
     <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -17,11 +17,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
     <!-- local JavaScript -->
-    <script src="${pageContext.request.contextPath}/js/moviesPage.js"></script>
+    <script src="${pageContext.request.contextPath}/js/searchBooks.js"></script>
 
+    <!-- local CSS -->
+    <link href="${pageContext.request.contextPath}/css/searchBooks.css" rel="stylesheet">
 </head>
+
 <body>
 
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <c:choose>
@@ -38,10 +42,10 @@
                             <a class="nav-link" aria-current="page" href="/getBooks">My Books</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="/searchBooks">Search Books</a>
+                            <a class="nav-link active" aria-current="page" href="searchBooks">Search Books</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/getMovies">My Movies</a>
+                            <a class="nav-link" aria-current="page" href="/getMovies">My Movies</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="/searchMovies">Search Movies</a>
@@ -68,17 +72,23 @@
     </div>
 </nav>
 
-<div class="container-fluid">
-    <h1>My Movies</h1>
-    <p> List of Movies:</p>
-    <div class="card-group">
-        <c:forEach items="${movies}" var="movie">
-            <div class="card w-75" style="max-width: 200px" id="${movie.movie_id}">
-                <div class="card-body">
-                    <img src="${pageContext.request.contextPath}/assets/movies/posters/${movie.movie_id}.jpg" class="card-img-bottom" alt="...">
-                    <h5 class="card-title">${movie.title}</h5>
-                    <p class="card-text"></p>
-                    <a href="#" class="btn btn-danger" btn_movie_id="${movie.movie_id}">Delete</a>
+<!-- Cards -->
+<div class="container-fluid d-flex justify-content-center">
+    <div class="my-md-4">
+        <c:forEach var="i" begin="0" end="9">
+            <div class="card mb-3" id="card_${i}" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src=".." class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Card title</h5>
+                            <p class="card-authors">Card authors</p>
+                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            <a href="#" class="btn btn-danger" id="btn${i}">Add to Library</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </c:forEach>
@@ -86,4 +96,3 @@
 </div>
 
 </body>
-</html>

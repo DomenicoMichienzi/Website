@@ -13,7 +13,7 @@
     <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- jQuery from GoogleAPIs-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
     <!-- local JavaScript -->
     <script src="${pageContext.request.contextPath}/js/booksPage.js"></script>
@@ -31,7 +31,16 @@
         <div class="collapse navbar-collapse" id="navbarScroll">
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/">Home</a>
+                    <a class="nav-link active" aria-current="page" href="/getBooks">My Books</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/searchBooks">Search Books</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/getMovies">My Movies</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/searchMovies">Search Movies</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="doLogout">Logout</a>
@@ -53,7 +62,7 @@
         <c:forEach items="${books}" var="book">
             <div class="card w-75" style="max-width: 200px" id="${book.volume_id}">
                 <div class="card-body">
-                    <img src="..." class="card-img-bottom" alt="...">
+                    <img src="${pageContext.request.contextPath}/assets/books/covers/${book.volume_id}.png" class="card-img-bottom" alt="...">
                     <h5 class="card-title"></h5>
                     <p class="card-text"></p>
                     <a href="#" class="btn btn-danger" btn_volume_id="${book.volume_id}">Delete</a>
