@@ -7,8 +7,8 @@ import java.util.List;
 public interface BookDao {
     List<Book> getAll();
     Book getByKey(String volume_id);
-
-    // TODO - split method for better usage
-    boolean saveOrUpdate(Book book);
+    //boolean saveOrUpdate(Book book);
+    boolean save(Book book);
+    boolean update(Book book);
     boolean delete(String bookID);
 }
