@@ -75,7 +75,7 @@
         <c:forEach items="${movies}" var="movie">
             <div class="card w-75" style="max-width: 200px" id="${movie.movie_id}">
                 <div class="card-body">
-                    <img src="${pageContext.request.contextPath}/assets/movies/posters/${movie.movie_id}.jpg" class="card-img-bottom" alt="...">
+                    <img src="${pageContext.request.contextPath}/assets/movies/posters/${movie.username_id}/${movie.movie_id}.jpg" class="card-img-bottom" alt="...">
                     <h5 class="card-title">${movie.title}</h5>
                     <p class="card-text"></p>
                     <a href="#" class="btn btn-danger" btn_movie_id="${movie.movie_id}">Delete</a>

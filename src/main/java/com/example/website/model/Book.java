@@ -3,20 +3,12 @@ package com.example.website.model;
 public class Book {
     private String volume_id;
     private String username_id;
-    private String isbn;
-    private String comment;
+    private String title;
     private String link;
     private String description;
-    private boolean done;
-    private short stars;
-    private String title;
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    private String review;
+    private float rating;
+    private String comment;
 
     public String getVolume_id() {
         return volume_id;
@@ -34,20 +26,12 @@ public class Book {
         this.username_id = username_id;
     }
 
-    public String getIsbn() {
-        return isbn;
+    public String getTitle() {
+        return title;
     }
 
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getLink() {
@@ -66,19 +50,27 @@ public class Book {
         this.description = description;
     }
 
-    public boolean isDone() {
-        return done;
+    public String getReview() {
+        return review;
     }
 
-    public void setDone(boolean done) {
-        this.done = done;
+    public void setReview(String review) {
+        this.review = review;
     }
 
-    public short getStars() {
-        return stars;
+    public float getRating() {
+        return rating;
     }
 
-    public void setStars(short stars) {
-        this.stars = stars;
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

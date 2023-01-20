@@ -40,12 +40,11 @@ public class UserDaoJDBC implements UserDao {
                 Book b = new Book();
                 b.setUsername_id(usr.getUsername());
                 b.setVolume_id(rs.getString("volume_id"));
-                b.setIsbn(rs.getString("isbn"));
-                b.setComment(rs.getString("comment"));
                 b.setLink(rs.getString("link"));
                 b.setDescription(rs.getString("description"));
-                b.setDone(rs.getBoolean("done"));
-                b.setStars(rs.getShort("stars"));
+                b.setReview(rs.getString("review"));
+                b.setRating(rs.getFloat("rating"));
+                b.setComment(rs.getString("comment"));
                 // add created book to the list of books in the User class
                 // TODO Fix
                 usr.getBooks().add(b);
@@ -100,13 +99,13 @@ public class UserDaoJDBC implements UserDao {
 
                 b.setVolume_id(rs.getString("volume_id"));
                 b.setUsername_id(rs.getString("username_id"));
-                b.setIsbn(rs.getString("isbn"));
                 b.setComment(rs.getString("comment"));
                 b.setLink(rs.getString("link"));
                 b.setDescription(rs.getString("description"));
-                b.setDone(rs.getBoolean("done"));
-                b.setStars(rs.getShort("stars"));
                 b.setTitle(rs.getString("title"));
+                b.setReview(rs.getString("review"));
+                b.setRating(rs.getFloat("rating"));
+                b.setComment(rs.getString("comment"));
 
                 // Add Book
                 books.add(b);
@@ -132,12 +131,12 @@ public class UserDaoJDBC implements UserDao {
                 Movie m = new Movie();
 
                 m.setMovie_id(rs.getString("movie_id"));
+                m.setUsername_id(rs.getString("username_id"));
                 m.setTitle(rs.getString("title"));
-                m.setViewed(rs.getBoolean("viewed"));
-                m.setStars(rs.getShort("stars"));
                 m.setDescription(rs.getString("description"));
+                m.setReview(rs.getString("review"));
+                m.setRating(rs.getFloat("rating"));
                 m.setComment(rs.getString("comment"));
-                m.setUsername_id(username);
 
                 // Add Movie
                 movies.add(m);

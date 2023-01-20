@@ -4,10 +4,10 @@ public class Movie {
     private String movie_id;
     private String username_id;
     private String title;
-    private String comment;
     private String description;
-    private boolean viewed;
-    private short stars;
+    private String review;
+    private float rating;
+    private String comment;
 
     public String getMovie_id() {
         return movie_id;
@@ -33,14 +33,6 @@ public class Movie {
         this.title = title;
     }
 
-    public String getComment() {
-        return comment;
-    }
-
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -49,22 +41,27 @@ public class Movie {
         this.description = description;
     }
 
-    public boolean isViewed() {
-        return viewed;
+    public String getReview() {
+        return review;
     }
 
-    public void setViewed(boolean viewed) {
-        this.viewed = viewed;
+    public void setReview(String review) {
+        this.review = review;
     }
 
-    public short getStars() {
-        return stars;
+    public float getRating() {
+        return rating;
     }
 
-    public void setStars(short stars) {
-        this.stars = stars;
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 
-    public Movie() {
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

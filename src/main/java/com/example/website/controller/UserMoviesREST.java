@@ -19,7 +19,7 @@ public class UserMoviesREST {
             m.setUsername_id(usr);
             if(Database.getInstance().getMovieDao().save(m)) {
                 // Save poster image
-                Image.saveMoviePoster(poster, m.getMovie_id());
+                Image.saveMoviePoster(poster, m.getMovie_id(), usr);
                 return "Success";
             }
         }
@@ -31,9 +31,9 @@ public class UserMoviesREST {
         String usr = req.getSession().getAttribute("username").toString();
 
         if(usr != null) {
-            if(Database.getInstance().getMovieDao().delete(movie_id)) {
+            if(Database.getInstance().getMovieDao().delete(movie_id, usr)) {
                 // Delete poster image
-                Image.deleteMoviePoster(movie_id);
+                Image.deleteMoviePoster(movie_id, usr);
                 return "Successfully Removed";
             }
         }

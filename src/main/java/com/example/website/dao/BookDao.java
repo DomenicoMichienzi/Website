@@ -9,6 +9,6 @@ public interface BookDao {
     Book getByKey(String volume_id);
     //boolean saveOrUpdate(Book book);
     boolean save(Book book);
-    boolean update(Book book);
-    boolean delete(String bookID);
+    //boolean update(Book book);
+    boolean delete(String book_id, String username_id);
 }

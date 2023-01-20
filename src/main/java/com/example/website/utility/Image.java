@@ -7,34 +7,50 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Image {
 
-    public static void deleteBookCover(String book_id) {
-        String path = "src/main/webapp/assets/books/covers/" + book_id + ".png";
+    // TODO - Create folder for the username_id
+    public static void deleteBookCover(String book_id, String username_id) {
+        String path = "src/main/webapp/assets/books/covers/" + username_id + "/" + book_id + ".png";
         File img = new File(path);
         img.delete();
     }
 
-    public static void deleteMoviePoster(String movie_id) {
-        String path = "src/main/webapp/assets/movies/posters/" + movie_id + ".jpg";
+    // TODO - Fix with username_id folder
+    public static void deleteMoviePoster(String movie_id, String username_id) {
+        String path = "src/main/webapp/assets/movies/posters/" + username_id + "/" + movie_id + ".jpg";
         File img = new File(path);
         img.delete();
     }
-    public static void saveBookCover(String url_cover, String book_id) {
+    public static void saveBookCover(String url_cover, String book_id, String username_id) {
         String u = "https://books.google.com/books/publisher/content/images/frontcover/" + book_id;
         try {
-            downloadUsingNIO(u, "src/main/webapp/assets/books/covers/" + book_id + ".png");
+            String textPath =  "src/main/webapp/assets/books/covers/" + username_id + "/";
+            // create username folder if it not exists
+            Path path = Paths.get(textPath);
+            Files.createDirectories(path);
+
+            downloadUsingNIO(u, textPath + book_id + ".png");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void saveMoviePoster(String poster_path, String movie_id) {
+    // TODO - Fix with username_id folder
+    public static void saveMoviePoster(String poster_path, String movie_id, String username_id) {
         String url = "https://image.tmdb.org/t/p/w500" + poster_path;
 
         try {
-            downloadUsingNIO(url, "src/main/webapp/assets/movies/posters/" + movie_id + ".jpg");
+            String textPath = "src/main/webapp/assets/movies/posters/" + username_id + "/";
+            // create username folder if it not exists
+            Path path = Paths.get(textPath);
+            Files.createDirectories(path);
+
+            downloadUsingNIO(url, textPath + movie_id + ".jpg");
         } catch (IOException e) {
             e.printStackTrace();
         }

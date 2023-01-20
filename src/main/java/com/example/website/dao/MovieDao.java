@@ -9,5 +9,5 @@ public interface MovieDao {
     Movie getByKey(String movie_id);
     boolean save(Movie movie);
     boolean update(Movie movie);
-    boolean delete(String movie_id);
+    boolean delete(String movie_id, String username_id);
 }
