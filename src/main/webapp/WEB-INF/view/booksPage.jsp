@@ -64,7 +64,7 @@
             <div class="col">
                 <div class="card w-75" style="max-width: 200px" id="${book.volume_id}">
                     <div class="card-body">
-                        <img src="${pageContext.request.contextPath}/assets/books/covers/${book.volume_id}.png" class="card-img-bottom" alt="...">
+                        <img src="${pageContext.request.contextPath}/assets/books/covers/${book.username_id}/${book.volume_id}.png" class="card-img-bottom" alt="...">
                         <h5 class="card-title">${book.title}</h5>
                         <p class="card-text"></p>
                         <!-- Button trigger modal -->

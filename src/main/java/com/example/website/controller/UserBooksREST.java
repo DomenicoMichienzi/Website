@@ -13,10 +13,11 @@ public class UserBooksREST {
                            HttpServletRequest req) {
         String usr = req.getSession().getAttribute("username").toString();
         if(usr != null) {
+            // add username_id to Book object
             b.setUsername_id(usr);
             if(Database.getInstance().getBookDao().save(b)) {
                 // Save cover image
-                Image.saveBookCover(coverURL, b.getVolume_id());
+                Image.saveBookCover(coverURL, b.getVolume_id(), usr);
                 return "Success";
             }
         }
@@ -24,12 +25,12 @@ public class UserBooksREST {
     }
 
     @PostMapping("/removeBook")
-    public String removeBook(@RequestBody String bookID, HttpServletRequest req) {
+    public String removeBook(@RequestBody String book_id, HttpServletRequest req) {
         String usr = req.getSession().getAttribute("username").toString();
         if(usr != null) {
-            if(Database.getInstance().getBookDao().delete(bookID)) {
+            if(Database.getInstance().getBookDao().delete(book_id, usr)) {
                 // Delete cover image
-                Image.deleteBookCover(bookID);
+                Image.deleteBookCover(book_id, usr);
                 return "Successfully Removed";
             }
         }

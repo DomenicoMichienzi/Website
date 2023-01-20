@@ -3,22 +3,20 @@ class Book {
         book_id,
         username_id,
         title,
-        isbn,
-        comment,
         link,
         description,
-        done,
-        stars
+        review,
+        rating,
+        comment
     }) {
         this.volume_id = book_id;
         this.username_id = username_id;
         this.title = title;
-        this.isbn = isbn;
-        this.comment = comment;
         this.link = link;
         this.description = description;
-        this.done = done;
-        this.stars = stars;
+        this.review = review;
+        this.rating = rating;
+        this.comment = comment;
     }
 }
 
@@ -63,12 +61,11 @@ function handleAddBook(response) {
         book_id: book_id,
         username_id: null,
         title: title,
-        isbn: isbn,
-        comment: null,
         link: link,
         description: description,
-        done: false,
-        stars: null
+        review: null,
+        rating: null,
+        comment: null,
     });
 
     // Add book through RestAPI with ajax

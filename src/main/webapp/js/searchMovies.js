@@ -3,18 +3,18 @@ class Movie{
         movie_id,
         username_id,
         title,
-        comment,
         description,
-        viewed,
-        stars
+        review,
+        rating,
+        comment
     }) {
         this.movie_id = movie_id;
         this.username_id = username_id;
         this.title = title;
-        this.comment = comment;
         this.description = description;
-        this.viewed = viewed;
-        this.stars = stars;
+        this.review = review;
+        this.rating = rating;
+        this.comment = comment;
     }
 }
 
@@ -71,10 +71,10 @@ function handleAddMovie(response) {
         movie_id: movie_id,
         username_id: null,
         title: title,
-        comment: null,
         description: description,
-        viewed: false,
-        stars: null
+        review: null,
+        rating: null,
+        comment: null
     });
 
     // Add movie through RestAPI with ajax

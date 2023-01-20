@@ -26,38 +26,6 @@ public class BookDaoJDBC implements BookDao{
         return null;
     }
 
-    /*
-    @Override
-    public boolean saveOrUpdate(Book book) {
-    //System.out.println("Save or Update");
-        try {
-
-            String query = "insert into books (volume_id, isbn, comment, link, description, done, stars, username_id, title)\n" +
-                    "values (?, ?, ?, ?, ?, ?, ?, ?, ?) " +
-                    "on conflict (volume_id) do update set comment =  excluded.comment, " +
-                    "stars = excluded.stars, done = excluded.done";
-
-            PreparedStatement pst = conn.prepareStatement(query);
-
-            pst.setString(1, book.getVolume_id());
-            pst.setString(2, book.getIsbn());
-            pst.setString(3, book.getComment());
-            pst.setString(4, book.getLink());
-            pst.setString(5, book.getDescription());
-            pst.setBoolean(6, book.isDone());
-            pst.setShort(7, book.getStars());
-            pst.setString(8, book.getUsername_id());
-            pst.setString(9, book.getTitle());
-
-            pst.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-
-        return true;
-    } */
-
     @Override
     public boolean save(Book book) {
 
@@ -65,36 +33,34 @@ public class BookDaoJDBC implements BookDao{
 
         try {
             String query = "insert into books (volume_id, " +
-                    "isbn, " +
-                    "comment, " +
+                    "username_id, " +
+                    "title, " +
                     "link, " +
                     "description, " +
-                    "done, " +
-                    "stars, " +
-                    "username_id, " +
-                    "title) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    "review, " +
+                    "rating, " +
+                    "comment) values (?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement pst = conn.prepareStatement(query);
 
             pst.setString(1, book.getVolume_id());
-            pst.setString(2, book.getIsbn());
-            pst.setString(3, book.getComment());
+            pst.setString(2, book.getUsername_id());
+            pst.setString(3, book.getTitle());
             pst.setString(4, book.getLink());
             pst.setString(5, book.getDescription());
-            pst.setBoolean(6, book.isDone());
-            pst.setShort(7, book.getStars());
-            pst.setString(8, book.getUsername_id());
-            pst.setString(9, book.getTitle());
+            pst.setString(6, book.getReview());
+            pst.setFloat(7, book.getRating());
+            pst.setString(8, book.getComment());
 
             pst.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
-        }
+            }
         return true;
     }
 
-    @Override
+    /*@Override
     public boolean update(Book book) {
         try {
             String query = "update books " +
@@ -115,17 +81,19 @@ public class BookDaoJDBC implements BookDao{
             return false;
         }
         return true;
-    }
+    }*/
 
     @Override
-    public boolean delete(String bookID) {
+    public boolean delete(String book_id, String username_id) {
 
         try {
             String query = "delete from books " +
-                    "where volume_id = ?";
+                    "where volume_id = ? AND " +
+                    "username_id = ?";
 
             PreparedStatement pst = conn.prepareStatement(query);
-            pst.setString(1, bookID);
+            pst.setString(1, book_id);
+            pst.setString(2, username_id);
 
             pst.executeUpdate();
         } catch (SQLException e) {
