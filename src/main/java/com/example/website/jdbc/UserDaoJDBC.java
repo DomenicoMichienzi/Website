@@ -99,12 +99,14 @@ public class UserDaoJDBC implements UserDao {
                 Book b = new Book();
 
                 b.setVolume_id(rs.getString("volume_id"));
+                b.setUsername_id(rs.getString("username_id"));
                 b.setIsbn(rs.getString("isbn"));
                 b.setComment(rs.getString("comment"));
                 b.setLink(rs.getString("link"));
                 b.setDescription(rs.getString("description"));
                 b.setDone(rs.getBoolean("done"));
                 b.setStars(rs.getShort("stars"));
+                b.setTitle(rs.getString("title"));
 
                 // Add Book
                 books.add(b);

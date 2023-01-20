@@ -21,6 +21,7 @@
 </head>
 <body>
 
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">${username}</a>
@@ -58,14 +59,47 @@
 <div class="container-fluid">
     <h1>My Books</h1>
     <p> List of Book:</p>
-    <div class="card-group">
+    <div class="row row-cols-md-4">
         <c:forEach items="${books}" var="book">
-            <div class="card w-75" style="max-width: 200px" id="${book.volume_id}">
-                <div class="card-body">
-                    <img src="${pageContext.request.contextPath}/assets/books/covers/${book.volume_id}.png" class="card-img-bottom" alt="...">
-                    <h5 class="card-title"></h5>
-                    <p class="card-text"></p>
-                    <a href="#" class="btn btn-danger" btn_volume_id="${book.volume_id}">Delete</a>
+            <div class="col">
+                <div class="card w-75" style="max-width: 200px" id="${book.volume_id}">
+                    <div class="card-body">
+                        <img src="${pageContext.request.contextPath}/assets/books/covers/${book.volume_id}.png" class="card-img-bottom" alt="...">
+                        <h5 class="card-title">${book.title}</h5>
+                        <p class="card-text"></p>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Launch demo modal
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="mb-3">
+                                                <label for="recipient-name" class="col-form-label">Recipient:</label>
+                                                <input type="text" class="form-control" id="recipient-name">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="message-text" class="col-form-label">Message:</label>
+                                                <textarea class="form-control" id="message-text"></textarea>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="btn btn-danger" btn_volume_id="${book.volume_id}">Delete</a>
+                    </div>
                 </div>
             </div>
         </c:forEach>

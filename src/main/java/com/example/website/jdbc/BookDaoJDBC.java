@@ -26,6 +26,7 @@ public class BookDaoJDBC implements BookDao{
         return null;
     }
 
+    /*
     @Override
     public boolean saveOrUpdate(Book book) {
     //System.out.println("Save or Update");
@@ -54,6 +55,65 @@ public class BookDaoJDBC implements BookDao{
             return false;
         }
 
+        return true;
+    } */
+
+    @Override
+    public boolean save(Book book) {
+
+        // TODO - Check if it already exists
+
+        try {
+            String query = "insert into books (volume_id, " +
+                    "isbn, " +
+                    "comment, " +
+                    "link, " +
+                    "description, " +
+                    "done, " +
+                    "stars, " +
+                    "username_id, " +
+                    "title) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+            PreparedStatement pst = conn.prepareStatement(query);
+
+            pst.setString(1, book.getVolume_id());
+            pst.setString(2, book.getIsbn());
+            pst.setString(3, book.getComment());
+            pst.setString(4, book.getLink());
+            pst.setString(5, book.getDescription());
+            pst.setBoolean(6, book.isDone());
+            pst.setShort(7, book.getStars());
+            pst.setString(8, book.getUsername_id());
+            pst.setString(9, book.getTitle());
+
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean update(Book book) {
+        try {
+            String query = "update books " +
+                    "set done = ?," +
+                    "set comment = ?," +
+                    "set stars = ? " +
+                    "where volume_id = " + book.getVolume_id();
+
+            PreparedStatement pst = conn.prepareStatement(query);
+
+            pst.setBoolean(1, book.isDone());
+            pst.setString(2, book.getComment());
+            pst.setShort(3, book.getStars());
+
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
 

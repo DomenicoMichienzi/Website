@@ -1,21 +1,11 @@
 
 function handleBook(response) {
-    console.log("handleBook: ");
-    console.log(response);
     let Book = response.volumeInfo,
         author = Book.authors,
         title = Book.title,
-        description = Book.description;
-
-    /*
-    let coverURL = Book?.imageLinks?.medium;
-    if(coverURL === undefined) {
+        description = Book.description,
         coverURL = Book?.imageLinks?.thumbnail;
-    }
-    */
 
-    let coverURL = Book?.imageLinks?.thumbnail;
-    console.log("coverURL: " + coverURL);
     addToCard(coverURL, author, title, description, response.id);
 }
 
@@ -26,13 +16,9 @@ function addToCard(imageURL, authors, title, description, id) {
 }
 
 function loadBooks() {
-    //console.log("loadBooks");
     let items = document.querySelectorAll(".card.w-75");
     for(let i = 0; i < items.length; i++) {
         let volumeID = items[i].id;
-        // hard coded key, for the sake of simplicity
-        //let key = '&key=' + 'AIzaSyAKiMubw-TRmctMZMlbTXvuUrmOycPcEk0';
-        // console.log("volumeID = " + volumeID);
         $.ajax({
             datatype: "json",
             url: "https://www.googleapis.com/books/v1/volumes/" + volumeID,
@@ -44,7 +30,7 @@ function loadBooks() {
 
 function removeBook(volume_id) {
     console.log("v_id: " + volume_id);
-    //console.log(JSON.stringify(volume_id))
+
     $.ajax({
         type: "POST",
         url: "/removeBook",
@@ -56,7 +42,7 @@ function removeBook(volume_id) {
     });
 }
 
-//$(document).ready(loadBooks);
+
 $(document).ready(function () {
     $(".card-body > .btn").each(function () {
 

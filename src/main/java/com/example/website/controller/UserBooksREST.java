@@ -11,11 +11,11 @@ public class UserBooksREST {
     @PostMapping("/addBook")
     public String addBook(@RequestBody Book b, @RequestParam String coverURL,
                            HttpServletRequest req) {
-        //System.out.println("coverURL: " + coverURL);
         String usr = req.getSession().getAttribute("username").toString();
         if(usr != null) {
             b.setUsername_id(usr);
-            if(Database.getInstance().getBookDao().saveOrUpdate(b)) {
+            if(Database.getInstance().getBookDao().save(b)) {
+                // Save cover image
                 Image.saveBookCover(coverURL, b.getVolume_id());
                 return "Success";
             }
@@ -26,10 +26,9 @@ public class UserBooksREST {
     @PostMapping("/removeBook")
     public String removeBook(@RequestBody String bookID, HttpServletRequest req) {
         String usr = req.getSession().getAttribute("username").toString();
-        //System.out.println("bookID: " + bookID);
         if(usr != null) {
             if(Database.getInstance().getBookDao().delete(bookID)) {
-                // Delete cover
+                // Delete cover image
                 Image.deleteBookCover(bookID);
                 return "Successfully Removed";
             }

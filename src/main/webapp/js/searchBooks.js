@@ -23,7 +23,6 @@ class Book {
 }
 
 function handleSearch(response) {
-    console.log(response);
 
     // hide cards
     $(".card").hide();
@@ -81,6 +80,9 @@ function handleAddBook(response) {
         data: JSON.stringify(book),
         success: () => {
             console.log("Book successfully added");
+
+            // change button from danger (red) to success (green)
+            $("[btn_book_id=" + book_id + "]").removeClass("btn-danger").addClass("btn-success").text("Added");
         }
     });
 }
@@ -99,7 +101,7 @@ function searchGoogleBooksAPIs() {
 }
 
 function addBook(book_id) {
-    console.log({book_id});
+    //console.log({book_id});
 
     $.ajax({
         datatype: "json",
@@ -112,7 +114,6 @@ function addBook(book_id) {
 $(document).ready(() => {
     // add searchGoogleBooksAPIs to searchbar on input event
     $("#searchBar").on("input", searchGoogleBooksAPIs);
-
 
     for(let id = 0; id < 10; id++) {
         // Add onclick event to btn

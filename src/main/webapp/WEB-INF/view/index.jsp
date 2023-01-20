@@ -68,28 +68,34 @@
     </div>
 </nav>
 
-<div class="container-fluid d-flex justify-content-center">
-    <div class="my-md-4">
-        <c:forEach var="i" begin="0" end="9">
-            <div class="card mb-3" id="card_${i}" style="max-width: 540px;">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src=".."
-                             class="img-fluid rounded-start" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">Card text</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                            <a href="#" class="btn btn-danger" btn_id>Delete</a>
-                        </div>
-                    </div>
+<!-- Login Form -->
+<c:choose>
+    <c:when test="${username == null}">
+        <div class="d-flex justify-content-center">
+            <form method="post" action="doLogin">
+                <div class="mb-3">
+                    <label for="exampleInputUsername1" class="form-label">Username</label>
+                    <input type="text" name="username" class="form-control" id="exampleInputUsername1" aria-describedby="emailHelp">
+                    <div id="emailHelp" class="form-text"></div>
                 </div>
-            </div>
-        </c:forEach>
-    </div>
-</div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" name="passwd" class="form-control" id="exampleInputPassword1">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
+    </c:when>
+</c:choose>
+
+<!-- Login-Register Form 2 -->
+<c:choose>
+
+    <c:when test="${username == null}">
+    </c:when>
+
+</c:choose>
 
 </body>
 </html>
