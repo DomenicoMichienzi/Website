@@ -1,13 +1,13 @@
 class Book {
     constructor({
-        book_id,
-        username_id,
-        title,
-        link,
-        description,
-        review,
-        rating,
-        comment
+        book_id = null,
+        username_id = null,
+        title = null,
+        link = null,
+        description = null,
+        review = null,
+        rating = 0.0,
+        comment = null
     }) {
         this.volume_id = book_id;
         this.username_id = username_id;
@@ -21,6 +21,10 @@ class Book {
 }
 
 function handleSearch(response) {
+    // reset buttons from success (green) to danger (red)
+    $(".btn-success").each(function () {
+        $(this).removeClass("btn-success").addClass("btn-danger").text("Add to Library");
+    });
 
     // hide cards
     $(".card").hide();
@@ -50,11 +54,12 @@ function handleSearch(response) {
 }
 
 function handleAddBook(response) {
+    console.log({response});
     let book_id = response?.id,
         title = response?.volumeInfo?.title,
         description = response?.volumeInfo?.description,
         isbn = response?.volumeInfo?.industryIdentifiers[1]?.identifier,
-        link = response?.volumeInfo?.volumeInfo?.canonicalVolumeLink,
+        link = response?.volumeInfo?.previewLink,
         coverURL = response?.volumeInfo?.imageLinks?.thumbnail;
 
     var book = new Book({
