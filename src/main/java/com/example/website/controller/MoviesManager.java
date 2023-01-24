@@ -15,7 +15,7 @@ public class MoviesManager {
     public String listOfMovies(HttpServletRequest req) {
         if(req.getSession().getAttribute("username") != null) {
             String usr = req.getSession().getAttribute("username").toString();
-            List<Movie> movies = Database.getInstance().getUserDao().getAllMovies(usr);
+            List<Movie> movies = Database.getInstance().getUserDao().getMoviesByKey(usr);
             req.setAttribute("movies", movies);
             return "moviesPage";
         } else {

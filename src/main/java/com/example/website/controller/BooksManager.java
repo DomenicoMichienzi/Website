@@ -6,7 +6,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -16,7 +15,7 @@ public class BooksManager {
     public String listOfBooks(HttpServletRequest req) {
         String usr = req.getSession().getAttribute("username").toString();
         if(req.getSession().getAttribute("username") != null) {
-            List<Book> bs = Database.getInstance().getUserDao().getAllBooks(usr);
+            List<Book> bs = Database.getInstance().getUserDao().getBooksByUserID(usr);
             req.setAttribute("books", bs);
             return "booksPage";
         } else {

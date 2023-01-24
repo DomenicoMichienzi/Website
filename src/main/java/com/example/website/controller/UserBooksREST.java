@@ -8,6 +8,21 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserBooksREST {
+
+    @PostMapping("/updateBook")
+    public String updateBook(@RequestBody Book b, HttpServletRequest req) {
+        String usr = req.getSession().getAttribute("username").toString();
+
+        if(usr != null) {
+            // add username_id to Book object
+            b.setUsername_id(usr);
+
+            if(Database.getInstance().getBookDao().update(b)) {
+                return "Success";
+            }
+        }
+        return "Failed";
+    }
     @PostMapping("/addBook")
     public String addBook(@RequestBody Book b, @RequestParam String coverURL,
                            HttpServletRequest req) {

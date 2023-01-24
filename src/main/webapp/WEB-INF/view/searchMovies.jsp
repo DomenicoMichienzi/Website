@@ -28,7 +28,7 @@
   <div class="container-fluid">
     <c:choose>
       <c:when test="${username != null}">
-        <a class="navbar-brand" href="#">${username}</a>
+        <a class="navbar-brand" href="/">${username}</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>

@@ -60,20 +60,20 @@ public class BookDaoJDBC implements BookDao{
         return true;
     }
 
-    /*@Override
+    @Override
     public boolean update(Book book) {
         try {
             String query = "update books " +
-                    "set done = ?," +
-                    "set comment = ?," +
-                    "set stars = ? " +
-                    "where volume_id = " + book.getVolume_id();
+                    "set review = ?, " +
+                    "rating = ?, " +
+                    "comment = ? " +
+                    "where volume_id = '" + book.getVolume_id() + "'";
 
             PreparedStatement pst = conn.prepareStatement(query);
 
-            pst.setBoolean(1, book.isDone());
-            pst.setString(2, book.getComment());
-            pst.setShort(3, book.getStars());
+            pst.setString(1, book.getReview());
+            pst.setFloat(2, book.getRating());
+            pst.setString(3, book.getComment());
 
             pst.executeUpdate();
         } catch (SQLException e) {
@@ -81,7 +81,7 @@ public class BookDaoJDBC implements BookDao{
             return false;
         }
         return true;
-    }*/
+    }
 
     @Override
     public boolean delete(String book_id, String username_id) {

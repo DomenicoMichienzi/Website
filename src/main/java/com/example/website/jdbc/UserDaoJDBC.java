@@ -16,12 +16,6 @@ public class UserDaoJDBC implements UserDao {
         this.conn = conn;
     }
 
-    // TODO implement function
-    @Override
-    public List<User> getAll() {
-        return null;
-    }
-
     @Override
     public User getByKey(String username_id) {
         User usr = null;
@@ -84,11 +78,55 @@ public class UserDaoJDBC implements UserDao {
     }
 
     @Override
-    // Get Books by username
-    public List<Book> getAllBooks(String username) {
+    public List<Book> getAllBooks() {
         ArrayList<Book> books = new ArrayList<Book>();
+
+        String query = "select * from books order by rating desc";
+
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            while(rs.next()) {
+                // create Book
+                Book b = new Book();
+
+                if(rs.getFloat("rating") == 0.0)
+                    break;
+
+                b.setVolume_id(rs.getString("volume_id"));
+                b.setUsername_id(rs.getString("username_id"));
+                b.setComment(rs.getString("comment"));
+                b.setLink(rs.getString("link"));
+                b.setDescription(rs.getString("description"));
+                b.setTitle(rs.getString("title"));
+                b.setReview(rs.getString("review"));
+                b.setRating(rs.getFloat("rating"));
+                b.setComment(rs.getString("comment"));
+
+                // Add Book
+                books.add(b);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return books;
+    }
+
+    @Override
+    public List<Movie> getAllMovies() {
+        return null;
+    }
+
+    @Override
+    // Get Books by username
+    public List<Book> getBooksByUserID(String username) {
+        ArrayList<Book> books = new ArrayList<Book>();
+
+        // ordered by title
         String query = "select * from books inner join users u " +
-                "on u.username = books.username_id where u.username = '" + username + "'";
+                "on u.username = books.username_id where u.username = '" + username + "' order by books.rating";
 
         try {
             Statement st = conn.createStatement();
@@ -118,8 +156,8 @@ public class UserDaoJDBC implements UserDao {
     }
 
     @Override
-    public List<Movie> getAllMovies(String username) {
-        ArrayList<Movie> movies = new ArrayList<Movie>();
+    public List<Movie> getMoviesByKey(String username) {
+        List<Movie> movies = new ArrayList<Movie>();
         String query = "select * from movies inner join users u " +
                 "on u.username = movies.username_id where u.username = '" + username + "'";
 

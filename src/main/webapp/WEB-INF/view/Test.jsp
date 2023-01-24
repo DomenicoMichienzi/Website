@@ -3,32 +3,28 @@
 
 <html>
 <head>
-    <title>Title</title>
+  <title>TEST</title>
+  <!-- Bootstrap CSS -->
+  <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap JavaScript -->
+  <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
+
+  <!-- jQuery from GoogleAPIs-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+  <!-- local CSS -->
+  <link href="${pageContext.request.contextPath}/css/Test.css" rel="stylesheet">
+
+  <!-- local JavaScript -->
+  <script src="${pageContext.request.contextPath}/js/Test.js"></script>
+
+
+
 </head>
 <body>
 
-<div class="container-fluid">
-    <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand">${username}</a>
-        <a class="nav-item align-content-center" href="/">Home</a>
-    </nav>
-    <h1>My Books Page</h1>
-    <p>
-        List of books:
-    </p>
-    <div class="card-group">
-        <c:forEach items="${books}" var="book">
-            <div class="card w-75" style="max-width: 200px" id="${book.volume_id}">
-                <div class="card-body">
-                    <img src="..." class="card-img-bottom" alt="...">
-                    <h5 class="card-title"></h5>
-                    <p class="card-text"></p>
-                    <a href="#" class="btn btn-primary">Delete</a>
-                </div>
-            </div>
-        </c:forEach>
-    </div>
-</div>
+
 
 </body>
 </html>
