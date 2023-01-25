@@ -80,11 +80,13 @@ function handleAddBook(response) {
         url: "/addBook?coverURL=" + coverURL,
         contentType: "application/json",
         data: JSON.stringify(book),
-        success: () => {
+        success: (response) => {
             console.log("Book successfully added");
+            console.log({response});
 
+            // TODO - Handle what to do with the response
             // change button from danger (red) to success (green)
-            $("[btn_book_id=" + book_id + "]").removeClass("btn-danger").addClass("btn-success").text("Added");
+            $("[btn_book_id=" + book_id + "]").removeClass("btn-danger").addClass("btn-success").text("Added to Library");
         }
     });
 }
@@ -120,6 +122,9 @@ $(document).ready(() => {
     for(let id = 0; id < 10; id++) {
         // Add onclick event to btn
         $("#btn" + id).on("click", function() {
+            // add loading animation to button
+            $(this).append('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+
             let tmp_id = $(this).attr("btn_book_id");
             addBook(tmp_id);
         });

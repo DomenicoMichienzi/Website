@@ -3,14 +3,12 @@ package com.example.website.jdbc;
 import com.example.website.dao.BookDao;
 import com.example.website.model.Book;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 public class BookDaoJDBC implements BookDao{
 
-    private Connection conn;
+    private final Connection conn;
 
     public BookDaoJDBC(Connection conn) {
         this.conn = conn;
@@ -27,10 +25,25 @@ public class BookDaoJDBC implements BookDao{
     }
 
     @Override
+    public boolean check(Book book) {
+        try {
+            String query = "select exists(select 1 from " +
+                            "books where username_id = ? AND volume_id = ?)";
+
+            PreparedStatement pst = conn.prepareStatement(query);
+
+            pst.setString(1, book.getUsername_id());
+            pst.setString(2, book.getVolume_id());
+
+             return pst.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
     public boolean save(Book book) {
-
-        // TODO - Check if it already exists
-
         try {
             String query = "insert into books (volume_id, " +
                     "username_id, " +

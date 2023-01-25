@@ -10,7 +10,7 @@
   <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Bootstrap JavaScript -->
-  <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
+  <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- jQuery from GoogleAPIs-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -99,9 +99,6 @@
                         <label for="rating_${book.volume_id}" class="form-label">Rating: ${book.rating}</label>
                         <input type="range" class="form-range" min="0" max="10" step="0.5" value="${book.rating}" id="rating_${book.volume_id}">
                         <a class="text-bg-dark current-rating" id="current_rating_${book.volume_id}">Ciaone</a>
-                        <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
-                          Popover on top
-                        </button>
                       </div>
                       <div class="mb-3">
                         <label for="review-text_${book.volume_id}" class="col-form-label">Review</label>
