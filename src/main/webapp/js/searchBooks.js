@@ -81,10 +81,11 @@ function handleAddBook(response) {
         contentType: "application/json",
         data: JSON.stringify(book),
         success: (response) => {
-            // TODO - Handle what to do with the response
             if(response === "exists") {
+                // change button from danger (red) to warning (yellow)
                 $("[btn_book_id=" + book_id + "]").removeClass("btn-danger").addClass("btn-warning").text("Already Added");
             }
+
 
             if (response === "Success") {
                 // change button from danger (red) to success (green)
