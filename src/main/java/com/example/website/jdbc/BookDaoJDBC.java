@@ -34,11 +34,9 @@ public class BookDaoJDBC implements BookDao{
             pst.setString(1, book.getUsername_id());
             pst.setString(2, book.getVolume_id());
 
-            System.out.println(pst);
             ResultSet rs = pst.executeQuery();
-            // TODO - FIX
-            return rs.next();
 
+            return rs.next();
         } catch (SQLException e) {
             e.printStackTrace();
         }

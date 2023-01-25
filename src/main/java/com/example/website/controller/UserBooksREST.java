@@ -31,15 +31,12 @@ public class UserBooksREST {
             // add username_id to Book object
             b.setUsername_id(usr);
 
-            // TODO - check if the book already exists in the library
-            System.out.println(Database.getInstance().getBookDao().check(b));
+            // check if the book already exists in the library
             if(Database.getInstance().getBookDao().check(b)) {
-                System.out.println("check Rest");
                 return "exists";
             }
 
             if(Database.getInstance().getBookDao().save(b)) {
-                System.out.println("Added Rest");
                 // Save cover image
                 Image.saveBookCover(coverURL, b.getVolume_id(), usr);
                 return "Success";
