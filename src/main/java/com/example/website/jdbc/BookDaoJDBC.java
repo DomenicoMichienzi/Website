@@ -27,15 +27,18 @@ public class BookDaoJDBC implements BookDao{
     @Override
     public boolean check(Book book) {
         try {
-            String query = "select exists(select 1 from " +
-                            "books where username_id = ? AND volume_id = ?)";
+            String query = "select 1 from books where username_id = ? AND volume_id = ?";
 
             PreparedStatement pst = conn.prepareStatement(query);
 
             pst.setString(1, book.getUsername_id());
             pst.setString(2, book.getVolume_id());
 
-             return pst.execute();
+            System.out.println(pst);
+            ResultSet rs = pst.executeQuery();
+            // TODO - FIX
+            return rs.next();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
