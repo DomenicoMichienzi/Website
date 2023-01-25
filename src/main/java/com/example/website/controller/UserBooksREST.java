@@ -30,6 +30,10 @@ public class UserBooksREST {
         if(usr != null) {
             // add username_id to Book object
             b.setUsername_id(usr);
+
+            // TODO - check if the book alreadu exists in the library
+
+
             if(Database.getInstance().getBookDao().save(b)) {
                 // Save cover image
                 Image.saveBookCover(coverURL, b.getVolume_id(), usr);

@@ -94,6 +94,9 @@ function removeBook(volume_id) {
 
 $(document).ready(function () {
 
+    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+
     // add current rating for modal
     $(".form-range").each(function () {
        $(this).on("input", function () {

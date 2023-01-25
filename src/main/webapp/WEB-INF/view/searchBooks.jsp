@@ -86,7 +86,9 @@
               <h5 class="card-title">Card title</h5>
               <p class="card-authors">Card authors</p>
               <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-              <a class="btn btn-danger" id="btn${i}">Add to Library</a>
+              <button class="btn btn-danger" id="btn${i}">
+                Add to Library
+              </button>
             </div>
           </div>
         </div>
