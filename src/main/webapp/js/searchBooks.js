@@ -36,7 +36,7 @@ function handleSearch(response) {
             title = response.items[i].volumeInfo?.title,
             book_id = response.items[i]?.id;
 
-        console.table({coverURL, authors, title, book_id});
+        //console.table({coverURL, authors, title, book_id});
 
         // Add book_id to the button
         $("#btn" + i).attr("btn_book_id", book_id);
@@ -54,7 +54,7 @@ function handleSearch(response) {
 }
 
 function handleAddBook(response) {
-    console.log({response});
+    //console.log({response});
     let book_id = response?.id,
         title = response?.volumeInfo?.title,
         description = response?.volumeInfo?.description,
@@ -81,12 +81,15 @@ function handleAddBook(response) {
         contentType: "application/json",
         data: JSON.stringify(book),
         success: (response) => {
-            console.log("Book successfully added");
-            console.log({response});
-
             // TODO - Handle what to do with the response
-            // change button from danger (red) to success (green)
-            $("[btn_book_id=" + book_id + "]").removeClass("btn-danger").addClass("btn-success").text("Added to Library");
+            if(response === "exists") {
+                $("[btn_book_id=" + book_id + "]").removeClass("btn-danger").addClass("btn-warning").text("Already Added");
+            }
+
+            if (response === "Success") {
+                // change button from danger (red) to success (green)
+                $("[btn_book_id=" + book_id + "]").removeClass("btn-danger").addClass("btn-success").text("Added to Library");
+            }
         }
     });
 }
