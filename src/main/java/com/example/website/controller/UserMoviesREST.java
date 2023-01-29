@@ -9,14 +9,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.xml.crypto.Data;
+
 @RestController
 public class UserMoviesREST {
+    @PostMapping("/updateMovie")
+    public String updateMovie(@RequestBody Movie m, HttpServletRequest req) {
+        String usr = req.getSession().getAttribute("username").toString();
+
+        if(usr != null) {
+            // add username_id to Movie object
+            m.setUsername_id(usr);
+
+            if(Database.getInstance().getMovieDao().update(m)) {
+                return "Success";
+            }
+        }
+        return "Failed";
+    }
     @PostMapping("/addMovie")
     public String addMovie(@RequestBody Movie m, @RequestParam String poster,
                            HttpServletRequest req) {
         String usr = req.getSession().getAttribute("username").toString();
         if(usr != null) {
+            // add username_id to Movie object
             m.setUsername_id(usr);
+
+            // check if the movie already exists in the library
+            if(Database.getInstance().getMovieDao().check(m)) {
+                return "exists";
+            }
+
             if(Database.getInstance().getMovieDao().save(m)) {
                 // Save poster image
                 Image.saveMoviePoster(poster, m.getMovie_id(), usr);

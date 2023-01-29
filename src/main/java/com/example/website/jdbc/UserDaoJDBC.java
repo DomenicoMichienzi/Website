@@ -81,6 +81,7 @@ public class UserDaoJDBC implements UserDao {
     public List<Book> getAllBooks() {
         ArrayList<Book> books = new ArrayList<Book>();
 
+        // ordered by rating desc
         String query = "select * from books order by rating desc";
 
         try {
@@ -126,7 +127,7 @@ public class UserDaoJDBC implements UserDao {
 
         // ordered by title
         String query = "select * from books inner join users u " +
-                "on u.username = books.username_id where u.username = '" + username + "' order by books.rating";
+                "on u.username = books.username_id where u.username = '" + username + "' order by books.title";
 
         try {
             Statement st = conn.createStatement();
@@ -158,8 +159,10 @@ public class UserDaoJDBC implements UserDao {
     @Override
     public List<Movie> getMoviesByKey(String username) {
         List<Movie> movies = new ArrayList<Movie>();
+
+        // ordered by title
         String query = "select * from movies inner join users u " +
-                "on u.username = movies.username_id where u.username = '" + username + "'";
+                "on u.username = movies.username_id where u.username = '" + username + "' order by movies.title";
 
         try {
             Statement st = conn.createStatement();

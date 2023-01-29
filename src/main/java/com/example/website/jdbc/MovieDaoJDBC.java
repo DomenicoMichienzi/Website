@@ -5,11 +5,12 @@ import com.example.website.model.Movie;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 public class MovieDaoJDBC implements MovieDao {
-    private Connection conn;
+    private final Connection conn;
     public MovieDaoJDBC(Connection conn) { this.conn = conn; }
     @Override
     public List<Movie> getAll() {
@@ -17,15 +18,26 @@ public class MovieDaoJDBC implements MovieDao {
     }
 
     @Override
-    public Movie getByKey(String movie_id) {
-        return null;
+    public boolean check(Movie movie) {
+        try {
+            String query = "select 1 from movies where username_id = ? AND movie_id = ?";
+
+            PreparedStatement pst = conn.prepareStatement(query);
+
+            pst.setString(1, movie.getUsername_id());
+            pst.setString(2, movie.getMovie_id());
+
+            ResultSet rs = pst.executeQuery();
+
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override
     public boolean save(Movie movie) {
-
-        // TODO - check if it already exists
-
         try {
             String query = "insert into movies (movie_id, " +
                     "username_id, " +
@@ -58,11 +70,11 @@ public class MovieDaoJDBC implements MovieDao {
     public boolean update(Movie movie) {
         try {
             String query = "update movies " +
-                    "set review = ?," +
-                    "set rating = ?," +
-                    "set comment = ? " +
-                    "where movie_id = " + movie.getMovie_id() + " AND " +
-                    "username_id = " + movie.getUsername_id();
+                    "set review = ?, " +
+                    "rating = ?, " +
+                    "comment = ? " +
+                    "where movie_id = '" + movie.getMovie_id() + "' AND " +
+                    "username_id = '" + movie.getUsername_id() + "'";
 
             PreparedStatement pst = conn.prepareStatement(query);
 
@@ -82,7 +94,6 @@ public class MovieDaoJDBC implements MovieDao {
 
     @Override
     public boolean delete(String movie_id, String username_id) {
-        System.out.println("DELETE");
         try {
             String query = "delete from movies " +
                     "where movie_id = ? AND " +
@@ -91,6 +102,7 @@ public class MovieDaoJDBC implements MovieDao {
             PreparedStatement pst = conn.prepareStatement(query);
             pst.setString(1, movie_id);
             pst.setString(2, username_id);
+
             pst.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

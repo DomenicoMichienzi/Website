@@ -27,7 +27,6 @@ public class MoviesManager {
     @GetMapping("/searchMovies")
     public String searchMovies(HttpServletRequest req) {
         if(req.getSession().getAttribute("username") != null) {
-            String usr = req.getSession().getAttribute("username").toString();
             return "searchMovies";
         } else {
             // TODO - Redirect to Login Page

@@ -20,11 +20,6 @@ public class BookDaoJDBC implements BookDao{
     }
 
     @Override
-    public Book getByKey(String volume_id) {
-        return null;
-    }
-
-    @Override
     public boolean check(Book book) {
         try {
             String query = "select 1 from books where username_id = ? AND volume_id = ?";
@@ -81,7 +76,8 @@ public class BookDaoJDBC implements BookDao{
                     "set review = ?, " +
                     "rating = ?, " +
                     "comment = ? " +
-                    "where volume_id = '" + book.getVolume_id() + "'";
+                    "where volume_id = '" + book.getVolume_id() + "' AND " +
+                    "username_id = '" + book.getUsername_id() + "'";
 
             PreparedStatement pst = conn.prepareStatement(query);
 
@@ -99,7 +95,6 @@ public class BookDaoJDBC implements BookDao{
 
     @Override
     public boolean delete(String book_id, String username_id) {
-
         try {
             String query = "delete from books " +
                     "where volume_id = ? AND " +

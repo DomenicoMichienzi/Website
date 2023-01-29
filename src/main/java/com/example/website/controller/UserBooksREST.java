@@ -31,6 +31,13 @@ public class UserBooksREST {
             // add username_id to Book object
             b.setUsername_id(usr);
 
+            // remove html tags in the description of some books (Google APIs bug)
+            String html = b.getDescription();
+            if(html != null) {
+                String result = html.replaceAll("<[^>]*>", "");
+                b.setDescription(result);
+            }
+
             // check if the book already exists in the library
             if(Database.getInstance().getBookDao().check(b)) {
                 return "exists";
@@ -48,6 +55,7 @@ public class UserBooksREST {
     @PostMapping("/removeBook")
     public String removeBook(@RequestBody String book_id, HttpServletRequest req) {
         String usr = req.getSession().getAttribute("username").toString();
+
         if(usr != null) {
             if(Database.getInstance().getBookDao().delete(book_id, usr)) {
                 // Delete cover image
