@@ -20,49 +20,85 @@ class Book {
     }
 }
 
+const maxItems = 35;
+
 function handleSearch(response) {
+
     // reset buttons from success (green) to danger (red)
     $(".btn-success").each(function () {
         $(this).removeClass("btn-success").addClass("btn-danger").text("Add to Library");
     });
 
-    // hide cards
-    $(".card").hide();
+    // remove cards
+    $(".card").remove();
 
     // TODO - change with forEach and fix index with cards in the page
-    for(let i = 0; i < 10; i++) {
-        let coverURL = response.items[i].volumeInfo?.imageLinks?.thumbnail,
-            authors = response.items[i].volumeInfo?.authors,
-            title = response.items[i].volumeInfo?.title,
-            book_id = response.items[i]?.id;
+    for(let id = 0; id < maxItems; id++) {
+        let coverURL = response.items[id].volumeInfo?.imageLinks?.thumbnail,
+            authors = response.items[id].volumeInfo?.authors,
+            title = response.items[id].volumeInfo?.title,
+            book_id = response.items[id]?.id,
+            description = response.items[id]?.volumeInfo?.description;
 
-        //console.table({coverURL, authors, title, book_id});
+        createCard(id);
+
+        let tmp_btn = $("#btn" + id);
+        // Add onclick event to btn
+        tmp_btn.on("click", function() {
+            // add loading animation to button if not already present
+            if(!$(this).find(".spinner-border").length) {
+                $(this).append('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+            }
+
+            let tmp_id = $(this).attr("data-btn_book_id");
+            addBook(tmp_id);
+        });
 
         // Add book_id to the button
-        $("#btn" + i).attr("btn_book_id", book_id);
+        tmp_btn.attr("data-btn_book_id", book_id);
 
         // Fill card with contents
-        $("#card_" + i + " .img-fluid").attr("src", coverURL);
-        $("#card_" + i + " .card-title").text(title);
-        $("#card_" + i + " .card-authors").text(authors);
-    }
 
-    // show only the search results
-    for(let i = 0; i < response.items.length; i++) {
-        $("#card_" + i).show();
+        // cover thumbnail
+        let card_img = $("#card_" + id + " .img-fluid");
+        (coverURL === undefined) ? card_img.attr("src", "/assets/icons/image-not-found.svg") : card_img.attr("src", coverURL);
+
+        $("#card_" + id + " .card-title").text(title);
+        $("#card_" + id + " .card-authors").text(authors);
+        $("#card_" + id + " .card-description").text(description);
     }
 }
 
+function createCard(id) {
+    $("#searchResults").append(
+        '<div class="card my-3 border-0" id="card_' + id + '">\n' +
+        '  <div class="row g-0">\n' +
+        '    <div class="col-auto">\n' +
+        '      <img src="..." class="img-fluid rounded p-1" alt="...">\n' +
+        '    </div>\n' +
+        '    <div class="col-6">\n' +
+        '      <div class="card-body ">\n' +
+        '        <h5 class="card-title">Card title</h5>\n' +
+        '        <p class="card-description">No description</p>\n' +
+        '        <p class="card-authors"><small class="text-muted"></small></p>\n' +
+        '        <button type="button" class="btn btn-danger btn-sm" id="btn' + id + '">\n' +
+        '          Add to Library\n' +
+        '        </button>\n' +
+        '      </div>\n' +
+        '    </div>\n' +
+        '  </div>\n' +
+        '</div>'
+    );
+}
+
 function handleAddBook(response) {
-    //console.log({response});
     let book_id = response?.id,
         title = response?.volumeInfo?.title,
         description = response?.volumeInfo?.description,
-        isbn = response?.volumeInfo?.industryIdentifiers[1]?.identifier,
         link = response?.volumeInfo?.previewLink,
         coverURL = response?.volumeInfo?.imageLinks?.thumbnail;
 
-    var book = new Book({
+    let book = new Book({
         book_id: book_id,
         username_id: null,
         title: title,
@@ -76,21 +112,25 @@ function handleAddBook(response) {
     // Add book through RestAPI with ajax
     $.ajax({
         type: "POST",
-        // pass coverURL as a query paramater in the address
+        // pass coverURL as a query parameter in the address
         url: "/addBook?coverURL=" + coverURL,
         contentType: "application/json",
         data: JSON.stringify(book),
         success: (response) => {
-            if(response === "exists") {
-                // change button from danger (red) to warning (yellow)
-                $("[btn_book_id=" + book_id + "]").removeClass("btn-danger").addClass("btn-warning").text("Already Added");
-            }
 
+            // delay animation for aesthetics reasons
+            setTimeout(() => {
+                let btn = $("[data-btn_book_id=" + book_id + "]");
+                if(response === "exists") {
+                    // change button from danger (red) to warning (yellow)
+                    btn.removeClass("btn-danger btn-success").addClass("btn-warning").text("Already Added ");
+                }
 
-            if (response === "Success") {
-                // change button from danger (red) to success (green)
-                $("[btn_book_id=" + book_id + "]").removeClass("btn-danger").addClass("btn-success").text("Added to Library");
-            }
+                if (response === "Success") {
+                    // change button from danger (red) to success (green)
+                    btn.removeClass("btn-danger").addClass("btn-success").text("Added to Library ");
+                }
+            }, 0);
         }
     });
 }
@@ -99,8 +139,9 @@ function searchGoogleBooksAPIs() {
     let query = $("#searchBar").val(),
         // hard coded key, for the sake of simplicity
         key = '&key=' + 'AIzaSyAKiMubw-TRmctMZMlbTXvuUrmOycPcEk0',
-        maxResults = '&maxResults=' + 15;
+        maxResults = '&maxResults=' + maxItems;
 
+    // book information retrieval
     $.ajax({
         datatype: "json",
         url: "https://www.googleapis.com/books/v1/volumes?q=" + query + key + maxResults,
@@ -109,8 +150,6 @@ function searchGoogleBooksAPIs() {
 }
 
 function addBook(book_id) {
-    //console.log({book_id});
-
     $.ajax({
         datatype: "json",
         url: "https://www.googleapis.com/books/v1/volumes/" + book_id,
@@ -123,14 +162,11 @@ $(document).ready(() => {
     // add searchGoogleBooksAPIs to searchbar on input event
     $("#searchBar").on("input", searchGoogleBooksAPIs);
 
-    for(let id = 0; id < 10; id++) {
-        // Add onclick event to btn
-        $("#btn" + id).on("click", function() {
-            // add loading animation to button
-            $(this).append('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+    // switch theme
+    $("#theme").on("click", function () {
+        let sel = $("html"),
+            theme = sel.attr("data-bs-theme");
 
-            let tmp_id = $(this).attr("btn_book_id");
-            addBook(tmp_id);
-        });
-    }
+        (theme === "dark") ? sel.attr("data-bs-theme", "light") : sel.attr("data-bs-theme", "dark");
+    })
 });

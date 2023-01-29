@@ -1,17 +1,12 @@
-.card-title {
+.card-text {
     display: -webkit-box;
+    color: #d63384;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    color: #F39422;
 }
 
-.card-authors {
-    color: #537EC5;
-    overflow: hidden;
-}
-
-.card-description {
+.card-title {
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;

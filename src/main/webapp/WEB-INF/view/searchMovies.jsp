@@ -3,87 +3,88 @@
 
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<html lang="en" data-bs-theme="dark">
 <head>
   <title>Movies Search</title>
+
+  <!-- jQuery from GoogleAPIs-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
   <!-- Bootstrap CSS -->
   <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Bootstrap JavaScript -->
-  <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.min.js"></script>
+  <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <!-- jQuery from GoogleAPIs-->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <!-- Bootstrap icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
   <!-- local JavaScript -->
   <script src="${pageContext.request.contextPath}/js/searchMovies.js"></script>
 
   <!-- local CSS -->
-  <link href="${pageContext.request.contextPath}/css/movieSearch.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath}/css/common.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath}/css/searchMovies.css" rel="stylesheet">
+
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-md justify-content-between bg-body-tertiary">
   <div class="container-fluid">
     <c:choose>
       <c:when test="${username != null}">
-        <a class="navbar-brand" href="/">${username}</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand" href="${pageContext.request.contextPath}/">${username}</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+              <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Search
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/searchBooks">Books</a></li>
+                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/searchMovies">Movies</a></li>
+              </ul>
+            </li>
 
-        <div class="collapse navbar-collapse" id="navbarScroll">
-          <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="/getBooks">My Books</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Library
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/getBooks">Books</a></li>
+                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/getMovies">Movies</a></li>
+              </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="/searchBooks">Search Books</a>
+              <a class="nav-link" href="${pageContext.request.contextPath}/doLogout">Logout</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="/getMovies">My Movies</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/searchMovies">Search Movies</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/doLogout">Logout</a>
+              <a class="nav-link" href="#">Info</a>
             </li>
           </ul>
+          <button type="button" class="btn btn-primary me-2" id="theme">
+            <i class="bi bi-heart"></i>
+          </button>
           <div class="d-flex" role="search">
-            <input class="form-control me-2" id="searchBar" type="search"
-                   placeholder="Search" aria-label="Search">
-            <button class="btn btn-light" type="submit">Search</button>
+            <input id="searchBar" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
           </div>
         </div>
       </c:when>
       <c:otherwise>
-        <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-          <li class="nav-item">
-            <a class="nav-link" href="/loginPage">Login</a>
-          </li>
-        </ul>
+
       </c:otherwise>
     </c:choose>
   </div>
 </nav>
 
-<div class="container-fluid">
-  <div class="d-flex justify-content-center" id="main_row">
-    <ul class="list-group">
-      <c:forEach var="i" begin="0" end="9">
-        <li id="list_item_${i}" class="list-group-item">
-          <div class="d-flex w-100 justify-content-between">
-            <img src="" class="img-thumbnail" style="max-width: 150px" alt="...">
-            <h5 class="mb-1 text-body">List group item heading</h5>
-          </div>
-          <p class="mb-1 text-authors">Autori</p>
-          <a class="btn btn-primary" id="btn${i}" btn_movie_id="">Add</a>
-        </li>
-      </c:forEach>
-    </ul>
+<!-- Cards -->
+<div class="container-fluid d-flex p-1 justify-content-center">
+  <div class="col-8" id="searchResults">
   </div>
 </div>
 

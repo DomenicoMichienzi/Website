@@ -22,21 +22,17 @@ class Book {
 
 function updateBook(book_id) {
     // retrieve rating, review and comment from the modal
-    rating = $("#rating_" + book_id).val();
-    review = $("#review-text_" + book_id).val();
-    comment = $("#comment-text_" + book_id).val();
-
-    console.log({book_id, rating, review, comment});
+    let rating = $("#rating_" + book_id).val(),
+        review = $("#review-text_" + book_id).val(),
+        comment = $("#comment-text_" + book_id).val();
 
     // create a dummy Book object
-    var book = new Book({
+    let book = new Book({
         book_id: book_id,
         rating: rating,
         review: review,
         comment: comment
-    })
-    console.log({book});
-    console.log({book_id, rating, review, comment});
+    });
 
     // update book through RestAPI with ajax
     $.ajax({
@@ -44,40 +40,11 @@ function updateBook(book_id) {
         url: "/updateBook",
         contentType: "application/json",
         data: JSON.stringify(book),
-        success: () => {
-            console.log("Rating, Review and Comment successfully update");
+        success: (response) => {
+            // TODO - Handle response
         }
     })
 }
-
-function handleBook(response) {
-    let Book = response.volumeInfo,
-        author = Book.authors,
-        title = Book.title,
-        description = Book.description,
-        coverURL = Book?.imageLinks?.thumbnail;
-
-    addToCard(coverURL, author, title, description, response.id);
-}
-
-function addToCard(imageURL, authors, title, description, id) {
-    $("#" + id + " > .card-body > .card-title").text(title);
-    $("#" + id + " > .card-body > .card-text").text(authors);
-    $("#" + id + " > .card-body > .card-img-bottom").attr("src", imageURL);
-}
-
-function loadBooks() {
-    let items = document.querySelectorAll(".card.w-75");
-    for(let i = 0; i < items.length; i++) {
-        let volumeID = items[i].id;
-        $.ajax({
-            datatype: "json",
-            url: "https://www.googleapis.com/books/v1/volumes/" + volumeID,
-            success: handleBook
-        });
-    }
-}
-
 
 function removeBook(volume_id) {
     $.ajax({
@@ -91,11 +58,17 @@ function removeBook(volume_id) {
     });
 }
 
-
+// Document ready
 $(document).ready(function () {
+    $("textarea").autoHeight()
 
-    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
-    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+    // switch theme
+    $("#theme").on("click", function () {
+        let sel = $("html"),
+            theme = sel.attr("data-bs-theme");
+
+        (theme === "dark") ? sel.attr("data-bs-theme", "light") : sel.attr("data-bs-theme", "dark");
+    })
 
     // add current rating for modal
     $(".form-range").each(function () {
@@ -121,8 +94,23 @@ $(document).ready(function () {
             let vol_id = $(this).attr("data-btn_volume_id");
             removeBook(vol_id);
 
-            // removing card
+            // removing column of card
             $("#" + vol_id).remove();
         })
     });
+});
+
+jQuery.fn.extend({
+    autoHeight: function () {
+        function autoHeight_(element) {
+            return jQuery(element)
+                .css({ "height": 0, "overflow-y": "hidden" })
+                .height(element.scrollHeight);
+        }
+        return this.each(function() {
+            autoHeight_(this).on("input", function() {
+                autoHeight_(this);
+            });
+        });
+    }
 });
