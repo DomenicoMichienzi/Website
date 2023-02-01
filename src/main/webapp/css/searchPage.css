@@ -1,7 +1,3 @@
-.img-fluid.rounded {
-    max-width: 6em;
-}
-
 .card-title {
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -10,6 +6,17 @@
     color: #F39422;
 }
 
+.card-authors {
+    color: #537EC5;
+    overflow: hidden;
+}
+
+.card-description {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
 .card-overview {
     display: -webkit-box;
     -webkit-line-clamp: 3;
