@@ -23,14 +23,4 @@ public class BooksManager {
             return "notAuthorized";
         }
     }
-
-    @GetMapping("/searchBooks")
-    public String searchBooks(HttpServletRequest req) {
-        if(req.getSession().getAttribute("username") != null) {
-            return "searchBooks";
-        } else {
-            // TODO - Redirect to Login Page
-            return "notAuthorized";
-        }
-    }
 }

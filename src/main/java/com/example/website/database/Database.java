@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 public class Database {
     private static Database instance = null;
-    private Connection conn;
+    private final Connection conn;
     public static Database getInstance() {
         if(instance == null) {
             instance = new Database();

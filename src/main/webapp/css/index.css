@@ -1,0 +1,11 @@
+.card-body {
+    min-height: 300px;
+    min-width: 250px;
+    margin: 10px;
+}
+
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.flex-row::-webkit-scrollbar {
+    display: none;
+}
