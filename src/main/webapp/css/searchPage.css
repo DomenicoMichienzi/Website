@@ -23,3 +23,7 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+.bi-book, .bi-film {
+    font-weight: 500;
+}

@@ -1,10 +1,32 @@
+class Movie{
+    constructor({
+                    movie_id = null,
+                    username_id = null,
+                    title = null,
+                    description = null,
+                    review = null,
+                    rating = 0.0,
+                    comment = null
+                }) {
+        this.movie_id = movie_id;
+        this.username_id = username_id;
+        this.title = title;
+        this.description = description;
+        this.review = review;
+        this.rating = rating;
+        this.comment = comment;
+    }
+}
+
+const maxItems = 15;
+
 function tradingMovies() {
 
-    let apiKey = "?api_key=cf2703906ceb370d03128f8d53436252";
-
+    let apiKey = "?api_key=cf2703906ceb370d03128f8d53436252",
+        lang = "&language=it-IT";
     $.ajax({
        datatype: "json",
-       url: "https://api.themoviedb.org/3/trending/movie/day" + apiKey,
+       url: "https://api.themoviedb.org/3/trending/movie/day" + apiKey + lang,
        success: handleTradingMovies
     });
 }
@@ -23,13 +45,14 @@ function handleTradingMovies(response) {
             posterPath = items[id]?.poster_path,
             imageURL = "https://image.tmdb.org/t/p/w342" + posterPath,
             title = items[id]?.title,
+            overview = items[id]?.overview,
             movie_id = items[id]?.id,
-            vote_average = items[id]?.vote_average,
+            vote_average = items[id]?.vote_average.toFixed(1),
             popularity = items[id]?.popularity;
 
         createCardTrendingMovie(id);
 
-        let tmp_btn = $("#btn" + id);
+        let tmp_btn = $("#btn_" + id);
         // Add onclick event to btn
         tmp_btn.on("click", function() {
             // add loading animation to button if not already present
@@ -45,16 +68,95 @@ function handleTradingMovies(response) {
         tmp_btn.attr("data-btn_movie_id", movie_id);
 
         // Fill card with contents
+
+        // cover thumbnail
+        let card_img = $("#card_" + id + " .card-img-top");
+        if (posterPath === undefined || posterPath == null) {
+            card_img.attr("src", "/assets/icons/image-not-found.svg")
+            card_img.attr("style", "max-width: 8.5em;")
+        } else {
+            card_img.attr("src", imageURL)
+        }
+
+        $("#card_" + id + " .vote_average").text(vote_average);
+        $("#card_" + id + " .card-title").text(title);
     }
 }
 
 function createCardTrendingMovie(id) {
-
+    $("#trendingMovies").append(
+        '    <div class="card col-auto border-0" id="card_' + id + '">\n' +
+        '      <img src="..." class="card-img-top rounded-2" alt="...">\n' +
+        '      <div class="card-body p-1">\n' +
+        '        <p class="vote_average d-inline my-1"></p>\n' +
+        '        <p class="card-title text-start"></p>\n' +
+        '        <button type="button" class="btn btn-danger btn-sm my-2" id="btn_' + id + '">\n' +
+        '          Add to Library\n' +
+        '        </button>\n' +
+        '      </div>\n' +
+        '    </div>\n'
+    );
 }
+
+function addMovie(movie_id) {
+    let apiKey = "?api_key=cf2703906ceb370d03128f8d53436252",
+        lang = "&language=it-IT",
+        url = "https://api.themoviedb.org/3/movie/" + movie_id + apiKey + lang;
+    $.ajax({
+        datatype: "json",
+        url: url,
+        success: handleAddMovie
+    })
+}
+
+function handleAddMovie(response) {
+    let movie_id = response.id,
+        description = response.overview,
+        title = response.title,
+        posterPath = response.poster_path;
+
+    let movie = new Movie({
+        movie_id: movie_id,
+        username_id: null,
+        title: title,
+        description: description,
+        review: null,
+        rating: null,
+        comment: null
+    });
+
+    // Add movie through RestAPI with ajax
+    $.ajax({
+        type: "POST",
+        // pass posterPath as a query parameter in the address
+        url: "/addMovie?poster=" + posterPath,
+        contentType: "application/json",
+        data: JSON.stringify(movie),
+        success:(response) => {
+
+            // delay animation for aesthetics reasons
+            setTimeout(() => {
+                let btn = $("[data-btn_movie_id=" + movie_id + "]");
+                if(response === "exists") {
+                    // change button from danger (red) to warning (yellow)
+                    btn.removeClass("btn-danger btn-success").addClass("btn-warning").text("Already Added ");
+                }
+
+                if (response === "Success") {
+                    // change button from danger (red) to success (green)
+                    btn.removeClass("btn-danger").addClass("btn-success").text("Added to Library ");
+                }
+            }, 1150);
+
+        }
+    });
+}
+
 
 // Document ready
 $(document).ready(() => {
-
+    // calling
+    tradingMovies();
 })
 
 

@@ -1,8 +1,13 @@
 .btn {
-  border-radius: 18px;
+  border-radius: 14px;
+  font-weight: 500;
 }
 
 i {
   filter: drop-shadow(3px 3px 2px rgb(0 0 0 / 0.3));
 }
 
+.nav-link {
+  font-weight: 500;
+
+}

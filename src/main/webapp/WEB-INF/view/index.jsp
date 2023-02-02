@@ -60,13 +60,6 @@
           <div class="nav-item m-2">
             <div class="vr"></div>
           </div>
-          <!-- Search Bar -->
-          <div class="d-flex" role="search">
-            <input id="searchBar" class="form-control m-1" type="search" placeholder="Search" aria-label="Search">
-          </div>
-
-          <div class="nav-item m-2">
-            <div class="vr"></div>
           </div>
           <!-- Theme Buttons -->
           <button type="button" class="btn btn-sm btn-dark m-1" data-bs-theme-value="dark">
@@ -116,24 +109,16 @@
 <!-- Trending Movie -->
 <div class="container-fluid py-2">
   <h2 class="font-weight-light m-3">Trending Movies</h2>
-  <div class="d-flex flex-row flex-nowrap overflow-scroll">
-    <div class="card card-body">Card</div>
-    <div class="card card-body">Card</div>
-    <div class="card card-body">Card</div>
-    <div class="card card-body">Card</div>
-    <div class="card card-body">Card</div>
-    <div class="card card-body">Card</div>
-    <div class="card card-body">Card</div>
-    <div class="card card-body">Card</div>
-    <div class="card card-body">Card</div>
-    <div class="card card-body">Card</div>
-    <div class="card card-body">Card</div>
-    <div class="card card-body">Card</div>
-    <div class="card card-body">Card</div>
-    <div class="card card-body">Card</div>
-    <div class="card card-body">Card</div>
-    <div class="card card-body">Card</div>
-    <div class="card card-body">Card</div>
+  <div class="d-flex flex-row flex-nowrap overflow-scroll align-items-end" id="trendingMovies">
+
+  </div>
+</div>
+
+<!-- Trending TV Shows -->
+<div class="container-fluid py-2">
+  <h2 class="font-weight-light m-3">Trending TV Shows</h2>
+  <div class="d-flex flex-row flex-nowrap overflow-scroll align-items-end" id="trendingTvShows">
+
   </div>
 </div>
 
