@@ -59,27 +59,6 @@
               <a class="nav-link" href="#">Info</a>
             </li>
           </ul>
-          <!-- radio buttons -->
-          <div class="btn-group" id="searchTypeRadio" role="group" aria-label="radio toggle button group">
-            <!-- book radio -->
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="book">
-            <label class="btn btn-outline-warning" for="btnradio1">
-              <i class="bi bi-book-half"></i>
-            </label>
-            <!-- movie radio -->
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" value="movie">
-            <label class="btn btn-outline-warning" for="btnradio2">
-              <i class="bi bi-film"></i>
-            </label>
-          </div>
-          <div class="nav-item m-2">
-            <div class="vr"></div>
-          </div>
-          <!-- Search Bar -->
-          <div class="d-flex" role="search">
-            <input id="searchBar" class="form-control m-1" type="search" placeholder="Search" aria-label="Search">
-          </div>
-
           <div class="nav-item m-2">
             <div class="vr"></div>
           </div>
@@ -99,6 +78,28 @@
         </div>
       </div>
     </nav>
+
+    <!-- Search Bar -->
+    <div class="d-flex justify-content-center mt-3">
+      <div class="d-flex" role="search">
+        <input id="searchBar" class="form-control m-1" type="search" placeholder="Search" aria-label="Search">
+      </div>
+    </div>
+
+    <!-- radio buttons -->
+    <div class="d-flex justify-content-center">
+      <div class="input-group-sm border-4 m-0" id="searchTypeRadio">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="searchRadioOptions" id="inlineRadioMovie" value="movie">
+          <label class="form-check-label" for="inlineRadioMovie"><i class="bi bi-film"> Movie</i></label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="searchRadioOptions" id="inlineRadioBook" value="book">
+          <label class="form-check-label" for="inlineRadioBook"><i class="bi bi-book"> Book</i></label>
+        </div>
+      </div>
+    </div>
+
     </c:when>
   <c:otherwise>
   </c:otherwise>

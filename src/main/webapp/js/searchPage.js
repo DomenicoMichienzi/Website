@@ -336,23 +336,35 @@ function addBook(book_id) {
 // Document ready
 $(document).ready(() => {
     $("#searchTypeRadio").change(function () {
-        let selected_value = $("input[name='btnradio']:checked").val(),
+        let selected_value = $("input[name='searchRadioOptions']:checked").val(),
             search_bar = $("#searchBar");
         switch (selected_value) {
             case "book":
-                // remove any input events
-                search_bar.off("input");
+                // remove any search_bar events
+                search_bar.off("input", "keypress");
 
                 // add searchGoogleBooksAPIs to searchbar on input event
                 search_bar.on("input", searchGoogleBooksAPIs);
+                search_bar.on("keypress", (e)=>{
+                    // Enter on Keyboard
+                    if(e.which === 13) {
+                        searchGoogleBooksAPIs();
+                    }
+                })
                 break
 
             case "movie":
-                // remove any input events
-                search_bar.off("input");
+                // remove any search_bar events
+                search_bar.off("input", "keypress");
 
                 // add searchTMDB to searchbar on input event
                 search_bar.on("input", searchTMDB);
+                search_bar.on("keypress", (e)=>{
+                    // Enter on Keyboard
+                    if(e.which === 13) {
+                        searchTMDB();
+                    }
+                })
                 break;
         }
     });
