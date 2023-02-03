@@ -26,20 +26,30 @@
   <link href="${pageContext.request.contextPath}/css/common.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/css/moviesPage.css" rel="stylesheet">
 
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" href="${pageContext.request.contextPath}/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+  <link rel="icon" href="${pageContext.request.contextPath}/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="${pageContext.request.contextPath}/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+  <link rel="manifest" href="${pageContext.request.contextPath}/assets/img/favicons/site.webmanifest">
+  <link rel="icon" href="${pageContext.request.contextPath}/assets/img/favicons/favicon.ico">
+
 </head>
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-md justify-content-between bg-body-tertiary">
+<nav class="navbar navbar-expand-lg justify-content-between bg-body-tertiary">
   <div class="container-fluid">
     <c:choose>
       <c:when test="${username != null}">
-        <a class="navbar-brand" href="${pageContext.request.contextPath}/">${username}</a>
+        <span class="navbar-brand mb-0 h1" href="${pageContext.request.contextPath}/">${username}</span>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="${pageContext.request.contextPath}/">Home</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="${pageContext.request.contextPath}/searchPage">Search</a>
             </li>
@@ -90,23 +100,22 @@
 </nav>
 
 <!-- Movies List -->
-<div class="container-fluid text-center">
-  <h2 class="m-4">My Movies</h2>
+<div class="container text-center">
+  <h2 class="m-3">My Movies</h2>
   <div class="container text-center">
-    <div class="row row-cols-md-auto">
+    <div class="row justify-content-center">
       <c:forEach items="${movies}" var="movie">
         <div class="col-auto" id="${movie.movie_id}">
-          <div class="card w-100 border-0 text-truncate text-wrap" style="height: 30em; width: 25em">
-            <div class="card-body" style="width: 15em">
-              <img src="${pageContext.request.contextPath}/assets/movies/posters/${movie.username_id}/${movie.movie_id}.jpg"
-                   class="card-img" alt="..." style="height: 10em; width: 7em">
-              <p class="card-title d-flex align-items-center fs-5" style="height: 6em">${movie.title}</p>
-              <p class="card-text text-wrap">${movie.description}</p>
+          <div class="card w-100 border-0 text-truncate text-wrap">
+            <div class="card-body">
+              <img src="${pageContext.request.contextPath}/assets/movies/posters/${movie.movie_id}.jpg"
+                   class="card-img img-thumbnail" alt="...">
+              <p class="card-title d-flex align-items-center">${movie.title}</p>
               <!-- Button trigger modal -->
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal_${movie.movie_id}">Modal</button>
               <!-- Modal -->
               <div class="modal fade" id="Modal_${movie.movie_id}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
                     <div class="modal-header">
                       <h1 class="modal-title fs-5">Modal title</h1>
@@ -115,17 +124,20 @@
                     <div class="modal-body">
                       <form>
                         <div class="mb-3">
-                          <a class="text-bg-dark">${movie.title}</a>
+                          <a class="text">${movie.title}</a>
                         </div>
+                        <!-- Rating -->
                         <div class="mb-3">
                           <label for="rating_${movie.movie_id}" class="form-label">Rating: ${movie.rating}</label>
                           <input type="range" class="form-range" min="0" max="10" step="0.5" value="${movie.rating}" id="rating_${movie.movie_id}">
-                          <a class="text-bg-dark current-rating" id="current_rating_${movie.movie_id}">Ciaone</a>
+                          <a class="text-bg-dark current-rating" id="current_rating_${movie.movie_id}">Current</a>
                         </div>
+                        <!-- Review -->
                         <div class="mb-3">
                           <label for="review-text_${movie.movie_id}" class="col-form-label">Review</label>
                           <textarea class="form-control" id="review-text_${movie.movie_id}">${movie.review}</textarea>
                         </div>
+                        <!-- Comment -->
                         <div class="mp-3">
                           <label for="comment-text_${movie.movie_id}" class="col-form-label">Comment</label>
                           <textarea class="form-control" id="comment-text_${movie.movie_id}">${movie.comment}</textarea>

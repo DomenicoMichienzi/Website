@@ -27,6 +27,12 @@
   <link href="${pageContext.request.contextPath}/css/common.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/css/index.css" rel="stylesheet">
 
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" href="${pageContext.request.contextPath}/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+  <link rel="icon" href="${pageContext.request.contextPath}/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="${pageContext.request.contextPath}/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+  <link rel="manifest" href="${pageContext.request.contextPath}/assets/img/favicons/site.webmanifest">
+  <link rel="icon" href="${pageContext.request.contextPath}/assets/img/favicons/favicon.ico">
 </head>
 <body>
 
@@ -35,12 +41,15 @@
   <c:when test="${username != null}">
     <nav class="navbar navbar-expand-md justify-content-between bg-body-tertiary">
       <div class="container-fluid">
-        <a class="navbar-brand" href="${pageContext.request.contextPath}/">${username}</a>
+        <span class="navbar-brand mb-0 h1" href="${pageContext.request.contextPath}/">${username}</span>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" href="${pageContext.request.contextPath}/">Home</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="${pageContext.request.contextPath}/searchPage">Search</a>
             </li>
@@ -60,20 +69,19 @@
           <div class="nav-item m-2">
             <div class="vr"></div>
           </div>
-          </div>
-          <!-- Theme Buttons -->
-          <button type="button" class="btn btn-sm btn-dark m-1" data-bs-theme-value="dark">
-            <i class="bi bi-moon-stars-fill"> dark</i>
-          </button>
-          <button type="button" class="btn btn-sm btn-light m-1" data-bs-theme-value="light">
-            <i class="bi bi-brightness-high-fill"> light</i>
-          </button>
-          <button type="button" class="btn btn-sm btn-primary m-1" data-bs-theme-value="auto">
-            <i class="bi bi-layers-half"> auto</i>
-          </button>
-          <div class="nav-item m-2">
-            <div class="vr"></div>
-          </div>
+        </div>
+        <!-- Theme Buttons -->
+        <button type="button" class="btn btn-sm btn-dark m-1" data-bs-theme-value="dark">
+          <i class="bi bi-moon-stars-fill"> dark</i>
+        </button>
+        <button type="button" class="btn btn-sm btn-light m-1" data-bs-theme-value="light">
+          <i class="bi bi-brightness-high-fill"> light</i>
+        </button>
+        <button type="button" class="btn btn-sm btn-primary m-1" data-bs-theme-value="auto">
+          <i class="bi bi-layers-half"> auto</i>
+        </button>
+        <div class="nav-item m-2">
+          <div class="vr"></div>
         </div>
       </div>
     </nav>
@@ -106,28 +114,51 @@
 </c:choose>
 
 
-<!-- Trending Movie -->
-<div class="container-fluid py-2">
-  <h2 class="font-weight-light m-3">Trending Movies</h2>
-  <div class="d-flex flex-row flex-nowrap overflow-scroll align-items-end" id="trendingMovies">
-
-  </div>
-</div>
-
-<!-- Trending TV Shows -->
-<div class="container-fluid py-2">
-  <h2 class="font-weight-light m-3">Trending TV Shows</h2>
-  <div class="d-flex flex-row flex-nowrap overflow-scroll align-items-end" id="trendingTvShows">
-
-  </div>
-</div>
-
-<!-- Load top rating Books -->
 <c:choose>
   <c:when test="${username != null}">
-    <c:forEach items="${books}" var="book">
 
-    </c:forEach>
+    <!-- Trending Movie from TMDB -->
+    <div class="container-fluid py-2">
+      <h2 class="font-weight-light m-3">Trending Movies</h2>
+      <div class="d-flex flex-row flex-nowrap overflow-scroll align-items-end" id="trendingMovies">
+
+      </div>
+    </div>
+
+    <!-- Trending TV Shows from TMDB -->
+    <div class="container-fluid py-2">
+      <h2 class="font-weight-light m-3">Trending TV Shows</h2>
+      <div class="d-flex flex-row flex-nowrap overflow-scroll align-items-end" id="trendingTvShows">
+
+      </div>
+    </div>
+
+    <!-- Most Rated Books -->
+    <div class="container-fluid py-2">
+      <h2 class="font-weight-light m-3">Most Rated Books</h2>
+      <div class="d-flex flex-row flex-nowrap overflow-scroll align-items-end" id="mostRatedBooks">
+        <c:forEach items="${books}" var="book">
+          <div class="card col-auto border-0">
+            <img src="${pageContext.request.contextPath}/assets/books/covers/${book.volume_id}.png"
+                 class="card-img-top rounded-3" alt="...">
+            <div class="card-body p-1">
+              <p class="vote d-inline my-1">${book.rating}</p>
+              <p class="card-title text-start">
+                <a href="${pageContext.request.contextPath}/itemPage?item_type=book&item_id=${book.volume_id}">
+                    ${book.title}
+                </a>
+              </p>
+              <p class="review">${book.review}</p>
+              <button type="button" class="btn btn-danger btn-sm my-2">
+                Add to Library
+              </button>
+            </div>
+          </div>
+        </c:forEach>
+      </div>
+    </div>
+
+
   </c:when>
 </c:choose>
 

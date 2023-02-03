@@ -13,24 +13,23 @@ import java.nio.file.Paths;
 
 public class Image {
 
-    // TODO - Create folder for the username_id
-    public static void deleteBookCover(String book_id, String username_id) {
-        String path = "src/main/webapp/assets/books/covers/" + username_id + "/" + book_id + ".png";
+    public static void deleteBookCover(String book_id) {
+        String path = "src/main/webapp/assets/books/covers/" + book_id + ".png";
         File img = new File(path);
         img.delete();
     }
 
     // TODO - Fix with username_id folder
-    public static void deleteMoviePoster(String movie_id, String username_id) {
-        String path = "src/main/webapp/assets/movies/posters/" + username_id + "/" + movie_id + ".jpg";
+    public static void deleteMoviePoster(String movie_id) {
+        String path = "src/main/webapp/assets/movies/posters/" + movie_id + ".jpg";
         File img = new File(path);
         img.delete();
     }
-    public static void saveBookCover(String url_cover, String book_id, String username_id) {
+    public static void saveBookCover(String url_cover, String book_id) {
         String u = "https://books.google.com/books/publisher/content/images/frontcover/" + book_id;
         try {
-            String textPath =  "src/main/webapp/assets/books/covers/" + username_id + "/";
-            // create username folder if it not exists
+            String textPath =  "src/main/webapp/assets/books/covers/";
+            // create folder if it not exists
             Path path = Paths.get(textPath);
             Files.createDirectories(path);
 
@@ -41,12 +40,12 @@ public class Image {
     }
 
     // TODO - Fix with username_id folder
-    public static void saveMoviePoster(String poster_path, String movie_id, String username_id) {
+    public static void saveMoviePoster(String poster_path, String movie_id) {
         String url = "https://image.tmdb.org/t/p/w500" + poster_path;
 
         try {
-            String textPath = "src/main/webapp/assets/movies/posters/" + username_id + "/";
-            // create username folder if it not exists
+            String textPath = "src/main/webapp/assets/movies/posters/";
+            // create folder if it not exists
             Path path = Paths.get(textPath);
             Files.createDirectories(path);
 

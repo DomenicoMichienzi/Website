@@ -38,7 +38,7 @@ function handleTradingMovies(response) {
     });
 
     // remove cards
-    $(".card").remove();
+    // $(".card").remove();
 
     for (let id = 0; id < maxItems; response.results.length, id++) {
         let items = response.results,
@@ -86,7 +86,7 @@ function handleTradingMovies(response) {
 function createCardTrendingMovie(id) {
     $("#trendingMovies").append(
         '    <div class="card col-auto border-0" id="card_' + id + '">\n' +
-        '      <img src="..." class="card-img-top rounded-2" alt="...">\n' +
+        '      <img src="..." class="card-img-top rounded-3" alt="...">\n' +
         '      <div class="card-body p-1">\n' +
         '        <p class="vote_average d-inline my-1"></p>\n' +
         '        <p class="card-title text-start"></p>\n' +
