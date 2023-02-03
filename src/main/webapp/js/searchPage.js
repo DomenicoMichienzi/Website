@@ -107,8 +107,8 @@ function createCardMovie(id) {
         '    </div>\n' +
         '    <div class="col-7">\n' +
         '      <div class="card-body">\n' +
-        '        <h5 class="card-title">Card title</h5>\n' +
-        '        <p class="card-overview">This is a wider card with supporting text below as.</p>\n' +
+        '        <h5 class="card-title">...</h5>\n' +
+        '        <p class="card-overview">...</p>\n' +
         '        <p class="card-authors"><small class="text-muted">AUTORI</small></p>\n' +
         '        <button type="button" class="btn btn-danger btn-sm" id="btn' + id + '">\n' +
         '          Add to Library\n' +
@@ -252,8 +252,8 @@ function createCard(id) {
         '    </div>\n' +
         '    <div class="col-7">\n' +
         '      <div class="card-body">\n' +
-        '        <h5 class="card-title">Card title</h5>\n' +
-        '        <p class="card-description">No description</p>\n' +
+        '        <h5 class="card-title">...</h5>\n' +
+        '        <p class="card-description">...</p>\n' +
         '        <p class="card-authors"><small class="text-muted"></small></p>\n' +
         '        <button type="button" class="btn btn-danger btn-sm" id="btn' + id + '">\n' +
         '          Add to Library\n' +

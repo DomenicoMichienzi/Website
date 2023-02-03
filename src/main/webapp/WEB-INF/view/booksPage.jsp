@@ -26,6 +26,13 @@
   <link href="${pageContext.request.contextPath}/css/common.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/css/booksPage.css" rel="stylesheet">
 
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" href="${pageContext.request.contextPath}/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+  <link rel="icon" href="${pageContext.request.contextPath}/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="${pageContext.request.contextPath}/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+  <link rel="manifest" href="${pageContext.request.contextPath}/assets/img/favicons/site.webmanifest">
+  <link rel="icon" href="${pageContext.request.contextPath}/assets/img/favicons/favicon.ico">
+
 </head>
 <body>
 
@@ -35,12 +42,15 @@
   <div class="container-fluid">
     <c:choose>
       <c:when test="${username != null}">
-        <a class="navbar-brand" href="${pageContext.request.contextPath}/">${username}</a>
+        <span class="navbar-brand mb-0 h1" href="${pageContext.request.contextPath}/">${username}</span>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="${pageContext.request.contextPath}/">Home</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="${pageContext.request.contextPath}/searchPage">Search</a>
             </li>
@@ -100,7 +110,7 @@
         <div class="col-auto" id="${book.volume_id}">
           <div class="card w-100 border-0 text-truncate text-wrap" style="height: 30em; width: 25em">
             <div class="card-body" style="width: 15em">
-              <img src="${pageContext.request.contextPath}/assets/books/covers/${book.username_id}/${book.volume_id}.png"
+              <img src="${pageContext.request.contextPath}/assets/books/covers/${book.volume_id}.png"
                    class="card-img" alt="..." style="height: 10em; width: 7em">
               <p class="card-title d-flex align-items-center fs-6 m-2" style="height: 6em">${book.title}</p>
               <p class="card-text text-wrap">${book.description}</p>

@@ -51,24 +51,12 @@ function removeMovie(movie_id) {
         contentType: "application/json",
         data: movie_id,
         success: function() {
-            console.log("Movie successfully removed ")
         }
     });
 }
 
 // Document ready
 $(document).ready(function() {
-    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
-    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
-
-    // switch theme
-    $("#theme").on("click", function () {
-        let sel = $("html"),
-            theme = sel.attr("data-bs-theme");
-
-        (theme === "dark") ? sel.attr("data-bs-theme", "light") : sel.attr("data-bs-theme", "dark");
-    })
-
     // add current rating for modal
     $(".form-range").each(function () {
         $(this).on("input", function () {

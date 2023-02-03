@@ -2,8 +2,10 @@ package com.example.website.jdbc;
 
 import com.example.website.dao.BookDao;
 import com.example.website.model.Book;
+import com.example.website.utility.ReviewRating;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BookDaoJDBC implements BookDao{
@@ -35,6 +37,25 @@ public class BookDaoJDBC implements BookDao{
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return false;
+    }
+
+    @Override
+    public boolean check(String book_id) {
+        try {
+            String query = "select 1 from books where volume_id = ?";
+
+            PreparedStatement pst = conn.prepareStatement(query);
+
+            pst.setString(1, book_id);
+
+            ResultSet rs = pst.executeQuery();
+
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return false;
     }
 
@@ -111,5 +132,36 @@ public class BookDaoJDBC implements BookDao{
         }
 
         return true;
+    }
+
+    @Override
+    public List<ReviewRating> getReviewsAndRatings(String book_id) {
+
+        ArrayList<ReviewRating> items = new ArrayList<ReviewRating>();
+
+        try {
+            String query = "select review, rating from books " +
+                    "where volume_id = ?";
+
+            PreparedStatement pst = conn.prepareStatement(query);
+
+            pst.setString(1, book_id);
+
+            ResultSet rs = pst.executeQuery();
+
+
+            while (rs.next()) {
+                String review = rs.getString("review");
+                float rating = rs.getFloat("rating");
+                    
+                ReviewRating tmp = new ReviewRating(review, rating);
+                items.add(tmp);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return items;
     }
 }

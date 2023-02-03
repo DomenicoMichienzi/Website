@@ -6,6 +6,8 @@ import com.example.website.utility.Image;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.crypto.Data;
+
 @RestController
 public class UserBooksREST {
 
@@ -45,7 +47,7 @@ public class UserBooksREST {
 
             if(Database.getInstance().getBookDao().save(b)) {
                 // Save cover image
-                Image.saveBookCover(coverURL, b.getVolume_id(), usr);
+                Image.saveBookCover(coverURL, b.getVolume_id());
                 return "Success";
             }
         }
@@ -57,9 +59,10 @@ public class UserBooksREST {
         String usr = req.getSession().getAttribute("username").toString();
 
         if(usr != null) {
-            if(Database.getInstance().getBookDao().delete(book_id, usr)) {
+            if(Database.getInstance().getBookDao().delete(book_id, usr) &&
+                !Database.getInstance().getBookDao().check(book_id)) {
                 // Delete cover image
-                Image.deleteBookCover(book_id, usr);
+                Image.deleteBookCover(book_id);
                 return "Successfully Removed";
             }
         }

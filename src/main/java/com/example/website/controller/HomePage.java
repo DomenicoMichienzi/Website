@@ -23,6 +23,7 @@ public class HomePage {
         if(req.getSession().getAttribute("username") != null) {
             String usr = req.getSession().getAttribute("username").toString();
 
+            // Most Rated Books
             List<Book> books = Database.getInstance().getUserDao().getAllBooks();
             req.setAttribute("books", books);
             return "index";

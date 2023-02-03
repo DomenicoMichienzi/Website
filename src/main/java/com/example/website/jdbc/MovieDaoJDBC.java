@@ -37,6 +37,25 @@ public class MovieDaoJDBC implements MovieDao {
     }
 
     @Override
+    public boolean check(String movie_id) {
+        try {
+            String query = "select 1 from movies where movie_id = ?";
+
+            PreparedStatement pst = conn.prepareStatement(query);
+
+            pst.setString(1, movie_id);
+
+            ResultSet rs = pst.executeQuery();
+
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    @Override
     public boolean save(Movie movie) {
         try {
             String query = "insert into movies (movie_id, " +
