@@ -67,17 +67,6 @@
               <a class="nav-link" href="#">Info</a>
             </li>
           </ul>
-          <div class="nav-item m-2">
-            <div class="vr"></div>
-          </div>
-          <!-- Search Bar -->
-          <div class="d-flex" role="search">
-            <input id="searchBar" class="form-control m-1" type="search" placeholder="Search" aria-label="Search">
-          </div>
-
-          <div class="nav-item m-2">
-            <div class="vr"></div>
-          </div>
           <!-- Theme Buttons -->
           <button type="button" class="btn btn-sm btn-dark m-1" data-bs-theme-value="dark">
             <i class="bi bi-moon-stars-fill"> dark</i>
@@ -88,9 +77,6 @@
           <button type="button" class="btn btn-sm btn-primary m-1" data-bs-theme-value="auto">
             <i class="bi bi-layers-half"> auto</i>
           </button>
-          <div class="nav-item m-2">
-            <div class="vr"></div>
-          </div>
         </div>
       </c:when>
       <c:otherwise>
@@ -102,38 +88,38 @@
 
 
 <!-- Books List -->
-<div class="container-fluid text-center">
-  <h2 class="m-4">My Books</h2>
-  <div class="container text-center">
-    <div class="row row-cols-md-auto">
+<div class="container">
+  <h2 class="m-4 text-center">Books</h2>
+  <div class="container">
+    <div class="row justify-content-center justify-content-sm-start">
       <c:forEach items="${books}" var="book">
-        <div class="col-auto" id="${book.volume_id}">
-          <div class="card w-100 border-0 text-truncate text-wrap" style="height: 30em; width: 25em">
-            <div class="card-body" style="width: 15em">
+        <div class="col-auto d-flex align-items-end" id="${book.volume_id}">
+          <div class="card w-100 border-0 my-2">
+            <div class="card-body">
               <img src="${pageContext.request.contextPath}/assets/books/covers/${book.volume_id}.png"
-                   class="card-img" alt="..." style="height: 10em; width: 7em">
-              <p class="card-title d-flex align-items-center fs-6 m-2" style="height: 6em">${book.title}</p>
-              <p class="card-text text-wrap">${book.description}</p>
+                   class="card-img-top rounded" alt="...">
+              <p class="card-title mx-1 my-3">${book.title}</p>
               <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal_${book.volume_id}">Modal</button>
+              <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#Modal_${book.volume_id}">Edit</button>
+              <!-- Delete Button -->
+              <button type="button" class="btn btn-sm btn-danger" data-btn_volume_id="${book.volume_id}">Delete</button>
               <!-- Modal -->
               <div class="modal fade" id="Modal_${book.volume_id}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
+                    <!-- Title -->
                     <div class="modal-header">
-                      <h1 class="modal-title fs-5">Modal title</h1>
+                      <h3 class="modal-title">${book.title}</h3>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <!-- Body -->
+                    <div class="modal-body text-center">
                       <form>
-                        <div class="mb-3">
-                          <a class="text-bg-dark">${book.title}</a>
-                        </div>
                         <!-- Rating -->
                         <div class="mb-3">
                           <label for="rating_${book.volume_id}" class="form-label">Rating: ${book.rating}</label>
                           <input type="range" class="form-range" min="0" max="10" step="0.5" value="${book.rating}" id="rating_${book.volume_id}">
-                          <a class="text-bg-dark current-rating" id="current_rating_${book.volume_id}">Ciaone</a>
+                          <p class="text-center current-rating" id="current_rating_${book.volume_id}"></p>
                         </div>
                         <!-- Review -->
                         <div class="mb-3">
@@ -148,13 +134,14 @@
                       </form>
                     </div>
                     <div class="modal-footer">
+                      <!-- Close Button -->
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary saveChangesBtn" data-book_id="${book.volume_id}">Save changes</button>
+                      <!-- Save changes Button -->
+                      <button type="button" class="btn btn-primary saveChangesBtn" data-book_id="${book.volume_id}">Save changes </button>
                     </div>
                   </div>
                 </div>
               </div>
-              <button type="button" class="btn btn-danger" data-btn_volume_id="${book.volume_id}">Delete</button>
             </div>
           </div>
         </div>

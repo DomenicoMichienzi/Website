@@ -1,7 +1,9 @@
 package com.example.website.dao;
 
 import com.example.website.model.Book;
+import com.example.website.model.LazyBook;
 import com.example.website.utility.ReviewRating;
+import org.springframework.data.util.Pair;
 
 import java.util.List;
 
@@ -14,4 +16,8 @@ public interface BookDao {
     //boolean update(Book book);
     boolean delete(String book_id, String username_id);
     List<ReviewRating> getReviewsAndRatings(String book_id);
+
+    float avgRating(String book_id);
+    List<LazyBook> sortedByAvg();
+
 }

@@ -66,10 +66,6 @@
               <a class="nav-link" href="#">Info</a>
             </li>
           </ul>
-          <div class="nav-item m-2">
-            <div class="vr"></div>
-          </div>
-        </div>
         <!-- Theme Buttons -->
         <button type="button" class="btn btn-sm btn-dark m-1" data-bs-theme-value="dark">
           <i class="bi bi-moon-stars-fill"> dark</i>
@@ -80,8 +76,6 @@
         <button type="button" class="btn btn-sm btn-primary m-1" data-bs-theme-value="auto">
           <i class="bi bi-layers-half"> auto</i>
         </button>
-        <div class="nav-item m-2">
-          <div class="vr"></div>
         </div>
       </div>
     </nav>
@@ -91,64 +85,94 @@
 </c:choose>
 
 
-<!-- Login Form -->
+
 <c:choose>
   <c:when test="${username == null}">
-    <div class="container">
-      <div class="d-flex justify-content-center">
-        <form method="post" action="${pageContext.request.contextPath}/doLogin">
-          <div class="mb-3">
-            <label for="exampleInputUsername1" class="form-label">Username</label>
-            <input type="text" name="username" class="form-control" id="exampleInputUsername1" aria-describedby="emailHelp">
-            <div id="emailHelp" class="form-text"></div>
-          </div>
-          <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" name="passwd" class="form-control" id="exampleInputPassword1">
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+    <div class="d-flex justify-content-center m-4">
+      <!-- Theme Buttons -->
+      <button type="button" class="btn btn-sm btn-dark m-1" data-bs-theme-value="dark">
+        <i class="bi bi-moon-stars-fill"> dark</i>
+      </button>
+      <button type="button" class="btn btn-sm btn-light m-1" data-bs-theme-value="light">
+        <i class="bi bi-brightness-high-fill"> light</i>
+      </button>
+      <button type="button" class="btn btn-sm btn-primary m-1" data-bs-theme-value="auto">
+        <i class="bi bi-layers-half"> auto</i>
+      </button>
+    </div>
+    <h4 class="text-center m-3">Welcome</h4>
+    <h5 class="text-center m-3">Please Login or register</h5>
+    <div class="d-flex justify-content-center">
+      <!-- Login Form -->
+      <div class="container my-5">
+        <h5 class="text-center"><i class="bi bi-box-arrow-in-right"> Login</i></h5>
+        <div class="d-flex justify-content-center">
+          <form method="post" action="${pageContext.request.contextPath}/doLogin">
+            <div class="mb-3">
+              <label for="inputUsername" class="form-label">Username</label>
+              <input type="text" name="username" class="form-control" id="inputUsername">
+              <!--<div id="emailHelp" class="form-text"></div>-->
+            </div>
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label">Password</label>
+              <input type="password" name="passwd" class="form-control" id="inputPassword">
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+          </form>
+        </div>
+      </div>
+      <!-- Sign Up Form -->
+      <div class="container my-5">
+        <h5 class="text-center"><i class="bi bi-person-plus-fill"> Sign Up</i></h5>
+        <div class="d-flex justify-content-center">
+          <form method="post" action="${pageContext.request.contextPath}/doSignUp">
+            <div class="mb-3">
+              <label for="signUpInputEmail" class="form-label">email</label>
+              <input type="email" name="email" class="form-control" id="signUpInputEmail">
+            </div>
+            <div class="mb-3">
+              <label for="signUpInputUsername" class="form-label">Username</label>
+              <input type="text" name="username" class="form-control" id="signUpInputUsername">
+            </div>
+            <div class="mb-3">
+              <label for="signUpInputPassword" class="form-label">Password</label>
+              <input type="password" name="passwd" class="form-control" id="signUpInputPassword">
+            </div>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+          </form>
+        </div>
       </div>
     </div>
   </c:when>
 </c:choose>
 
-
+<!-- Movies, Books and TV Shows -->
 <c:choose>
   <c:when test="${username != null}">
 
     <!-- Trending Movie from TMDB -->
     <div class="container-fluid py-2">
-      <h2 class="font-weight-light m-3">Trending Movies</h2>
+      <h2 class="font-weight-light m-3">Trending Movies on TMDB</h2>
       <div class="d-flex flex-row flex-nowrap overflow-scroll align-items-end" id="trendingMovies">
-
-      </div>
-    </div>
-
-    <!-- Trending TV Shows from TMDB -->
-    <div class="container-fluid py-2">
-      <h2 class="font-weight-light m-3">Trending TV Shows</h2>
-      <div class="d-flex flex-row flex-nowrap overflow-scroll align-items-end" id="trendingTvShows">
 
       </div>
     </div>
 
     <!-- Most Rated Books -->
     <div class="container-fluid py-2">
-      <h2 class="font-weight-light m-3">Most Rated Books</h2>
+      <h2 class="font-weight-light m-3">Most Rated Books on the site</h2>
       <div class="d-flex flex-row flex-nowrap overflow-scroll align-items-end" id="mostRatedBooks">
-        <c:forEach items="${books}" var="book">
+        <c:forEach items="${books}" var="book" begin="0" end="15">
           <div class="card col-auto border-0">
-            <img src="${pageContext.request.contextPath}/assets/books/covers/${book.volume_id}.png"
+            <img src="${pageContext.request.contextPath}/assets/books/covers/${book.book_id}.png"
                  class="card-img-top rounded-3" alt="...">
             <div class="card-body p-1">
-              <p class="vote d-inline my-1">${book.rating}</p>
+              <p class="vote_average d-inline my-1">${book.avgRating}</p>
               <p class="card-title text-start">
-                <a href="${pageContext.request.contextPath}/itemPage?item_type=book&item_id=${book.volume_id}">
+                <a href="${pageContext.request.contextPath}/itemPage?item_type=book&item_id=${book.book_id}">
                     ${book.title}
                 </a>
               </p>
-              <p class="review">${book.review}</p>
               <button type="button" class="btn btn-danger btn-sm my-2">
                 Add to Library
               </button>
@@ -158,6 +182,13 @@
       </div>
     </div>
 
+    <!-- Trending TV Shows from TMDB -->
+    <div class="container-fluid py-2">
+      <h2 class="font-weight-light m-3">Trending TV Shows on TMDB</h2>
+      <div class="d-flex flex-row flex-nowrap overflow-scroll align-items-end" id="trendingTvShows">
+
+      </div>
+    </div>
 
   </c:when>
 </c:choose>

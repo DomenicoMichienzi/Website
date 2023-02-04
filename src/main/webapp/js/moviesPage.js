@@ -40,6 +40,11 @@ function updateMovie(movie_id) {
         data: JSON.stringify(movie),
         success: (response) => {
             // TODO - Handle response
+
+            // delay animation for aesthetics reasons
+            setTimeout(() => {
+                $(".saveChangesBtn").find(".spinner-border").remove();
+            }, 1000);
         }
     })
 }
@@ -57,21 +62,26 @@ function removeMovie(movie_id) {
 
 // Document ready
 $(document).ready(function() {
+    $("textarea").autoHeight()
+
     // add current rating for modal
     $(".form-range").each(function () {
         $(this).on("input", function () {
             let current = $(this).val();
-            $(this).siblings(".current-rating").text(current);
+            $(this).siblings(".current-rating").text('Current Rating: '+ current);
         })
     });
 
     // for each save button add the function to updateMovie
     $(".saveChangesBtn").each(function () {
         $(this).on("click", function (){
+
+            if(!$(this).find(".spinner-border").length) {
+                $(this).append('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+            }
+
             let movie_id = $(this).attr("data-movie_id");
             updateMovie(movie_id);
-
-            // TODO - Adding animations on success
         });
     });
 
@@ -86,3 +96,18 @@ $(document).ready(function() {
         })
     });
 })
+
+jQuery.fn.extend({
+    autoHeight: function () {
+        function autoHeight_(element) {
+            return jQuery(element)
+                .css({ "height": 0, "overflow-y": "hidden" })
+                .height(element.scrollHeight);
+        }
+        return this.each(function() {
+            autoHeight_(this).on("input", function() {
+                autoHeight_(this);
+            });
+        });
+    }
+});

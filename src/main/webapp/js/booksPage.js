@@ -42,6 +42,11 @@ function updateBook(book_id) {
         data: JSON.stringify(book),
         success: (response) => {
             // TODO - Handle response
+
+            // delay animation for aesthetics reasons
+            setTimeout(() => {
+                $(".saveChangesBtn").find(".spinner-border").remove();
+            }, 1000);
         }
     })
 }
@@ -62,29 +67,24 @@ function removeBook(volume_id) {
 $(document).ready(function () {
     $("textarea").autoHeight()
 
-    // switch theme
-    $("#theme").on("click", function () {
-        let sel = $("html"),
-            theme = sel.attr("data-bs-theme");
-
-        (theme === "dark") ? sel.attr("data-bs-theme", "light") : sel.attr("data-bs-theme", "dark");
-    })
-
     // add current rating for modal
     $(".form-range").each(function () {
        $(this).on("input", function () {
            let current = $(this).val();
-           $(this).siblings(".current-rating").text(current);
+           $(this).siblings(".current-rating").text('Current Rating: ' + current);
        })
     });
 
     // for each save button add the function to updateBook
     $(".saveChangesBtn").each(function () {
         $(this).on("click", function (){
+
+            if(!$(this).find(".spinner-border").length) {
+                $(this).append('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+            }
+
             let book_id = $(this).attr("data-book_id");
             updateBook(book_id);
-
-            // TODO - Adding animations on success
         });
     });
 

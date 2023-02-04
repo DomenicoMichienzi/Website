@@ -4,6 +4,7 @@
 
 <html lang="en" data-bs-theme="dark">
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Movies Page</title>
 
   <!-- jQuery from GoogleAPIs-->
@@ -37,7 +38,7 @@
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg justify-content-between bg-body-tertiary">
+<nav class="navbar navbar-expand-md justify-content-between bg-body-tertiary">
   <div class="container-fluid">
     <c:choose>
       <c:when test="${username != null}">
@@ -66,17 +67,6 @@
               <a class="nav-link" href="#">Info</a>
             </li>
           </ul>
-          <div class="nav-item m-2">
-            <div class="vr"></div>
-          </div>
-          <!-- Search Bar -->
-          <div class="d-flex" role="search">
-            <input id="searchBar" class="form-control m-1" type="search" placeholder="Search" aria-label="Search">
-          </div>
-
-          <div class="nav-item m-2">
-            <div class="vr"></div>
-          </div>
           <!-- Theme Buttons -->
           <button type="button" class="btn btn-sm btn-dark m-1" data-bs-theme-value="dark">
             <i class="bi bi-moon-stars-fill"> dark</i>
@@ -87,9 +77,6 @@
           <button type="button" class="btn btn-sm btn-primary m-1" data-bs-theme-value="auto">
             <i class="bi bi-layers-half"> auto</i>
           </button>
-          <div class="nav-item m-2">
-            <div class="vr"></div>
-          </div>
         </div>
       </c:when>
       <c:otherwise>
@@ -99,38 +86,40 @@
   </div>
 </nav>
 
+
 <!-- Movies List -->
-<div class="container text-center">
-  <h2 class="m-3">My Movies</h2>
-  <div class="container text-center">
-    <div class="row justify-content-center">
+<div class="container">
+  <h2 class="m-4 text-center">Movies</h2>
+  <div class="container">
+    <div class="row justify-content-center justify-content-sm-start">
       <c:forEach items="${movies}" var="movie">
-        <div class="col-auto" id="${movie.movie_id}">
-          <div class="card w-100 border-0 text-truncate text-wrap">
+        <div class="col-auto d-flex align-items-end" id="${movie.movie_id}">
+          <div class="card w-100 border-0 my-2">
             <div class="card-body">
               <img src="${pageContext.request.contextPath}/assets/movies/posters/${movie.movie_id}.jpg"
-                   class="card-img img-thumbnail" alt="...">
-              <p class="card-title d-flex align-items-center">${movie.title}</p>
+                   class="card-img-top rounded" alt="...">
+              <p class="card-title mx-1 my-3">${movie.title}</p>
               <!-- Button trigger modal -->
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal_${movie.movie_id}">Modal</button>
+              <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#Modal_${movie.movie_id}">Edit</button>
+              <!-- Delete Button -->
+              <button type="button" class="btn btn-sm btn-danger" data-btn_movie_id="${movie.movie_id}">Delete</button>
               <!-- Modal -->
               <div class="modal fade" id="Modal_${movie.movie_id}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-dialog">
                   <div class="modal-content">
+                    <!-- Title -->
                     <div class="modal-header">
-                      <h1 class="modal-title fs-5">Modal title</h1>
+                      <h3 class="modal-title">${movie.title}</h3>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <!-- Body -->
                     <div class="modal-body">
                       <form>
-                        <div class="mb-3">
-                          <a class="text">${movie.title}</a>
-                        </div>
                         <!-- Rating -->
                         <div class="mb-3">
                           <label for="rating_${movie.movie_id}" class="form-label">Rating: ${movie.rating}</label>
                           <input type="range" class="form-range" min="0" max="10" step="0.5" value="${movie.rating}" id="rating_${movie.movie_id}">
-                          <a class="text-bg-dark current-rating" id="current_rating_${movie.movie_id}">Current</a>
+                          <p class="text-center current-rating" id="current_rating_${movie.movie_id}"></p>
                         </div>
                         <!-- Review -->
                         <div class="mb-3">
@@ -145,13 +134,14 @@
                       </form>
                     </div>
                     <div class="modal-footer">
+                      <!-- Close Button -->
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <!-- Save changes Button -->
                       <button type="button" class="btn btn-primary saveChangesBtn" data-movie_id="${movie.movie_id}">Save changes</button>
                     </div>
                   </div>
                 </div>
               </div>
-              <button type="button" class="btn btn-danger" data-btn_movie_id="${movie.movie_id}">Delete</button>
             </div>
           </div>
         </div>
