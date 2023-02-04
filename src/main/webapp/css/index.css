@@ -15,8 +15,6 @@
 .card-title {
     font-size: 15px;
     font-weight: 600;
-    color: #d63384;
-    height: 3em;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;

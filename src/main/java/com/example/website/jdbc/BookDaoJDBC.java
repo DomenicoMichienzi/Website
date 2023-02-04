@@ -2,7 +2,9 @@ package com.example.website.jdbc;
 
 import com.example.website.dao.BookDao;
 import com.example.website.model.Book;
+import com.example.website.model.LazyBook;
 import com.example.website.utility.ReviewRating;
+import org.springframework.data.util.Pair;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -163,5 +165,55 @@ public class BookDaoJDBC implements BookDao{
         }
 
         return items;
+    }
+
+    @Override
+    public float avgRating(String book_id) {
+        try {
+            String query = "select avg(rating) from books where volume_id = ?";
+
+            PreparedStatement pst = conn.prepareStatement(query);
+
+            pst.setString(1, book_id);
+
+            ResultSet rs = pst.executeQuery();
+
+            if(rs.next()) {
+                return rs.getFloat("avg");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0.0F;
+    }
+
+    @Override
+    // Return a List of book_id sorted by avg rating
+    public List<LazyBook> sortedByAvg() {
+        ArrayList<LazyBook> list = new ArrayList<>();
+        try {
+            String query = "select distinct volume_id, title from books";
+
+            PreparedStatement pst = conn.prepareStatement(query);
+
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                float avg_rating = avgRating(rs.getString("volume_id"));
+
+                if(avg_rating != 0.0F) {
+                    LazyBook tmp = new LazyBook();
+                    tmp.setBook_id(rs.getString("volume_id"));
+                    tmp.setTitle(rs.getString("title"));
+                    tmp.setAvgRating(avg_rating);
+
+                    list.add(tmp);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
     }
 }

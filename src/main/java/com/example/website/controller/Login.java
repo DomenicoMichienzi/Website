@@ -26,8 +26,43 @@ public class Login {
         resp.sendRedirect("/");
     }
 
+    @PostMapping("/doSignUp")
+    public String signUp(HttpServletRequest req, HttpServletResponse resp,
+                         String username, String email, String passwd) throws IOException {
+
+        //TODO - check if already exists
+
+        try {
+            Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres",
+                    "postgres","postgres");
+
+            String query = "insert into users (email, username, password)" +
+                    " values (?, ?, ?)";
+
+            PreparedStatement pst = con.prepareStatement(query);
+
+            pst.setString(1, email);
+            pst.setString(2, username);
+            pst.setString(3, passwd);
+
+            int rs = pst.executeUpdate();
+
+            if(rs == 1) {
+                HttpSession session = req.getSession(true);
+                session.setAttribute("username", username);
+                resp.sendRedirect("/");
+            }
+
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+            resp.sendRedirect("/");
+            return null;
+        }
+        return null;
+    }
+
     @PostMapping("/doLogin")
-    public String faiLogin(HttpServletRequest req, HttpServletResponse resp, String username, String passwd) throws IOException {
+    public String doLogin(HttpServletRequest req, HttpServletResponse resp, String username, String passwd) throws IOException {
         String query = "select * from users where username = '" + username + "'";
         HttpSession session = req.getSession(true);
 
@@ -43,10 +78,11 @@ public class Login {
                 if(Objects.equals(rs.getString("password"), passwd)) {
                     session.setAttribute("username", rs.getString("username"));
                     resp.sendRedirect("/");
+                    return null;
                 }
             }
             // TODO bad username and/or password
-            return "login";
+            resp.sendRedirect("/");
 
         } catch (SQLException e) {
             e.printStackTrace();

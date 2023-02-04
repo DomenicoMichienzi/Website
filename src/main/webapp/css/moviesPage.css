@@ -3,19 +3,17 @@
 }
 
 .card-body {
-    width: 14em;
-
+    width: 12em;
 }
 
-.card-img {
-
+.card-img-top {
+    max-width: 12em;
 }
 
 .card-title {
-    font-weight: 500;
-    height: 5em;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+

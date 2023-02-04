@@ -69,9 +69,6 @@
               <a class="nav-link" href="#">Info</a>
             </li>
           </ul>
-          <div class="nav-item m-2">
-            <div class="vr"></div>
-          </div>
           <!-- Theme Buttons -->
           <button type="button" class="btn btn-sm btn-dark m-1" data-bs-theme-value="dark">
             <i class="bi bi-moon-stars-fill"> dark</i>
@@ -82,9 +79,6 @@
           <button type="button" class="btn btn-sm btn-primary m-1" data-bs-theme-value="auto">
             <i class="bi bi-layers-half"> auto</i>
           </button>
-          <div class="nav-item m-2">
-            <div class="vr"></div>
-          </div>
         </div>
       </div>
     </nav>
@@ -98,14 +92,21 @@
 
     <!-- radio buttons -->
     <div class="d-flex justify-content-center">
-      <div class="input-group-sm border-4 m-0" id="searchTypeRadio">
+      <div class="input-group-sm border-4 m-1" id="searchTypeRadio">
+        <!-- Movie Radio -->
         <div class="form-check form-check-inline">
           <input class="form-check-input" type="radio" name="searchRadioOptions" id="inlineRadioMovie" value="movie">
           <label class="form-check-label" for="inlineRadioMovie"><i class="bi bi-film"> Movie</i></label>
         </div>
+        <!-- Book Radio -->
         <div class="form-check form-check-inline">
           <input class="form-check-input" type="radio" name="searchRadioOptions" id="inlineRadioBook" value="book">
           <label class="form-check-label" for="inlineRadioBook"><i class="bi bi-book"> Book</i></label>
+        </div>
+        <!-- TV Show Radio -->
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="searchRadioOptions" id="inlineRadioTvShow" value="TvShow">
+          <label class="form-check-label" for="inlineRadioTvShow"><i class="bi bi-tv"> TV Show</i></label>
         </div>
       </div>
     </div>

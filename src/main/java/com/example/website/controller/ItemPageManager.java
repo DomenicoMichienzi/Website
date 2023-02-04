@@ -22,6 +22,7 @@ public class ItemPageManager {
                     List<ReviewRating> items = Database.getInstance().getBookDao().getReviewsAndRatings(item_id);
                     req.setAttribute("items", items);
                     req.setAttribute("book_id", item_id);
+                    req.setAttribute("type", "book");
                     return "itemPage";
 
                 case "movie":

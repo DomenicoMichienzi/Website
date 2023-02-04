@@ -341,7 +341,8 @@ $(document).ready(() => {
         switch (selected_value) {
             case "book":
                 // remove any search_bar events
-                search_bar.off("input", "keypress");
+                search_bar.off("input");
+                search_bar.off("keypress");
 
                 // add searchGoogleBooksAPIs to searchbar on input event
                 search_bar.on("input", searchGoogleBooksAPIs);
@@ -355,7 +356,9 @@ $(document).ready(() => {
 
             case "movie":
                 // remove any search_bar events
-                search_bar.off("input", "keypress");
+                search_bar.off("input");
+                search_bar.off("keypress");
+
 
                 // add searchTMDB to searchbar on input event
                 search_bar.on("input", searchTMDB);
@@ -365,6 +368,14 @@ $(document).ready(() => {
                         searchTMDB();
                     }
                 })
+                break;
+
+            case "TvShow":
+                // remove any search_bar events
+                search_bar.off("input");
+                search_bar.off("keypress");
+
+                // TODO - add searchTMDB_TV_Show to searchbar on input event
                 break;
         }
     });

@@ -1,16 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: Emod
-  Date: 02/02/2023
-  Time: 19:44
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Books Page</title>
+  <title>Item Page</title>
 
   <!-- jQuery from GoogleAPIs-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -89,17 +83,27 @@
   </div>
 </nav>
 
-<img src="${pageContext.request.contextPath}/assets/books/covers/${book_id}.png" alt="...">
 
-<c:forEach items="${items}" var="item">
-  <div class="card mb-3">
-    <div class="card-body">
-      <h5 class="card-title">Title</h5>
-      <p class="card-text">${item.review}</p>
-      <p class="card-text">${item.rating}</p>
+<div class="row d-flex justify-content-start m-4">
+  <!-- Book Image -->
+  <c:if test="${type == 'book'}">
+    <img  style="max-width: 13em" class="figure-img rounded-4" src="${pageContext.request.contextPath}/assets/books/covers/${book_id}.png" alt="...">
+  </c:if>
+
+  <!-- Title, overview and other stuffs -->
+
+  <c:forEach items="${items}" var="item" begin="0" end="15">
+    <div class="container">
+      <div class="card col-auto mb-3 border-0">
+        <div class="card-body">
+          <h5 class="card-rating">Rating: ${item.rating}</h5>
+          <h5 class="card-review">Review: ${item.review}</h5>
+        </div>
+      </div>
     </div>
-  </div>
-</c:forEach>
+  </c:forEach>
+</div>
+
 
 
 </body>

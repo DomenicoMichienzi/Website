@@ -1,14 +1,19 @@
-.card-text {
-    display: -webkit-box;
-    color: #d63384;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+.card {
+
+}
+
+.card-body {
+    width: 12em;
+}
+
+.card-img-top {
+    max-width: 12em;
 }
 
 .card-title {
     display: -webkit-box;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+

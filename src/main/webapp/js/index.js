@@ -152,7 +152,6 @@ function handleAddMovie(response) {
     });
 }
 
-
 // Document ready
 $(document).ready(() => {
     // calling
