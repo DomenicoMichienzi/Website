@@ -44,7 +44,19 @@ const maxItems = 35;
 
 // Movie functions
 // ====================================
-function handleSearchTMDB(response) {
+function searchMovieTMDB() {
+    let query = $("#searchBar").val(),
+        apiKey = "?api_key=cf2703906ceb370d03128f8d53436252",
+        lang = "&language=it-IT";
+
+    $.ajax({
+        datatype: "json",
+        url: "https://api.themoviedb.org/3/search/movie" + apiKey + "&page=1&include_adult=false&query=" + query + lang,
+        success: handleSearchMovieTMDB
+    });
+}
+
+function handleSearchMovieTMDB(response) {
 
     // reset buttons from success (green) to danger (red)
     $(".btn-success").each(function () {
@@ -109,7 +121,6 @@ function createCardMovie(id) {
         '      <div class="card-body">\n' +
         '        <h5 class="card-title">...</h5>\n' +
         '        <p class="card-overview">...</p>\n' +
-        '        <p class="card-authors"><small class="text-muted">AUTORI</small></p>\n' +
         '        <button type="button" class="btn btn-danger btn-sm" id="btn' + id + '">\n' +
         '          Add to Library\n' +
         '        </button>\n' +
@@ -118,18 +129,6 @@ function createCardMovie(id) {
         '  </div>\n' +
         '</div>'
     );
-}
-
-function searchTMDB() {
-    let query = $("#searchBar").val(),
-        apiKey = "?api_key=cf2703906ceb370d03128f8d53436252",
-        lang = "&language=it-IT";
-
-    $.ajax({
-        datatype: "json",
-        url: "https://api.themoviedb.org/3/search/movie" + apiKey + "&page=1&include_adult=false&query=" + query + lang,
-        success: handleSearchTMDB
-    });
 }
 
 function handleAddMovie(response) {
@@ -187,6 +186,94 @@ function addMovie(movie_id) {
 }
 // ====================================
 
+
+// Tv functions
+// ====================================
+function searchTvTMDB() {
+    let query = $("#searchBar").val(),
+        apiKey = "?api_key=cf2703906ceb370d03128f8d53436252",
+        lang = "&language=it-IT";
+
+    $.ajax({
+       datatype: "json",
+       url: "https://api.themoviedb.org/3/search/tv" + apiKey + "&page=1&include_adult=false&query=" + query + lang,
+        success: handleSearchTvTMDB
+    });
+}
+
+function  handleSearchTvTMDB(response) {
+    console.log(response);
+    // reset buttons from success (green) to danger (red)
+    $(".btn-success").each(function () {
+        $(this).removeClass("btn-success").addClass("btn-danger").text("Add to Library");
+    });
+
+    // remove cards
+    $(".card").remove();
+
+    // TODO - change with forEach and fix index with cards in the page
+    for(let id = 0; id < maxItems && id < response.results.length; id++) {
+        let posterPath = response.results[id]?.poster_path,
+            imageURL = "https://image.tmdb.org/t/p/w342" + posterPath,
+            title = response.results[id]?.name,
+            overview = response.results[id]?.overview,
+            tv_id = response.results[id]?.id;
+
+        createCardTv(id);
+
+        let tmp_btn = $("#btn" + id);
+
+        // Add onclick event to btn
+        tmp_btn.on("click", function() {
+            // add loading animation to button if not already present
+            if(!$(this).find(".spinner-border").length) {
+                $(this).append('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+            }
+
+            let tmp_id = $(this).attr("data-btn_tv_id");
+            addMovie(tmp_id);
+        });
+
+        // Add tv_id to the button
+        tmp_btn.attr("data-btn_tv_id", tv_id);
+
+        // Fill card with contents
+
+        // cover thumbnail
+        let card_img = $("#card_" + id + " .img-fluid");
+        if (posterPath === undefined || posterPath == null) {
+            card_img.attr("src", "/assets/icons/image-not-found.svg")
+            card_img.attr("style", "max-width: 8.5em;")
+        } else {
+            card_img.attr("src", imageURL)
+        }
+
+        $("#card_" + id + " .card-title").text(title);
+        $("#card_" + id + " .card-overview").text(overview);
+    }
+}
+
+function createCardTv(id) {
+    $("#searchResults").append(
+        '<div class="card my-3 border-0" id="card_' + id + '">\n' +
+        '  <div class="row g-0">\n' +
+        '    <div class="col-2 m-3 text-end">\n' +
+        '      <img src="..." class="img-fluid rounded p-1" alt="...">\n' +
+        '    </div>\n' +
+        '    <div class="col-7">\n' +
+        '      <div class="card-body">\n' +
+        '        <h5 class="card-title">...</h5>\n' +
+        '        <p class="card-overview">...</p>\n' +
+        '        <button type="button" class="btn btn-danger btn-sm" id="btn' + id + '">\n' +
+        '          Add to Library\n' +
+        '        </button>\n' +
+        '      </div>\n' +
+        '    </div>\n' +
+        '  </div>\n' +
+        '</div>'
+    );
+}
+// ====================================
 
 
 // Book functions
@@ -333,11 +420,6 @@ function addBook(book_id) {
 // ====================================
 
 
-// Tv functions
-// ====================================
-
-// ====================================
-
 // Document ready
 $(document).ready(() => {
     $("#searchTypeRadio").change(function () {
@@ -365,12 +447,12 @@ $(document).ready(() => {
                 search_bar.off("keypress");
 
 
-                // add searchTMDB to searchbar on input event
-                search_bar.on("input", searchTMDB);
+                // add searchMovieTMDB to searchbar on input event
+                search_bar.on("input", searchMovieTMDB);
                 // Enter on Keyboard
                 search_bar.on("keypress", (e)=>{
                     if(e.which === 13) {
-                        searchTMDB();
+                        searchMovieTMDB();
                     }
                 })
                 break;
@@ -379,8 +461,14 @@ $(document).ready(() => {
                 // remove any search_bar events
                 search_bar.off("input");
                 search_bar.off("keypress");
-
-                // TODO - add searchTMDB_TV_Show to searchbar on input event
+                
+                // add searchTvTMDB to searchbar on input event
+                search_bar.on("input", searchTvTMDB);
+                search_bar.on("keypress", (e)=>{
+                    if(e.which === 13) {
+                        searchTvTMDB();
+                    }
+                })
                 break;
         }
     });
