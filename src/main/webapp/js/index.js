@@ -18,20 +18,44 @@ class Movie{
     }
 }
 
+class Book {
+    constructor({
+                    book_id = null,
+                    username_id = null,
+                    title = null,
+                    link = null,
+                    description = null,
+                    review = null,
+                    rating = 0.0,
+                    comment = null
+                }) {
+        this.volume_id = book_id;
+        this.username_id = username_id;
+        this.title = title;
+        this.link = link;
+        this.description = description;
+        this.review = review;
+        this.rating = rating;
+        this.comment = comment;
+    }
+}
+
 const maxItems = 15;
 
-function tradingMovies() {
+// Movie functions
+// ====================================
+function trendingMovies() {
 
     let apiKey = "?api_key=cf2703906ceb370d03128f8d53436252",
         lang = "&language=it-IT";
     $.ajax({
        datatype: "json",
        url: "https://api.themoviedb.org/3/trending/movie/day" + apiKey + lang,
-       success: handleTradingMovies
+       success: handleTrendingMovies
     });
 }
 
-function handleTradingMovies(response) {
+function handleTrendingMovies(response) {
     // reset buttons from success (green) to danger (red)
     $(".btn-success").each(function () {
         $(this).removeClass("btn-success").addClass("btn-danger").text("Add to Library");
@@ -151,11 +175,82 @@ function handleAddMovie(response) {
         }
     });
 }
+// ====================================
+
+
+// Book functions
+// ====================================
+function addBook(book_id) {
+    $.ajax({
+        datatype: "json",
+        url: "https://www.googleapis.com/books/v1/volumes/" + book_id,
+        success: handleAddBook
+    });
+}
+
+function handleAddBook(response) {
+    let book_id = response?.id,
+        title = response?.volumeInfo?.title,
+        description = response?.volumeInfo?.description,
+        link = response?.volumeInfo?.previewLink,
+        coverURL = response?.volumeInfo?.imageLinks?.thumbnail;
+
+    let book = new Book({
+        book_id: book_id,
+        username_id: null,
+        title: title,
+        link: link,
+        description: description,
+        review: null,
+        rating: null,
+        comment: null,
+    });
+
+    // Add book through RestAPI with ajax
+    $.ajax({
+        type: "POST",
+        // pass coverURL as a query parameter in the address
+        url: "/addBook?coverURL=" + coverURL,
+        contentType: "application/json",
+        data: JSON.stringify(book),
+        success: (response) => {
+
+            // delay animation for aesthetics reasons
+            setTimeout(() => {
+                let btn = $("[data-btn_book_id=" + book_id + "]");
+                if(response === "exists") {
+                    // change button from danger (red) to warning (yellow)
+                    btn.removeClass("btn-danger btn-success").addClass("btn-warning").text("Already Added ");
+                }
+
+                if (response === "Success") {
+                    // change button from danger (red) to success (green)
+                    btn.removeClass("btn-danger").addClass("btn-success").text("Added to Library ");
+                }
+            }, 1150);
+        }
+    });
+}
+
+// ====================================
+
 
 // Document ready
 $(document).ready(() => {
     // calling
-    tradingMovies();
+    trendingMovies();
+
+    // Add onclick event (for add book) to btn
+    $(".book").find('.btn').each(function () {
+        $(this).on("click", function () {
+            // add loading animation to button if not already present
+            if(!$(this).find(".spinner-border").length) {
+                $(this).append('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+            }
+            let tmp_id = $(this).attr("data-btn_book_id");
+            addBook(tmp_id);
+        });
+    });
 })
 
 

@@ -30,8 +30,6 @@ public class Login {
     public String signUp(HttpServletRequest req, HttpServletResponse resp,
                          String username, String email, String passwd) throws IOException {
 
-        //TODO - check if already exists
-
         try {
             Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres",
                     "postgres","postgres");

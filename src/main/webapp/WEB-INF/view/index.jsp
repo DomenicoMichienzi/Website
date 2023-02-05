@@ -161,7 +161,7 @@
     </div>
 
     <!-- Most Rated Books -->
-    <div class="container-fluid py-2">
+    <div class="container-fluid py-2 book">
       <h2 class="font-weight-light m-3">Most Rated Books on the site</h2>
       <div class="d-flex flex-row flex-nowrap overflow-scroll align-items-end" id="mostRatedBooks">
         <c:forEach items="${books}" var="book" begin="0" end="15">
@@ -175,7 +175,7 @@
                     ${book.title}
                 </a>
               </p>
-              <button type="button" class="btn btn-danger btn-sm my-2">
+              <button type="button" class="btn btn-danger btn-sm my-2" data-btn_book_id="${book.book_id}">
                 Add to Library
               </button>
             </div>

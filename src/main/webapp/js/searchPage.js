@@ -191,7 +191,7 @@ function addMovie(movie_id) {
 
 // Book functions
 // ====================================
-function handleSearch(response) {
+function handleSearchBook(response) {
 
     // reset buttons from success (green) to danger (red)
     $(".btn-success").each(function () {
@@ -319,7 +319,7 @@ function searchGoogleBooksAPIs() {
     $.ajax({
         datatype: "json",
         url: "https://www.googleapis.com/books/v1/volumes?q=" + query + key + maxResults,
-        success: handleSearch
+        success: handleSearchBook
     });
 }
 
@@ -332,6 +332,11 @@ function addBook(book_id) {
 }
 // ====================================
 
+
+// Tv functions
+// ====================================
+
+// ====================================
 
 // Document ready
 $(document).ready(() => {
@@ -346,8 +351,8 @@ $(document).ready(() => {
 
                 // add searchGoogleBooksAPIs to searchbar on input event
                 search_bar.on("input", searchGoogleBooksAPIs);
+                // Enter on Keyboard
                 search_bar.on("keypress", (e)=>{
-                    // Enter on Keyboard
                     if(e.which === 13) {
                         searchGoogleBooksAPIs();
                     }
@@ -362,8 +367,8 @@ $(document).ready(() => {
 
                 // add searchTMDB to searchbar on input event
                 search_bar.on("input", searchTMDB);
+                // Enter on Keyboard
                 search_bar.on("keypress", (e)=>{
-                    // Enter on Keyboard
                     if(e.which === 13) {
                         searchTMDB();
                     }

@@ -13,6 +13,6 @@ public interface UserDao {
 
     List<Book> getAllBooks();
     List<Movie> getAllMovies();
-    List<Book> getBooksByUserID(String username);
-    List<Movie> getMoviesByKey(String username);
+    List<Book> getBooksByUser(String username);
+    List<Movie> getMoviesByUser(String username);
 }

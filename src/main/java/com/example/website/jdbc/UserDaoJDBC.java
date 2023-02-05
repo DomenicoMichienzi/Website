@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBC implements UserDao {
-    private Connection conn;
+    private final Connection conn;
 
     public UserDaoJDBC(Connection conn) {
         this.conn = conn;
@@ -122,7 +122,7 @@ public class UserDaoJDBC implements UserDao {
 
     @Override
     // Get Books by username
-    public List<Book> getBooksByUserID(String username) {
+    public List<Book> getBooksByUser(String username) {
         ArrayList<Book> books = new ArrayList<Book>();
 
         // ordered by title
@@ -157,7 +157,7 @@ public class UserDaoJDBC implements UserDao {
     }
 
     @Override
-    public List<Movie> getMoviesByKey(String username) {
+    public List<Movie> getMoviesByUser(String username) {
         List<Movie> movies = new ArrayList<Movie>();
 
         // ordered by title

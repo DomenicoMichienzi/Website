@@ -19,7 +19,6 @@ public class Image {
         img.delete();
     }
 
-    // TODO - Fix with username_id folder
     public static void deleteMoviePoster(String movie_id) {
         String path = "src/main/webapp/assets/movies/posters/" + movie_id + ".jpg";
         File img = new File(path);
@@ -39,7 +38,6 @@ public class Image {
         }
     }
 
-    // TODO - Fix with username_id folder
     public static void saveMoviePoster(String poster_path, String movie_id) {
         String url = "https://image.tmdb.org/t/p/w500" + poster_path;
 
