@@ -94,16 +94,19 @@
   </c:if>
 
   <!-- Title, overview and other stuffs -->
-
   <c:forEach items="${items}" var="item" begin="0" end="15">
-    <div class="container">
-      <div class="card col-auto mb-3 border-0">
-        <div class="card-body">
-          <h5 class="card-rating">Rating: ${item.rating}</h5>
-          <h5 class="card-review">Review: ${item.review}</h5>
+    <c:if test="${item.rating != 0.0}">
+      <div class="container">
+        <div class="card col-auto mb-3 border-0">
+          <div class="card-body">
+            <h5 class="card-rating">Rating: ${item.rating}</h5>
+            <c:if test="${not empty item.review}">
+              <h5 class="card-review">Review: ${item.review}</h5>
+            </c:if>
+          </div>
         </div>
       </div>
-    </div>
+    </c:if>
   </c:forEach>
 </div>
 
