@@ -15,7 +15,7 @@ public class BooksManager {
     public String listOfBooks(HttpServletRequest req) {
         if(req.getSession().getAttribute("username") != null) {
             String usr = req.getSession().getAttribute("username").toString();
-            List<Book> bs = Database.getInstance().getUserDao().getBooksByUserID(usr);
+            List<Book> bs = Database.getInstance().getUserDao().getBooksByUser(usr);
             req.setAttribute("books", bs);
             return "booksPage";
         } else {
