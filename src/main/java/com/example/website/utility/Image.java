@@ -24,6 +24,12 @@ public class Image {
         File img = new File(path);
         img.delete();
     }
+
+    public static void deleteTvPoster(String tv_id) {
+        String path = "src/main/webapp/assets/tvs/posters/" + tv_id + ".jpg";
+        File img = new File(path);
+        img.delete();
+    }
     public static void saveBookCover(String url_cover, String book_id) {
         String u = "https://books.google.com/books/publisher/content/images/frontcover/" + book_id;
         try {
@@ -52,6 +58,22 @@ public class Image {
             e.printStackTrace();
         }
     }
+
+    public static void saveTvPoster(String poster_path, String tv_id) {
+        String url = "https://image.tmdb.org/t/p/w500" + poster_path;
+
+        try {
+            String textPath = "src/main/webapp/assets/tvs/posters/";
+            // create folder if it not exists
+            Path path = Paths.get(textPath);
+            Files.createDirectories(path);
+
+            downloadUsingNIO(url, textPath + tv_id + ".jpg");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private static void downloadUsingNIO(String urlStr, String file) throws IOException {
         URL url = new URL(urlStr);

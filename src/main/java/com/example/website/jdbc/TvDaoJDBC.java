@@ -80,7 +80,7 @@ public class TvDaoJDBC implements TvDao {
             pst.setFloat(6, tv.getRating());
             pst.setString(7, tv.getComment());
 
-            pst.executeQuery();
+            pst.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();

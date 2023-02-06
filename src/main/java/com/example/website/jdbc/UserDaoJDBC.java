@@ -3,6 +3,7 @@ package com.example.website.jdbc;
 import com.example.website.dao.UserDao;
 import com.example.website.model.Book;
 import com.example.website.model.Movie;
+import com.example.website.model.Tv;
 import com.example.website.model.User;
 
 import java.sql.*;
@@ -187,6 +188,41 @@ public class UserDaoJDBC implements UserDao {
         }
 
         return movies;
+    }
+
+    @Override
+    public List<Tv> getTvsByUser(String username_id) {
+        ArrayList<Tv> tvs = new ArrayList<>();
+
+        try {
+            String query = "select * from tvs where username_id = ? order by title";
+
+            PreparedStatement pst = conn.prepareStatement(query);
+
+            pst.setString(1, username_id);
+
+            ResultSet rs = pst.executeQuery();
+
+            while(rs.next()) {
+                // Create tv object
+                Tv tv = new Tv();
+
+                tv.setTv_id(rs.getString("tv_id"));
+                tv.setUsername_id(rs.getString("username_id"));
+                tv.setTitle(rs.getString("title"));
+                tv.setDescription(rs.getString("description"));
+                tv.setReview(rs.getString("review"));
+                tv.setRating(rs.getFloat("rating"));
+                tv.setComment(rs.getString("comment"));
+
+                // adding to ArrayList
+                tvs.add(tv);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return tvs;
     }
 
 

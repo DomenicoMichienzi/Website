@@ -5,7 +5,7 @@
 <html lang="en" data-bs-theme="auto">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Movies Page</title>
+  <title>TVs Page</title>
 
   <!-- jQuery from GoogleAPIs-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -23,12 +23,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
   <!-- local JavaScript -->
-  <script src="${pageContext.request.contextPath}/js/moviesPage.js"></script>
+  <script src="${pageContext.request.contextPath}/js/tvsPage.js"></script>
   <script src="${pageContext.request.contextPath}/js/color-modes.js"></script>
 
   <!-- local CSS -->
   <link href="${pageContext.request.contextPath}/css/common.css" rel="stylesheet">
-  <link href="${pageContext.request.contextPath}/css/moviesPage.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath}/css/tvsPage.css" rel="stylesheet">
 
   <!-- Favicons -->
   <link rel="apple-touch-icon" href="${pageContext.request.contextPath}/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
@@ -61,7 +61,10 @@
               <a class="nav-link" href="${pageContext.request.contextPath}/getBooks">Books</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="${pageContext.request.contextPath}/getMovies">Movies</a>
+              <a class="nav-link" href="${pageContext.request.contextPath}/getMovies">Movies</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="${pageContext.request.contextPath}/getTVs">TVs</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="${pageContext.request.contextPath}/doLogout">Logout</a>
@@ -90,29 +93,29 @@
 </nav>
 
 
-<!-- Movies List -->
+<!-- TVs List -->
 <div class="container">
-  <h2 class="m-4 text-center">Movies</h2>
+  <h2 class="m-4 text-center">TVs</h2>
   <div class="container">
     <div class="row justify-content-center justify-content-sm-start">
-      <c:forEach items="${movies}" var="movie">
-        <div class="col-auto d-flex align-items-end" id="${movie.movie_id}">
+      <c:forEach items="${tvs}" var="tv">
+        <div class="col-auto d-flex align-items-end" id="${tv.tv_id}">
           <div class="card w-100 border-0 my-2">
             <div class="card-body">
-              <img src="${pageContext.request.contextPath}/assets/movies/posters/${movie.movie_id}.jpg"
+              <img src="${pageContext.request.contextPath}/assets/tvs/posters/${tv.tv_id}.jpg"
                    class="card-img-top rounded" alt="...">
-              <p class="card-title mx-1 my-3">${movie.title}</p>
+              <p class="card-title mx-1 my-3">${tv.title}</p>
               <!-- Button trigger modal -->
-              <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#Modal_${movie.movie_id}">Edit</button>
+              <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#Modal_${tv.tv_id}">Edit</button>
               <!-- Delete Button -->
-              <button type="button" class="btn btn-sm btn-danger" data-btn_movie_id="${movie.movie_id}">Delete</button>
+              <button type="button" class="btn btn-sm btn-danger" data-btn_tv_id="${tv.tv_id}">Delete</button>
               <!-- Modal -->
-              <div class="modal fade" id="Modal_${movie.movie_id}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+              <div class="modal fade" id="Modal_${tv.tv_id}" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <!-- Title -->
                     <div class="modal-header">
-                      <h3 class="modal-title">${movie.title}</h3>
+                      <h3 class="modal-title">${tv.title}</h3>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <!-- Body -->
@@ -120,19 +123,19 @@
                       <form>
                         <!-- Rating -->
                         <div class="mb-3">
-                          <label for="rating_${movie.movie_id}" class="form-label">Rating: ${movie.rating}</label>
-                          <input type="range" class="form-range" min="0" max="10" step="0.5" value="${movie.rating}" id="rating_${movie.movie_id}">
-                          <p class="text-center current-rating" id="current_rating_${movie.movie_id}"></p>
+                          <label for="rating_${tv.tv_id}" class="form-label">Rating: ${tv.rating}</label>
+                          <input type="range" class="form-range" min="0" max="10" step="0.5" value="${tv.rating}" id="rating_${tv.tv_id}">
+                          <p class="text-center current-rating" id="current_rating_${tv.tv_id}"></p>
                         </div>
                         <!-- Review -->
                         <div class="mb-3">
-                          <label for="review-text_${movie.movie_id}" class="col-form-label">Review</label>
-                          <textarea class="form-control" id="review-text_${movie.movie_id}">${movie.review}</textarea>
+                          <label for="review-text_${tv.tv_id}" class="col-form-label">Review</label>
+                          <textarea class="form-control" id="review-text_${tv.tv_id}">${tv.review}</textarea>
                         </div>
                         <!-- Comment -->
                         <div class="mp-3">
-                          <label for="comment-text_${movie.movie_id}" class="col-form-label">Comment</label>
-                          <textarea class="form-control" id="comment-text_${movie.movie_id}">${movie.comment}</textarea>
+                          <label for="comment-text_${tv.tv_id}" class="col-form-label">Comment</label>
+                          <textarea class="form-control" id="comment-text_${tv.tv_id}">${tv.comment}</textarea>
                         </div>
                       </form>
                     </div>
@@ -140,7 +143,7 @@
                       <!-- Close Button -->
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                       <!-- Save changes Button -->
-                      <button type="button" class="btn btn-primary saveChangesBtn" data-movie_id="${movie.movie_id}">Save changes</button>
+                      <button type="button" class="btn btn-primary saveChangesBtn" data-tv_id="${tv.tv_id}">Save changes</button>
                     </div>
                   </div>
                 </div>
