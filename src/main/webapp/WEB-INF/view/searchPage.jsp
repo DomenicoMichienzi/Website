@@ -41,82 +41,79 @@
 <body>
 
 <!-- Navbar -->
+<nav class="navbar navbar-expand-md justify-content-between bg-body-tertiary">
+  <div class="container-fluid">
+    <span class="navbar-brand mb-0 h1" href="${pageContext.request.contextPath}/">${username}</span>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="${pageContext.request.contextPath}/"><i class="bi bi-house"> Home</i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="${pageContext.request.contextPath}/getBooks"><i class="bi bi-book"> Books</i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="${pageContext.request.contextPath}/getMovies"><i class="bi bi-film"> Movies</i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="${pageContext.request.contextPath}/getTVs"><i class="bi bi-tv"> TVs</i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="${pageContext.request.contextPath}/searchPage">
+            <i class="bi bi-search"> Search</i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="${pageContext.request.contextPath}/doLogout">Logout <i class="bi bi-box-arrow-left"></i></a>
+        </li>
+      </ul>
 
-<c:choose>
-  <c:when test="${username != null}">
-    <nav class="navbar navbar-expand-md justify-content-between bg-body-tertiary">
-      <div class="container-fluid">
-        <span class="navbar-brand mb-0 h1" href="${pageContext.request.contextPath}/">${username}</span>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="${pageContext.request.contextPath}/">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="${pageContext.request.contextPath}/searchPage">Search</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="${pageContext.request.contextPath}/getBooks">Books</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="${pageContext.request.contextPath}/getMovies">Movies</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="${pageContext.request.contextPath}/doLogout">Logout</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Info</a>
-            </li>
-          </ul>
-          <!-- Theme Buttons -->
-          <button type="button" class="btn btn-sm btn-dark m-1" data-bs-theme-value="dark">
-            <i class="bi bi-moon-stars-fill"> dark</i>
-          </button>
-          <button type="button" class="btn btn-sm btn-light m-1" data-bs-theme-value="light">
-            <i class="bi bi-brightness-high-fill"> light</i>
-          </button>
-          <button type="button" class="btn btn-sm btn-primary m-1" data-bs-theme-value="auto">
-            <i class="bi bi-layers-half"> auto</i>
-          </button>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Search Bar -->
-    <div class="d-flex justify-content-center mt-3">
-      <div class="d-flex" role="search">
-        <input id="searchBar" class="form-control m-1" type="search" placeholder="Search" aria-label="Search">
-      </div>
+      <!-- Theme Buttons -->
+      <button type="button" class="btn btn-sm btn-dark m-1" data-bs-theme-value="dark">
+        <i class="bi bi-moon-stars-fill"> dark</i>
+      </button>
+      <button type="button" class="btn btn-sm btn-light m-1" data-bs-theme-value="light">
+        <i class="bi bi-brightness-high-fill"> light</i>
+      </button>
+      <button type="button" class="btn btn-sm btn-primary m-1" data-bs-theme-value="auto">
+        <i class="bi bi-layers-half"> auto</i>
+      </button>
     </div>
+  </div>
+</nav>
 
-    <!-- radio buttons -->
-    <div class="d-flex justify-content-center">
-      <div class="input-group-sm border-4 m-1" id="searchTypeRadio">
-        <!-- Movie Radio -->
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="searchRadioOptions" id="inlineRadioMovie" value="movie">
-          <label class="form-check-label" for="inlineRadioMovie"><i class="bi bi-film"> Movie</i></label>
-        </div>
-        <!-- Book Radio -->
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="searchRadioOptions" id="inlineRadioBook" value="book">
-          <label class="form-check-label" for="inlineRadioBook"><i class="bi bi-book"> Book</i></label>
-        </div>
-        <!-- TV Show Radio -->
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="searchRadioOptions" id="inlineRadioTvShow" value="TvShow">
-          <label class="form-check-label" for="inlineRadioTvShow"><i class="bi bi-tv"> TV Show</i></label>
-        </div>
-      </div>
+
+
+<!-- Search Bar -->
+<div class="d-flex justify-content-center mt-3">
+  <div class="d-flex" role="search">
+    <input id="searchBar" class="form-control m-1" type="search" placeholder="Search" aria-label="Search">
+  </div>
+</div>
+
+<!-- radio buttons -->
+<div class="d-flex justify-content-center">
+  <div class="input-group-sm border-4 m-1" id="searchTypeRadio">
+    <!-- Movie Radio -->
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="searchRadioOptions" id="inlineRadioMovie" value="movie">
+      <label class="form-check-label" for="inlineRadioMovie"><i class="bi bi-film"> Movie</i></label>
     </div>
-
-    </c:when>
-  <c:otherwise>
-  </c:otherwise>
-</c:choose>
+    <!-- Book Radio -->
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="searchRadioOptions" id="inlineRadioBook" value="book">
+      <label class="form-check-label" for="inlineRadioBook"><i class="bi bi-book"> Book</i></label>
+    </div>
+    <!-- TV Show Radio -->
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="radio" name="searchRadioOptions" id="inlineRadioTvShow" value="TvShow">
+      <label class="form-check-label" for="inlineRadioTvShow"><i class="bi bi-tv"> TV Show</i></label>
+    </div>
+  </div>
+</div>
 
 
 <!-- Cards -->

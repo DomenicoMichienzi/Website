@@ -29,7 +29,7 @@ public class ItemPageManager {
                     // code
                     break;
 
-                case "TvShow":
+                case "tv":
                     //code
                     break;
             }

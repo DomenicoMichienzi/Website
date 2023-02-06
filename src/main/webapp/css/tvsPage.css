@@ -1,0 +1,19 @@
+.card {
+
+}
+
+.card-body {
+    width: 12em;
+}
+
+.card-img-top {
+    max-width: 12em;
+}
+
+.card-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
