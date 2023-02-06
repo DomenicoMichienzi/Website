@@ -20,7 +20,7 @@ class Book {
     }
 }
 
-class Movie{
+class Movie {
     constructor({
                     movie_id = null,
                     username_id = null,
@@ -31,6 +31,26 @@ class Movie{
                     comment = null
                 }) {
         this.movie_id = movie_id;
+        this.username_id = username_id;
+        this.title = title;
+        this.description = description;
+        this.review = review;
+        this.rating = rating;
+        this.comment = comment;
+    }
+}
+
+class Tv {
+    constructor({
+                    tv_id = null,
+                    username_id = null,
+                    title = null,
+                    description = null,
+                    review = null,
+                    rating = 0.0,
+                    comment = null
+                }) {
+        this.tv_id = tv_id;
         this.username_id = username_id;
         this.title = title;
         this.description = description;
@@ -72,7 +92,8 @@ function handleSearchMovieTMDB(response) {
             imageURL = "https://image.tmdb.org/t/p/w342" + posterPath,
             title = response.results[id]?.title,
             overview = response.results[id]?.overview,
-            movie_id = response.results[id]?.id;
+            movie_id = response.results[id]?.id,
+            release_date = response.results[id].release_date;
 
         createCardMovie(id);
 
@@ -103,8 +124,10 @@ function handleSearchMovieTMDB(response) {
         }
 
         $("#card_" + id + " .card-title").text(title);
-        //$("#card_" + id + " .card-authors").text(authors);
         $("#card_" + id + " .card-overview").text(overview);
+
+        const date = new Date(release_date);
+        $("#card_" + id + " .card-date").text(date.toLocaleDateString());
     }
 
 
@@ -115,12 +138,13 @@ function createCardMovie(id) {
         '<div class="card my-3 border-0" id="card_' + id + '">\n' +
         '  <div class="row g-0">\n' +
         '    <div class="col-2 m-3 text-end">\n' +
-        '      <img src="..." class="img-fluid rounded p-1" alt="...">\n' +
+        '      <img src="..." class="img-fluid rounded-3 p-1" alt="...">\n' +
         '    </div>\n' +
         '    <div class="col-7">\n' +
         '      <div class="card-body">\n' +
         '        <h5 class="card-title">...</h5>\n' +
         '        <p class="card-overview">...</p>\n' +
+        '        <p class="card-date">...</p>\n' +
         '        <button type="button" class="btn btn-danger btn-sm" id="btn' + id + '">\n' +
         '          Add to Library\n' +
         '        </button>\n' +
@@ -129,6 +153,17 @@ function createCardMovie(id) {
         '  </div>\n' +
         '</div>'
     );
+}
+
+function addMovie(movie_id) {
+    let apiKey = "?api_key=cf2703906ceb370d03128f8d53436252",
+        lang = "&language=it-IT",
+        url = "https://api.themoviedb.org/3/movie/" + movie_id + apiKey + lang;
+    $.ajax({
+        datatype: "json",
+        url: url,
+        success: handleAddMovie
+    })
 }
 
 function handleAddMovie(response) {
@@ -174,16 +209,6 @@ function handleAddMovie(response) {
     });
 }
 
-function addMovie(movie_id) {
-    let apiKey = "?api_key=cf2703906ceb370d03128f8d53436252",
-        lang = "&language=it-IT",
-        url = "https://api.themoviedb.org/3/movie/" + movie_id + apiKey + lang;
-    $.ajax({
-        datatype: "json",
-        url: url,
-        success: handleAddMovie
-    })
-}
 // ====================================
 
 
@@ -201,7 +226,7 @@ function searchTvTMDB() {
     });
 }
 
-function  handleSearchTvTMDB(response) {
+function handleSearchTvTMDB(response) {
     console.log(response);
     // reset buttons from success (green) to danger (red)
     $(".btn-success").each(function () {
@@ -217,7 +242,8 @@ function  handleSearchTvTMDB(response) {
             imageURL = "https://image.tmdb.org/t/p/w342" + posterPath,
             title = response.results[id]?.name,
             overview = response.results[id]?.overview,
-            tv_id = response.results[id]?.id;
+            tv_id = response.results[id]?.id,
+            first_air_date = response.results[id].first_air_date;
 
         createCardTv(id);
 
@@ -231,7 +257,7 @@ function  handleSearchTvTMDB(response) {
             }
 
             let tmp_id = $(this).attr("data-btn_tv_id");
-            addMovie(tmp_id);
+            addTv(tmp_id);
         });
 
         // Add tv_id to the button
@@ -250,6 +276,9 @@ function  handleSearchTvTMDB(response) {
 
         $("#card_" + id + " .card-title").text(title);
         $("#card_" + id + " .card-overview").text(overview);
+
+        const date = new Date(first_air_date);
+        $("#card_" + id + " .card-date").text(date.toLocaleDateString());
     }
 }
 
@@ -258,12 +287,13 @@ function createCardTv(id) {
         '<div class="card my-3 border-0" id="card_' + id + '">\n' +
         '  <div class="row g-0">\n' +
         '    <div class="col-2 m-3 text-end">\n' +
-        '      <img src="..." class="img-fluid rounded p-1" alt="...">\n' +
+        '      <img src="..." class="img-fluid rounded-3 p-1" alt="...">\n' +
         '    </div>\n' +
         '    <div class="col-7">\n' +
         '      <div class="card-body">\n' +
         '        <h5 class="card-title">...</h5>\n' +
         '        <p class="card-overview">...</p>\n' +
+        '        <p class="card-date">...</p>\n' +
         '        <button type="button" class="btn btn-danger btn-sm" id="btn' + id + '">\n' +
         '          Add to Library\n' +
         '        </button>\n' +
@@ -272,6 +302,60 @@ function createCardTv(id) {
         '  </div>\n' +
         '</div>'
     );
+}
+
+function addTv(tv_id) {
+    let apiKey = "?api_key=cf2703906ceb370d03128f8d53436252",
+        lang = "&language=it-IT",
+        url = "https://api.themoviedb.org/3/tv/" + tv_id + apiKey + lang;
+    $.ajax({
+        datatype: "json",
+        url: url,
+        success: handleAddTv
+    })
+}
+
+function handleAddTv(response) {
+    let tv_id = response.id,
+        description = response.overview,
+        title = response.name,
+        posterPath = response.poster_path;
+
+    let tv = new Tv({
+        tv_id: tv_id,
+        username_id: null,
+        title: title,
+        description: description,
+        review: null,
+        rating: null,
+        comment: null
+    });
+
+    // Add tv through RestAPI with ajax
+    $.ajax({
+        type: "POST",
+        // pass posterPath as a query parameter in the address
+        url: "/addTv?poster=" + posterPath,
+        contentType: "application/json",
+        data: JSON.stringify(tv),
+        success:(response) => {
+
+            // delay animation for aesthetics reasons
+            setTimeout(() => {
+                let btn = $("[data-btn_tv_id=" + tv_id + "]");
+                if(response === "exists") {
+                    // change button from danger (red) to warning (yellow)
+                    btn.removeClass("btn-danger btn-success").addClass("btn-warning").text("Already Added ");
+                }
+
+                if (response === "Success") {
+                    // change button from danger (red) to success (green)
+                    btn.removeClass("btn-danger").addClass("btn-success").text("Added to Library ");
+                }
+            }, 1150);
+
+        }
+    });
 }
 // ====================================
 
@@ -335,7 +419,7 @@ function createCard(id) {
         '<div class="card my-3 border-0" id="card_' + id + '">\n' +
         '  <div class="row g-0">\n' +
         '    <div class="col-2 m-3 text-end">\n' +
-        '      <img src="..." class="img-fluid rounded p-1" alt="...">\n' +
+        '      <img src="..." class="img-fluid rounded-3 p-1" alt="...">\n' +
         '    </div>\n' +
         '    <div class="col-7">\n' +
         '      <div class="card-body">\n' +
@@ -461,7 +545,7 @@ $(document).ready(() => {
                 // remove any search_bar events
                 search_bar.off("input");
                 search_bar.off("keypress");
-                
+
                 // add searchTvTMDB to searchbar on input event
                 search_bar.on("input", searchTvTMDB);
                 search_bar.on("keypress", (e)=>{

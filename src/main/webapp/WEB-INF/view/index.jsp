@@ -62,6 +62,9 @@
               <a class="nav-link" href="${pageContext.request.contextPath}/getMovies">Movies</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" href="${pageContext.request.contextPath}/getTVs">TVs</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" href="${pageContext.request.contextPath}/doLogout">Logout</a>
             </li>
             <li class="nav-item">
