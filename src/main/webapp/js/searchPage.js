@@ -516,6 +516,7 @@ $(document).ready(() => {
                 search_bar.off("keypress");
 
                 // add searchGoogleBooksAPIs to searchbar on input event
+                searchGoogleBooksAPIs();
                 search_bar.on("input", searchGoogleBooksAPIs);
                 // Enter on Keyboard
                 search_bar.on("keypress", (e)=>{
@@ -532,6 +533,7 @@ $(document).ready(() => {
 
 
                 // add searchMovieTMDB to searchbar on input event
+                searchMovieTMDB();
                 search_bar.on("input", searchMovieTMDB);
                 // Enter on Keyboard
                 search_bar.on("keypress", (e)=>{
@@ -547,6 +549,7 @@ $(document).ready(() => {
                 search_bar.off("keypress");
 
                 // add searchTvTMDB to searchbar on input event
+                searchTvTMDB();
                 search_bar.on("input", searchTvTMDB);
                 search_bar.on("keypress", (e)=>{
                     if(e.which === 13) {

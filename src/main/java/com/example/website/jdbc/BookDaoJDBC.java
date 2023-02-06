@@ -6,6 +6,8 @@ import com.example.website.model.LazyBook;
 import com.example.website.utility.ReviewRating;
 import org.springframework.data.util.Pair;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -179,7 +181,11 @@ public class BookDaoJDBC implements BookDao{
             ResultSet rs = pst.executeQuery();
 
             if(rs.next()) {
-                return rs.getFloat("avg");
+
+                BigDecimal bigDecimalDouble = new BigDecimal(rs.getFloat("avg"));
+                BigDecimal bigDecimalWithScale = bigDecimalDouble.setScale(1, RoundingMode.HALF_UP);
+                return bigDecimalWithScale.floatValue();
+                //return rs.getFloat("avg");
             }
         } catch (SQLException e) {
             e.printStackTrace();

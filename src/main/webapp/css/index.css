@@ -13,6 +13,7 @@
 }
 
 .card-title {
+    height: 3em;
     font-size: 15px;
     font-weight: 600;
     display: -webkit-box;
@@ -20,3 +21,4 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+

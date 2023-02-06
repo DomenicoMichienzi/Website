@@ -64,7 +64,7 @@ function handleTrendingMovies(response) {
     // remove cards
     // $(".card").remove();
 
-    for (let id = 0; id < maxItems; response.results.length, id++) {
+    for (let id = 0; id < maxItems && response.results.length; id++) {
         let items = response.results,
             posterPath = items[id]?.poster_path,
             imageURL = "https://image.tmdb.org/t/p/w342" + posterPath,
@@ -76,7 +76,7 @@ function handleTrendingMovies(response) {
 
         createCardTrendingMovie(id);
 
-        let tmp_btn = $("#btn_" + id);
+        let tmp_btn = $("#btn_movie_" + id);
         // Add onclick event to btn
         tmp_btn.on("click", function() {
             // add loading animation to button if not already present
@@ -113,8 +113,8 @@ function createCardTrendingMovie(id) {
         '      <img src="..." class="card-img-top rounded-3" alt="...">\n' +
         '      <div class="card-body p-1">\n' +
         '        <p class="vote_average d-inline my-1"></p>\n' +
-        '        <p class="card-title text-start"></p>\n' +
-        '        <button type="button" class="btn btn-danger btn-sm my-2" id="btn_' + id + '">\n' +
+        '        <p class="card-title text-start d-flex align-items-center"></p>\n' +
+        '        <button type="button" class="btn btn-danger btn-sm my-2" id="btn_movie_' + id + '">\n' +
         '          Add to Library\n' +
         '        </button>\n' +
         '      </div>\n' +
@@ -177,6 +177,82 @@ function handleAddMovie(response) {
 }
 // ====================================
 
+// TVs functions
+// ====================================
+function trendingTVs() {
+    let apiKey = "?api_key=cf2703906ceb370d03128f8d53436252",
+        lang = "&language=it-IT";
+    $.ajax({
+        datatype: "json",
+        url: "https://api.themoviedb.org/3/trending/tv/day" + apiKey + lang,
+        success: handleTrendingTVs
+    });
+}
+
+function handleTrendingTVs(response) {
+    // reset buttons from success (green) to danger (red)
+    $(".btn-success").each(function () {
+        $(this).removeClass("btn-success").addClass("btn-danger").text("Add to Library");
+    });
+
+    for (let id = 0; id < maxItems && response.results.length; id++) {
+        let items = response.results,
+            posterPath = items[id]?.poster_path,
+            imageURL = "https://image.tmdb.org/t/p/w342" + posterPath,
+            title = items[id]?.name,
+            overview = items[id]?.overview,
+            tv_id = items[id]?.id,
+            vote_average = items[id]?.vote_average.toFixed(1),
+            popularity = items[id]?.popularity;
+
+        createCardTrendingTv(id);
+
+        let tmp_btn = $("#btn_tv_" + id);
+        // Add onclick event to btn
+        tmp_btn.on("click", function() {
+            // add loading animation to button if not already present
+            if(!$(this).find(".spinner-border").length) {
+                $(this).append('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
+            }
+
+            let tmp_id = $(this).attr("data-btn_tv_id");
+            addTv(tmp_id);
+        });
+
+        // Add tv_id to the button
+        tmp_btn.attr("data-btn_tv_id", tv_id);
+
+        // Fill card with contents
+
+        // cover thumbnail
+        let card_img = $("#card_tv_" + id + " .card-img-top");
+        if (posterPath === undefined || posterPath == null) {
+            card_img.attr("src", "/assets/icons/image-not-found.svg")
+            card_img.attr("style", "max-width: 8.5em;")
+        } else {
+            card_img.attr("src", imageURL)
+        }
+
+        $("#card_tv_" + id + " .vote_average").text(vote_average);
+        $("#card_tv_" + id + " .card-title").text(title);
+    }
+}
+
+function createCardTrendingTv(id) {
+    $("#trendingTvShows").append(
+        '    <div class="card col-auto border-0" id="card_tv_' + id + '">\n' +
+        '      <img src="..." class="card-img-top rounded-3" alt="...">\n' +
+        '      <div class="card-body p-1">\n' +
+        '        <p class="vote_average d-inline my-1"></p>\n' +
+        '        <p class="card-title text-start d-flex align-items-center"></p>\n' +
+        '        <button type="button" class="btn btn-danger btn-sm my-2" id="btn_tv_' + id + '">\n' +
+        '          Add to Library\n' +
+        '        </button>\n' +
+        '      </div>\n' +
+        '    </div>\n'
+    );
+}
+// ====================================
 
 // Book functions
 // ====================================
@@ -239,6 +315,7 @@ function handleAddBook(response) {
 $(document).ready(() => {
     // calling
     trendingMovies();
+    trendingTVs();
 
     // Add onclick event (for add book) to btn
     $(".book").find('.btn').each(function () {
