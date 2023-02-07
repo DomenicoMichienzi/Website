@@ -14,11 +14,6 @@ import java.util.Objects;
 @Controller
 public class Login {
 
-    @GetMapping("/loginPage")
-    public String loginPage() {
-        return "login";
-    }
-
     @GetMapping("/doLogout")
     public void logout(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();

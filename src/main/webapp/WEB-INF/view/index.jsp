@@ -41,7 +41,7 @@
   <c:when test="${username != null}">
     <nav class="navbar navbar-expand-md justify-content-between bg-body-tertiary">
       <div class="container-fluid">
-        <span class="navbar-brand mb-0 h1" href="${pageContext.request.contextPath}/">${username}</span>
+        <span class="navbar-brand mb-0 h1" href="${pageContext.request.contextPath}/"><i class="bi bi-person"> ${username}</i></span>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -57,7 +57,7 @@
               <a class="nav-link" href="${pageContext.request.contextPath}/getMovies"><i class="bi bi-film"> Movies</i></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="${pageContext.request.contextPath}/getTVs"><i class="bi bi-tv"> TVs</i></a>
+              <a class="nav-link" href="${pageContext.request.contextPath}/getTVs"><i class="bi bi-tv"> TV Shows</i></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="${pageContext.request.contextPath}/searchPage">
@@ -86,7 +86,7 @@
 </c:choose>
 
 
-
+<!-- Login and SignUp -->
 <c:choose>
   <c:when test="${username == null}">
     <div class="d-flex justify-content-center m-4">
@@ -102,7 +102,7 @@
       </button>
     </div>
     <h4 class="text-center m-3">Welcome</h4>
-    <h5 class="text-center m-3">Please Login or register</h5>
+    <h5 class="text-center m-3">Please Login or Register</h5>
     <div class="d-flex justify-content-center">
       <!-- Login Form -->
       <div class="container my-5">
@@ -112,7 +112,6 @@
             <div class="mb-3">
               <label for="inputUsername" class="form-label">Username</label>
               <input type="text" name="username" class="form-control" id="inputUsername">
-              <!--<div id="emailHelp" class="form-text"></div>-->
             </div>
             <div class="mb-3">
               <label for="inputPassword" class="form-label">Password</label>
@@ -155,7 +154,7 @@
     <div class="container-fluid py-2">
       <h3 class="font-weight-light m-3">
         <img src="${pageContext.request.contextPath}/assets/icons/TMDB-logo.svg" alt=".." style="max-height: 13px">
-        Trending
+        Trending Movies
         <i class="bi bi-film"></i>
       </h3>
       <div class="d-flex flex-row flex-nowrap overflow-scroll align-items-end" id="trendingMovies">
@@ -163,43 +162,43 @@
       </div>
     </div>
 
+    <!-- Trending TV Shows from TMDB -->
+    <div class="container-fluid py-2">
+      <h3 class="font-weight-light m-3">
+        <img src="${pageContext.request.contextPath}/assets/icons/TMDB-logo.svg" alt=".." style="max-height: 13px">
+        Trending TV Shows
+        <i class="bi bi-tv"></i>
+      </h3>
+      <div class="d-flex flex-row flex-nowrap overflow-scroll align-items-end" id="trendingTvShows">
+
+      </div>
+    </div>
+
     <!-- Most Rated Books -->
     <div class="container-fluid py-2 book">
       <h3 class="font-weight-light m-3">
-        <i class="bi bi-book-half"></i>
         Most rated books
+        <i class="bi bi-book-half"></i>
       </h3>
       <div class="d-flex flex-row flex-nowrap overflow-scroll align-items-end" id="mostRatedBooks">
         <c:forEach items="${books}" var="book" begin="0" end="15">
           <div class="card col-auto border-0">
             <img src="${pageContext.request.contextPath}/assets/books/covers/${book.book_id}.png"
-                 class="card-img-top rounded-3" alt="...">
+                 class="card-img-top rounded-3 shadow-sm" alt="...">
             <div class="card-body p-1">
               <p class="vote_average d-inline my-1">${book.avgRating}</p>
               <p class="card-title text-start">
                 <a class="text-decoration-none"
-                   href="${pageContext.request.contextPath}/itemPage?item_type=book&item_id=${book.book_id}">
+                   href="${pageContext.request.contextPath}/item?item_type=book&item_id=${book.book_id}">
                     ${book.title}
                 </a>
               </p>
               <button type="button" class="btn btn-danger btn-sm my-2" data-btn_book_id="${book.book_id}">
-                Add to Library
+                Add
               </button>
             </div>
           </div>
         </c:forEach>
-      </div>
-    </div>
-
-    <!-- Trending TV Shows from TMDB -->
-    <div class="container-fluid py-2">
-      <h3 class="font-weight-light m-3">
-        <img src="${pageContext.request.contextPath}/assets/icons/TMDB-logo.svg" alt=".." style="max-height: 13px">
-        Trending
-        <i class="bi bi-tv"></i>
-      </h3>
-      <div class="d-flex flex-row flex-nowrap overflow-scroll align-items-end" id="trendingTvShows">
-
       </div>
     </div>
 
@@ -210,21 +209,18 @@
 <!-- Footer -->
 <div class="container-fluid">
   <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-    <p class="col-md-4 mb-0 text-muted">© 2022 Company, Inc</p>
-
-    <a href="${pageContext.request.contextPath}/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-      <i class="bi-house-heart-fill" style="font-size: 2rem; color: #0d6efd;"></i>
+    <p class="col-md-4 mb-0 text-muted">© 2023 Unical, Exam</p>
+    <a href="${pageContext.request.contextPath}/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto">
+      <i class="bi-house" style="font-size: 2rem;"></i>
     </a>
-
     <ul class="nav col-md-4 justify-content-end">
       <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
       <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
-      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
-      <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
       <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
     </ul>
   </footer>
 
 </div>
+
 </body>
 </html>

@@ -95,7 +95,7 @@ function handleSearchMovieTMDB(response) {
             movie_id = response.results[id]?.id,
             release_date = response.results[id].release_date;
 
-        createCardMovie(id);
+        createCardMovie(id, movie_id);
 
         let tmp_btn = $("#btn" + id);
         // Add onclick event to btn
@@ -133,7 +133,7 @@ function handleSearchMovieTMDB(response) {
 
 }
 
-function createCardMovie(id) {
+function createCardMovie(id, movie_id) {
     $("#searchResults").append(
         '<div class="card my-3 border-0" id="card_' + id + '">\n' +
         '  <div class="row g-0">\n' +
@@ -147,6 +147,9 @@ function createCardMovie(id) {
         '        <p class="card-date">...</p>\n' +
         '        <button type="button" class="btn btn-danger btn-sm" id="btn' + id + '">\n' +
         '          Add to Library\n' +
+        '        </button>\n' +
+        '        <button type="button" class="btn btn-sm m-1">\n' +
+        '          <a href="/item?item_type=movie&item_id=' + movie_id + '">Reviews</a>\n' +
         '        </button>\n' +
         '      </div>\n' +
         '    </div>\n' +
@@ -380,7 +383,7 @@ function handleSearchBook(response) {
             book_id = response.items[id]?.id,
             description = response.items[id]?.volumeInfo?.description;
 
-        createCard(id);
+        createCard(id, book_id);
 
         let tmp_btn = $("#btn" + id);
         // Add onclick event to btn
@@ -414,7 +417,7 @@ function handleSearchBook(response) {
     }
 }
 
-function createCard(id) {
+function createCard(id, book_id) {
     $("#searchResults").append(
         '<div class="card my-3 border-0" id="card_' + id + '">\n' +
         '  <div class="row g-0">\n' +
@@ -428,6 +431,9 @@ function createCard(id) {
         '        <p class="card-authors"><small class="text-muted"></small></p>\n' +
         '        <button type="button" class="btn btn-danger btn-sm" id="btn' + id + '">\n' +
         '          Add to Library\n' +
+        '        </button>\n' +
+        '        <button type="button" class="btn btn-sm m-1">\n' +
+        '          <a href="/item?item_type=book&item_id=' + book_id + '">Reviews</a>\n' +
         '        </button>\n' +
         '      </div>\n' +
         '    </div>\n' +

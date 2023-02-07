@@ -40,6 +40,26 @@ class Book {
     }
 }
 
+class Tv {
+    constructor({
+                    tv_id = null,
+                    username_id = null,
+                    title = null,
+                    description = null,
+                    review = null,
+                    rating = 0.0,
+                    comment = null
+                }) {
+        this.tv_id = tv_id;
+        this.username_id = username_id;
+        this.title = title;
+        this.description = description;
+        this.review = review;
+        this.rating = rating;
+        this.comment = comment;
+    }
+}
+
 const maxItems = 15;
 
 // Movie functions
@@ -58,7 +78,7 @@ function trendingMovies() {
 function handleTrendingMovies(response) {
     // reset buttons from success (green) to danger (red)
     $(".btn-success").each(function () {
-        $(this).removeClass("btn-success").addClass("btn-danger").text("Add to Library");
+        $(this).removeClass("btn-success").addClass("btn-danger").text("Add");
     });
 
     // remove cards
@@ -74,7 +94,7 @@ function handleTrendingMovies(response) {
             vote_average = items[id]?.vote_average.toFixed(1),
             popularity = items[id]?.popularity;
 
-        createCardTrendingMovie(id);
+        createCardTrendingMovie(id, movie_id);
 
         let tmp_btn = $("#btn_movie_" + id);
         // Add onclick event to btn
@@ -103,19 +123,23 @@ function handleTrendingMovies(response) {
         }
 
         $("#card_" + id + " .vote_average").text(vote_average);
-        $("#card_" + id + " .card-title").text(title);
+        $("#card_" + id + " .card-title .text-decoration-none").text(title);
     }
 }
 
-function createCardTrendingMovie(id) {
+function createCardTrendingMovie(id, movie_id) {
     $("#trendingMovies").append(
         '    <div class="card col-auto border-0" id="card_' + id + '">\n' +
-        '      <img src="..." class="card-img-top rounded-3" alt="...">\n' +
+        '      <img src="..." class="card-img-top rounded-3 shadow-sm" alt="...">\n' +
         '      <div class="card-body p-1">\n' +
         '        <p class="vote_average d-inline my-1"></p>\n' +
-        '        <p class="card-title text-start d-flex align-items-center"></p>\n' +
+        '        <p class="card-title text-start d-flex align-items-center">\n' +
+        '          <a class="text-decoration-none"\n' +
+        '             href="item?item_type=movie&item_id=' + movie_id + '">\n' +
+        '          </a>\n' +
+        '        </p>\n' +
         '        <button type="button" class="btn btn-danger btn-sm my-2" id="btn_movie_' + id + '">\n' +
-        '          Add to Library\n' +
+        '          Add\n' +
         '        </button>\n' +
         '      </div>\n' +
         '    </div>\n'
@@ -168,7 +192,7 @@ function handleAddMovie(response) {
 
                 if (response === "Success") {
                     // change button from danger (red) to success (green)
-                    btn.removeClass("btn-danger").addClass("btn-success").text("Added to Library ");
+                    btn.removeClass("btn-danger").addClass("btn-success").text("Added ");
                 }
             }, 1150);
 
@@ -192,7 +216,7 @@ function trendingTVs() {
 function handleTrendingTVs(response) {
     // reset buttons from success (green) to danger (red)
     $(".btn-success").each(function () {
-        $(this).removeClass("btn-success").addClass("btn-danger").text("Add to Library");
+        $(this).removeClass("btn-success").addClass("btn-danger").text("Add");
     });
 
     for (let id = 0; id < maxItems && response.results.length; id++) {
@@ -241,16 +265,70 @@ function handleTrendingTVs(response) {
 function createCardTrendingTv(id) {
     $("#trendingTvShows").append(
         '    <div class="card col-auto border-0" id="card_tv_' + id + '">\n' +
-        '      <img src="..." class="card-img-top rounded-3" alt="...">\n' +
+        '      <img src="..." class="card-img-top rounded-3 shadow-sm" alt="...">\n' +
         '      <div class="card-body p-1">\n' +
         '        <p class="vote_average d-inline my-1"></p>\n' +
         '        <p class="card-title text-start d-flex align-items-center"></p>\n' +
         '        <button type="button" class="btn btn-danger btn-sm my-2" id="btn_tv_' + id + '">\n' +
-        '          Add to Library\n' +
+        '          Add\n' +
         '        </button>\n' +
         '      </div>\n' +
         '    </div>\n'
     );
+}
+
+function addTv(tv_id) {
+    let apiKey = "?api_key=cf2703906ceb370d03128f8d53436252",
+        lang = "&language=it-IT",
+        url = "https://api.themoviedb.org/3/tv/" + tv_id + apiKey + lang;
+    $.ajax({
+        datatype: "json",
+        url: url,
+        success: handleAddTv
+    })
+}
+
+function handleAddTv(response) {
+    let tv_id = response.id,
+        description = response.overview,
+        title = response.name,
+        posterPath = response.poster_path;
+
+    let tv = new Tv({
+        tv_id: tv_id,
+        username_id: null,
+        title: title,
+        description: description,
+        review: null,
+        rating: null,
+        comment: null
+    });
+
+    // Add tv through RestAPI with ajax
+    $.ajax({
+        type: "POST",
+        // pass posterPath as a query parameter in the address
+        url: "/addTv?poster=" + posterPath,
+        contentType: "application/json",
+        data: JSON.stringify(tv),
+        success:(response) => {
+
+            // delay animation for aesthetics reasons
+            setTimeout(() => {
+                let btn = $("[data-btn_tv_id=" + tv_id + "]");
+                if(response === "exists") {
+                    // change button from danger (red) to warning (yellow)
+                    btn.removeClass("btn-danger btn-success").addClass("btn-warning").text("Already Added ");
+                }
+
+                if (response === "Success") {
+                    // change button from danger (red) to success (green)
+                    btn.removeClass("btn-danger").addClass("btn-success").text("Added ");
+                }
+            }, 1150);
+
+        }
+    });
 }
 // ====================================
 
@@ -301,13 +379,12 @@ function handleAddBook(response) {
 
                 if (response === "Success") {
                     // change button from danger (red) to success (green)
-                    btn.removeClass("btn-danger").addClass("btn-success").text("Added to Library ");
+                    btn.removeClass("btn-danger").addClass("btn-success").text("Added ");
                 }
             }, 1150);
         }
     });
 }
-
 // ====================================
 
 

@@ -1,6 +1,6 @@
-class Movie{
+class Tv {
     constructor({
-                    movie_id = null,
+                    tv_id = null,
                     username_id = null,
                     title = null,
                     description = null,
@@ -8,7 +8,7 @@ class Movie{
                     rating = 0.0,
                     comment = null
                 }) {
-        this.movie_id = movie_id;
+        this.tv_id = tv_id;
         this.username_id = username_id;
         this.title = title;
         this.description = description;
@@ -18,29 +18,27 @@ class Movie{
     }
 }
 
-function updateMovie(movie_id) {
+function updateTv(tv_id) {
     // retrieve rating, review and comment from the modal
-    let rating = $("#rating_" + movie_id).val(),
-        review = $("#review-text_" + movie_id).val(),
-        comment = $("#comment-text_" + movie_id).val();
+    let rating = $("#rating_" + tv_id).val(),
+        review = $("#review-text_" + tv_id).val(),
+        comment = $("#comment-text_" + tv_id).val();
 
-    // create a dummy Movie object
-    let movie = new Movie({
-        movie_id: movie_id,
+    // create a dummy Tv object
+    let tv = new Tv({
+        tv_id: tv_id,
         rating: rating,
         review: review,
         comment: comment
     });
 
-    // update movie through RestAPI with ajax
+    // update Tv through RestAPI with ajax
     $.ajax({
         type: "POST",
-        url: "/updateMovie",
+        url: "/updateTv",
         contentType: "application/json",
-        data: JSON.stringify(movie),
+        data: JSON.stringify(tv),
         success: (response) => {
-            // TODO - Handle response
-
             // delay animation for aesthetics reasons
             setTimeout(() => {
                 $(".saveChangesBtn").find(".spinner-border").remove();
@@ -49,16 +47,17 @@ function updateMovie(movie_id) {
     })
 }
 
-function removeMovie(movie_id) {
+function removeTv(tv_id) {
     $.ajax({
         type: "POST",
-        url: "/removeMovie",
+        url: "/removeTv",
         contentType: "application/json",
-        data: movie_id,
-        success: function() {
+        data: tv_id,
+        success: () => {
         }
     });
 }
+
 
 // Document ready
 $(document).ready(function() {
@@ -72,7 +71,7 @@ $(document).ready(function() {
         })
     });
 
-    // for each save button add the function to updateMovie
+    // for each save button add the function to updateTv
     $(".saveChangesBtn").each(function () {
         $(this).on("click", function (){
 
@@ -80,22 +79,24 @@ $(document).ready(function() {
                 $(this).append('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>');
             }
 
-            let movie_id = $(this).attr("data-movie_id");
-            updateMovie(movie_id);
+            let tv_id = $(this).attr("data-tv_id");
+            updateTv(tv_id);
         });
     });
 
-    // for each button of the movies add the function to delete it from the library
+    // for each button of the Tvs add the function to delete it from the library
     $(".card-body > .btn-danger").each(function() {
         $(this).on("click", function() {
-            let movie_id = $(this).attr("data-btn_movie_id");
-            removeMovie(movie_id);
+            let tv_id = $(this).attr("data-btn_tv_id");
+            removeTv(tv_id);
 
             // removing column of card
-            $("#" + movie_id).remove();
+            $("#" + tv_id).remove();
         })
     });
 })
+
+
 
 jQuery.fn.extend({
     autoHeight: function () {

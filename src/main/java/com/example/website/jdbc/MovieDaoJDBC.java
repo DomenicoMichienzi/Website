@@ -1,12 +1,18 @@
 package com.example.website.jdbc;
 
 import com.example.website.dao.MovieDao;
+import com.example.website.model.Book;
+import com.example.website.model.LazyBook;
+import com.example.website.model.LazyMovie;
 import com.example.website.model.Movie;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MovieDaoJDBC implements MovieDao {
@@ -128,5 +134,96 @@ public class MovieDaoJDBC implements MovieDao {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public float avgRating(String movie_id) {
+        try {
+            String query = "select avg(rating) from movies where movie_id = ?";
+
+            PreparedStatement pst = conn.prepareStatement(query);
+
+            pst.setString(1, movie_id);
+
+            ResultSet rs = pst.executeQuery();
+
+            if(rs.next()) {
+
+                BigDecimal bigDecimalDouble = new BigDecimal(rs.getFloat("avg"));
+                BigDecimal bigDecimalWithScale = bigDecimalDouble.setScale(1, RoundingMode.HALF_UP);
+                return bigDecimalWithScale.floatValue();
+                //return rs.getFloat("avg");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0.0F;
+    }
+
+    @Override
+    public List<LazyMovie> sortedByAvg() {
+        ArrayList<LazyMovie> list = new ArrayList<>();
+        try {
+            String query = "select distinct movie_id, title from movies";
+
+            PreparedStatement pst = conn.prepareStatement(query);
+
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                float avg_rating = avgRating(rs.getString("movie_id"));
+
+                if(avg_rating != 0.0F) {
+                    LazyMovie tmp = new LazyMovie();
+                    tmp.setMovie_id(rs.getString("movie_id"));
+                    tmp.setTitle(rs.getString("title"));
+                    tmp.setAvgRating(avg_rating);
+
+                    list.add(tmp);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    @Override
+    public List<Movie> getReviewsAndRatings(String movie_id) {
+        ArrayList<Movie> items = new ArrayList<>();
+
+        try {
+            String query = "select review, rating, title, description, username_id from movies " +
+                    "where movie_id = ?";
+
+            PreparedStatement pst = conn.prepareStatement(query);
+
+            pst.setString(1, movie_id);
+
+            ResultSet rs = pst.executeQuery();
+
+
+            while (rs.next()) {
+                String review = rs.getString("review");
+                float rating = rs.getFloat("rating");
+
+                Movie tmp = new Movie();
+
+                tmp.setTitle(rs.getString("title"));
+                tmp.setDescription(rs.getString("description"));
+                tmp.setReview(rs.getString("review"));
+                tmp.setRating(rs.getFloat("rating"));
+                tmp.setUsername_id(rs.getString("username_id"));
+
+                // add to the ArrayList
+                items.add(tmp);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return items;
     }
 }

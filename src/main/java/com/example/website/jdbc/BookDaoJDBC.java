@@ -4,7 +4,6 @@ import com.example.website.dao.BookDao;
 import com.example.website.model.Book;
 import com.example.website.model.LazyBook;
 import com.example.website.utility.ReviewRating;
-import org.springframework.data.util.Pair;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -137,14 +136,13 @@ public class BookDaoJDBC implements BookDao{
 
         return true;
     }
-
     @Override
-    public List<ReviewRating> getReviewsAndRatings(String book_id) {
+    public List<Book> getReviewsAndRatings(String book_id) {
 
-        ArrayList<ReviewRating> items = new ArrayList<ReviewRating>();
+        ArrayList<Book> items = new ArrayList<>();
 
         try {
-            String query = "select review, rating from books " +
+            String query = "select review, rating, title, description, username_id from books " +
                     "where volume_id = ?";
 
             PreparedStatement pst = conn.prepareStatement(query);
@@ -157,9 +155,17 @@ public class BookDaoJDBC implements BookDao{
             while (rs.next()) {
                 String review = rs.getString("review");
                 float rating = rs.getFloat("rating");
-                    
-                ReviewRating tmp = new ReviewRating(review, rating);
-                items.add(tmp);
+
+               Book tmp = new Book();
+
+               tmp.setTitle(rs.getString("title"));
+               tmp.setDescription(rs.getString("description"));
+               tmp.setReview(rs.getString("review"));
+               tmp.setRating(rs.getFloat("rating"));
+               tmp.setUsername_id(rs.getString("username_id"));
+
+               // add to the ArrayList
+               items.add(tmp);
             }
 
         } catch (SQLException e) {

@@ -18,7 +18,7 @@ public class BooksManager {
 
             List<Book> bs = Database.getInstance().getUserDao().getBooksByUser(usr);
             req.setAttribute("books", bs);
-            return "booksPage";
+            return "books";
         } else {
             // TODO - Redirect to Login Page
             return "notAuthorized";
