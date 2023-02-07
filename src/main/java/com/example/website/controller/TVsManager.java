@@ -17,7 +17,7 @@ public class TVsManager {
 
             List<Tv> tvs = Database.getInstance().getUserDao().getTvsByUser(usr);
             req.setAttribute("tvs", tvs);
-            return "tvsPage";
+            return "tvs";
         }
         return "notAuthorized";
     }

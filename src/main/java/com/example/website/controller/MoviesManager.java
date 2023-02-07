@@ -17,7 +17,7 @@ public class MoviesManager {
             String usr = req.getSession().getAttribute("username").toString();
             List<Movie> movies = Database.getInstance().getUserDao().getMoviesByUser(usr);
             req.setAttribute("movies", movies);
-            return "moviesPage";
+            return "movies";
         } else {
             // TODO - Redirect to Login Page
             return "notAuthorized";

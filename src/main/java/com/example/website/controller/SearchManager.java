@@ -9,7 +9,7 @@ public class SearchManager {
     @GetMapping("/searchPage")
     public String searchPage(HttpServletRequest req) {
         if(req.getSession().getAttribute("username") != null) {
-            return "searchPage";
+            return "search";
         } else {
             // TODO - Redirect to Login Page
             return "notAuthorized";

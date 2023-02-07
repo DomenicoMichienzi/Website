@@ -15,9 +15,8 @@ public interface BookDao {
     boolean update(Book book);
     //boolean update(Book book);
     boolean delete(String book_id, String username_id);
-    List<ReviewRating> getReviewsAndRatings(String book_id);
-
     float avgRating(String book_id);
     List<LazyBook> sortedByAvg();
+    List<Book> getReviewsAndRatings(String book_id);
 
 }

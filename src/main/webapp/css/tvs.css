@@ -1,16 +1,18 @@
-.card {
-
+.tv-img-container {
+    height: 16em;
 }
 
 .card-body {
-    width: 12em;
+    width: 13em;
 }
 
 .card-img-top {
-    max-width: 12em;
+    max-width: 13em;
 }
 
 .card-title {
+    font-size: 15px;
+    font-weight: 500;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;

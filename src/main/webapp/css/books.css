@@ -1,5 +1,5 @@
-.card {
-
+.book-img-container {
+    height: 15em;
 }
 
 .card-body {
@@ -11,6 +11,9 @@
 }
 
 .card-title {
+    font-size: 15px;
+    font-weight: 500;
+    height: 3em;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
