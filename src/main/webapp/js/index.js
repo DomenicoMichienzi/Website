@@ -67,7 +67,7 @@ const maxItems = 15;
 function trendingMovies() {
 
     let apiKey = "?api_key=cf2703906ceb370d03128f8d53436252",
-        lang = "&language=it-IT";
+        lang = "&language=en-US";
     $.ajax({
        datatype: "json",
        url: "https://api.themoviedb.org/3/trending/movie/day" + apiKey + lang,
@@ -148,7 +148,7 @@ function createCardTrendingMovie(id, movie_id) {
 
 function addMovie(movie_id) {
     let apiKey = "?api_key=cf2703906ceb370d03128f8d53436252",
-        lang = "&language=it-IT",
+        lang = "&language=en-US",
         url = "https://api.themoviedb.org/3/movie/" + movie_id + apiKey + lang;
     $.ajax({
         datatype: "json",
@@ -205,7 +205,7 @@ function handleAddMovie(response) {
 // ====================================
 function trendingTVs() {
     let apiKey = "?api_key=cf2703906ceb370d03128f8d53436252",
-        lang = "&language=it-IT";
+        lang = "&language=en-US";
     $.ajax({
         datatype: "json",
         url: "https://api.themoviedb.org/3/trending/tv/day" + apiKey + lang,
@@ -279,7 +279,7 @@ function createCardTrendingTv(id) {
 
 function addTv(tv_id) {
     let apiKey = "?api_key=cf2703906ceb370d03128f8d53436252",
-        lang = "&language=it-IT",
+        lang = "&language=en-US",
         url = "https://api.themoviedb.org/3/tv/" + tv_id + apiKey + lang;
     $.ajax({
         datatype: "json",
