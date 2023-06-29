@@ -67,7 +67,7 @@ const maxItems = 35;
 function searchMovieTMDB() {
     let query = $("#searchBar").val(),
         apiKey = "?api_key=cf2703906ceb370d03128f8d53436252",
-        lang = "&language=it-IT";
+        lang = "&language=en-US";
 
     $.ajax({
         datatype: "json",
@@ -160,7 +160,7 @@ function createCardMovie(id, movie_id) {
 
 function addMovie(movie_id) {
     let apiKey = "?api_key=cf2703906ceb370d03128f8d53436252",
-        lang = "&language=it-IT",
+        lang = "&language=en-US",
         url = "https://api.themoviedb.org/3/movie/" + movie_id + apiKey + lang;
     $.ajax({
         datatype: "json",
@@ -220,7 +220,7 @@ function handleAddMovie(response) {
 function searchTvTMDB() {
     let query = $("#searchBar").val(),
         apiKey = "?api_key=cf2703906ceb370d03128f8d53436252",
-        lang = "&language=it-IT";
+        lang = "&language=en-US";
 
     $.ajax({
        datatype: "json",
@@ -309,7 +309,7 @@ function createCardTv(id) {
 
 function addTv(tv_id) {
     let apiKey = "?api_key=cf2703906ceb370d03128f8d53436252",
-        lang = "&language=it-IT",
+        lang = "&language=en-US",
         url = "https://api.themoviedb.org/3/tv/" + tv_id + apiKey + lang;
     $.ajax({
         datatype: "json",
