@@ -26,12 +26,29 @@
 
 
 ### Some screenshots
+**Home**
+
+
 ![Home_Animation.gif](images%2FHome_Animation.gif)
 
+
+**Search**
+
+
+![Search.gif](images%2FSearch.gif)
+
+
+
 ![Search_Add_Animation.gif](images%2FSearch_Add_Animation.gif)
+
+
+**Edit**
+
 
 ![Edit.png](images%2FEdit.png)
 
 
 ### Database scheme
+
+
 ![Database Scheme.png](images%2FDatabase%20Scheme.png)
