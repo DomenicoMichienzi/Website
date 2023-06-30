@@ -25,4 +25,13 @@
   information (poster, title, ratings etc)
 
 
-### Screenshots
+### Some screenshots
+![Home_Animation.gif](images%2FHome_Animation.gif)
+
+![Search_Add_Animation.gif](images%2FSearch_Add_Animation.gif)
+
+![Edit.png](images%2FEdit.png)
+
+
+### Database scheme
+![Database Scheme.png](images%2FDatabase%20Scheme.png)
