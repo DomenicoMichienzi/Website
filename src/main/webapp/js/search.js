@@ -1,3 +1,7 @@
+// hard coded keys, for the sake of simplicity
+let tmdb_apiKey = '?api_key=' + 'here',
+    google_key = '&key=' + 'here';
+
 class Book {
     constructor({
         book_id = null,
@@ -66,12 +70,11 @@ const maxItems = 35;
 // ====================================
 function searchMovieTMDB() {
     let query = $("#searchBar").val(),
-        apiKey = "?api_key=cf2703906ceb370d03128f8d53436252",
         lang = "&language=en-US";
 
     $.ajax({
         datatype: "json",
-        url: "https://api.themoviedb.org/3/search/movie" + apiKey + "&page=1&include_adult=false&query=" + query + lang,
+        url: "https://api.themoviedb.org/3/search/movie" + tmdb_apiKey + "&page=1&include_adult=false&query=" + query + lang,
         success: handleSearchMovieTMDB
     });
 }
@@ -159,9 +162,8 @@ function createCardMovie(id, movie_id) {
 }
 
 function addMovie(movie_id) {
-    let apiKey = "?api_key=cf2703906ceb370d03128f8d53436252",
-        lang = "&language=en-US",
-        url = "https://api.themoviedb.org/3/movie/" + movie_id + apiKey + lang;
+    let lang = "&language=en-US",
+        url = "https://api.themoviedb.org/3/movie/" + movie_id + tmdb_apiKey + lang;
     $.ajax({
         datatype: "json",
         url: url,
@@ -219,12 +221,11 @@ function handleAddMovie(response) {
 // ====================================
 function searchTvTMDB() {
     let query = $("#searchBar").val(),
-        apiKey = "?api_key=cf2703906ceb370d03128f8d53436252",
         lang = "&language=en-US";
 
     $.ajax({
        datatype: "json",
-       url: "https://api.themoviedb.org/3/search/tv" + apiKey + "&page=1&include_adult=false&query=" + query + lang,
+       url: "https://api.themoviedb.org/3/search/tv" + tmdb_apiKey + "&page=1&include_adult=false&query=" + query + lang,
         success: handleSearchTvTMDB
     });
 }
@@ -308,9 +309,8 @@ function createCardTv(id) {
 }
 
 function addTv(tv_id) {
-    let apiKey = "?api_key=cf2703906ceb370d03128f8d53436252",
-        lang = "&language=en-US",
-        url = "https://api.themoviedb.org/3/tv/" + tv_id + apiKey + lang;
+    let lang = "&language=en-US",
+        url = "https://api.themoviedb.org/3/tv/" + tv_id + tmdb_apiKey + lang;
     $.ajax({
         datatype: "json",
         url: url,
@@ -488,14 +488,12 @@ function handleAddBook(response) {
 
 function searchGoogleBooksAPIs() {
     let query = $("#searchBar").val(),
-        // hard coded key, for the sake of simplicity
-        key = '&key=' + 'AIzaSyAKiMubw-TRmctMZMlbTXvuUrmOycPcEk0',
         maxResults = '&maxResults=' + maxItems;
 
     // book information retrieval
     $.ajax({
         datatype: "json",
-        url: "https://www.googleapis.com/books/v1/volumes?q=" + query + key + maxResults,
+        url: "https://www.googleapis.com/books/v1/volumes?q=" + query + google_key + maxResults,
         success: handleSearchBook
     });
 }
