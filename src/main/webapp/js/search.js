@@ -1,6 +1,6 @@
 // hard coded keys, for the sake of simplicity
-let tmdb_apiKey = '?api_key=' + 'here',
-    google_key = '&key=' + 'here';
+let tmdb_apiKey = '?api_key=' + 'cf2703906ceb370d03128f8d53436252',
+    google_key = '&key=' + 'AIzaSyAKiMubw-TRmctMZMlbTXvuUrmOycPcEk0';
 
 class Book {
     constructor({
