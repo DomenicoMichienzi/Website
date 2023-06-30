@@ -1,3 +1,6 @@
+// hard coded keys, for the sake of simplicity
+tmdb_apiKey = '?api_key=' + 'here';
+
 class Movie{
     constructor({
                     movie_id = null,
@@ -66,11 +69,10 @@ const maxItems = 15;
 // ====================================
 function trendingMovies() {
 
-    let apiKey = "?api_key=cf2703906ceb370d03128f8d53436252",
-        lang = "&language=en-US";
+    let lang = "&language=en-US";
     $.ajax({
        datatype: "json",
-       url: "https://api.themoviedb.org/3/trending/movie/day" + apiKey + lang,
+       url: "https://api.themoviedb.org/3/trending/movie/day" + tmdb_apiKey + lang,
        success: handleTrendingMovies
     });
 }
@@ -147,9 +149,8 @@ function createCardTrendingMovie(id, movie_id) {
 }
 
 function addMovie(movie_id) {
-    let apiKey = "?api_key=cf2703906ceb370d03128f8d53436252",
-        lang = "&language=en-US",
-        url = "https://api.themoviedb.org/3/movie/" + movie_id + apiKey + lang;
+    let lang = "&language=en-US",
+        url = "https://api.themoviedb.org/3/movie/" + movie_id + tmdb_apiKey + lang;
     $.ajax({
         datatype: "json",
         url: url,
@@ -204,11 +205,10 @@ function handleAddMovie(response) {
 // TVs functions
 // ====================================
 function trendingTVs() {
-    let apiKey = "?api_key=cf2703906ceb370d03128f8d53436252",
-        lang = "&language=en-US";
+    let lang = "&language=en-US";
     $.ajax({
         datatype: "json",
-        url: "https://api.themoviedb.org/3/trending/tv/day" + apiKey + lang,
+        url: "https://api.themoviedb.org/3/trending/tv/day" + tmdb_apiKey + lang,
         success: handleTrendingTVs
     });
 }
@@ -278,9 +278,8 @@ function createCardTrendingTv(id) {
 }
 
 function addTv(tv_id) {
-    let apiKey = "?api_key=cf2703906ceb370d03128f8d53436252",
-        lang = "&language=en-US",
-        url = "https://api.themoviedb.org/3/tv/" + tv_id + apiKey + lang;
+    let lang = "&language=en-US",
+        url = "https://api.themoviedb.org/3/tv/" + tv_id + tmdb_apiKey + lang;
     $.ajax({
         datatype: "json",
         url: url,
