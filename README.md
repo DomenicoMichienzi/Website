@@ -35,10 +35,6 @@
 **Search**
 
 
-![Search.gif](images%2FSearch.gif)
-
-
-
 ![Search_Add_Animation.gif](images%2FSearch_Add_Animation.gif)
 
 
